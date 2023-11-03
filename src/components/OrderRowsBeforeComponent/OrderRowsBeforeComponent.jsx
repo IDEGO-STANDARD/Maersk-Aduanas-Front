@@ -21,7 +21,7 @@ const OrderRowsBeforeComponent = ({ item }) => {
                 <span className="orbc-order-details-title-value">Nro: {item.id}</span>
                 <span className="orbc-order-details-client">Cliente: <span className="orbc-order-details-client-value">{item.client}</span></span>
                 <div className="orbc-order-details-buttons-cont">
-                    <Link to={`/ordenes/importacion/${item.id}`} className="orbc-order-details-button" style={{color: "green"}}><CheckLg /></Link>
+                    <Link to={`/ordenes/${item.id}`} className="orbc-order-details-button" style={{color: "green"}}><CheckLg /></Link>
                     <div className="orbc-order-details-button" style={{color: "red"}}><XLg /></div>
                     <div className="orbc-order-details-button" style={{color: "red"}}><SlashCircle /></div>
                     <div className="orbc-order-details-button" style={{color: "blue"}}><BookmarkPlusFill /></div>
