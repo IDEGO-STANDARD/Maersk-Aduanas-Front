@@ -25,7 +25,7 @@ const OrderRowsBeforeComponent = ({ item }) => {
                     <div className="orbc-order-details-button" style={{color: "red"}}><XLg /></div>
                     <div className="orbc-order-details-button" style={{color: "red"}}><SlashCircle /></div>
                     <div className="orbc-order-details-button" style={{color: "blue"}}><BookmarkPlusFill /></div>
-                    <Link to={`/ordenes/importacion/${item.id}/Bill of landing`} className="orbc-order-details-button" style={{color: "orange"}}><FolderFill /></Link >
+                    <Link to={`/ordenes/${item.id}/${item.firstDocutype}`} className="orbc-order-details-button" style={{color: "orange"}}><FolderFill /></Link >
                 </div>
             </div>
             <div className="orbc-order-incidents-cont">

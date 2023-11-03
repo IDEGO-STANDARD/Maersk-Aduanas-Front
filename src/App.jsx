@@ -18,10 +18,10 @@ function App() {
       <Routes>
         <Route path="/" element={<Main />}>
           <Route path="/" element={<div></div>} />
-          <Route path="/ordenes/importacion" element={<OrdersList />} />
-          <Route path="/ordenes/importacion/:ordnumber" element={<OrderParent />}>
-            <Route path="/ordenes/importacion/:ordnumber" element={<OrderDetails />} />
-            <Route path="/ordenes/importacion/:ordnumber/:docutype" element={<OrderDocuments />} />
+          <Route path="/ordenes/" element={<OrdersList />} />
+          <Route path="/ordenes/:ordnumber" element={<OrderParent />}>
+            <Route path="/ordenes/:ordnumber" element={<OrderDetails />} />
+            <Route path="/ordenes/:ordnumber/:docutype" element={<OrderDocuments />} />
           </Route>
         </Route>
         <Route path="/login" element={<Login />}/>

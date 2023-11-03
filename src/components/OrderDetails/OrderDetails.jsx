@@ -16,7 +16,7 @@ const OrderDetails = ({}) => {
             <div className="docutypes-main-cont" key={docutype.type} >
                 <span style={{backgroundColor: docutype.documents.length > 0 ? "rgb(60, 192, 60)" : "orange" }} className="docutypes-item-number">{docutype.documents.length}</span>
                 <span>{docutype.type}</span>
-                {docutype.documents.length > 0 ? <Link to={`/ordenes/importacion/${ordnumber}/${docutype.type}`} className="docutypes-eye">
+                {docutype.documents.length > 0 ? <Link to={`/ordenes/${ordnumber}/${docutype.type}`} className="docutypes-eye">
                     <EyeFill />
                 </Link>
                 :

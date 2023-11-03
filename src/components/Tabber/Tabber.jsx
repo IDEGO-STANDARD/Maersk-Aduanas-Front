@@ -9,7 +9,7 @@ const Tabber = ({ order }) => {
 
 
     const renderedTabs = docutypes.map((tab) => {
-        return <NavLink to={`/ordenes/importacion/${order.id}/${tab}`} className="tabber-tab-cont" onClick={() => {onClickFunc(tab)}}>{tab}</NavLink >
+        return <NavLink to={`/ordenes/${order.id}/${tab}`} className="tabber-tab-cont" onClick={() => {onClickFunc(tab)}}>{tab}</NavLink >
     })
 
     return (

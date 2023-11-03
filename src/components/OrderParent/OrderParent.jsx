@@ -40,7 +40,7 @@ const OrderParent = ({}) => {
             <div className="od-main-cont">
                 <span className="ol-title">{docutype ? `DOCUMENTOS DE ORDEN DE TRABAJO ${order.id}` :  `VALIDACIÓN DE ORDEN DE TRABAJO ${order.id}`}</span>
                 {order != 0 && <Outlet context={[order]}/>}
-                <Link to="/ordenes/importacion" className="od-back-button">Volver</Link>
+                <Link to="/ordenes" className="od-back-button">Volver</Link>
             </div>
         }
     </>
