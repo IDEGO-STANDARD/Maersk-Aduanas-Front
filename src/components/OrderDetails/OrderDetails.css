@@ -1,0 +1,117 @@
+.od-main-cont {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    flex: 1 1 0;
+    align-items: center;
+    justify-content: space-around;
+    padding: 20px;
+}
+
+.od-fields-cont {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    flex: 1;
+    gap: 20px;
+    flex-wrap: wrap;
+
+}
+
+.od-field-item-cont {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.od-field-key-name {
+    color: black;
+    font-size: 1.5rem;
+}
+
+.od-field-input {
+    padding: 5px;
+    font-size: 1.3rem;
+    background-color: rgb(241, 241, 241);
+    border: none;
+    border-radius: 5px;
+    border: 1px solid gray;
+}
+
+.od-field-input:disabled {
+    cursor: no-drop;
+    color: rgb(97, 97, 97);
+
+}
+
+.od-docutypes-cont {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%; 
+    gap: 20px;
+}
+
+.docutypes-main-cont {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    border: 1px solid gray;
+    padding: 10px;
+    width: 80%;
+    border-radius: 10px;
+    background-color: rgb(241, 241, 241);
+}
+
+.docutypes-item-number {
+    background-color: rgb(60, 192, 60);
+    padding: 7px;
+    border-radius: 5px;
+    color: white;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.docutypes-eye {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    color: rgb(12, 12, 112);
+    font-size: 2rem;
+    cursor: pointer;
+}
+
+.docutypes-cross-eye {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    color: rgb(12, 12, 112);
+    font-size: 2rem;
+    opacity: 0.5;
+}
+
+.od-split-div {
+    display: flex;
+    flex: 1;
+    width: 100%;
+    gap: 20px;
+}
+
+.od-back-button {
+    background-color: #3592c3;
+    padding: 10px 30px 10px 30px;
+    font-size: 1rem;
+    color: white;
+    text-decoration: none;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    margin-right: auto;
+    margin-bottom: 2;
+}

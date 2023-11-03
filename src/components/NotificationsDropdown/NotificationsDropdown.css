@@ -1,0 +1,33 @@
+.notis-dropdown-cont {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    right: 0;
+    top: 30px;
+    width: 300px;
+    border-radius: 5px;
+    background-color: white;
+    border: 1px solid #004265;
+    align-items: center;
+    padding: 10px;
+    gap: 10px;
+    z-index: 1;
+    color: #004265;
+}
+
+.noti-cont {
+    display: flex;
+    flex-direction: row;
+    padding: 5px;
+    border-radius: 10px;
+    align-items: center;
+
+}
+
+.noti-icon {
+    font-size: 30px;
+}
+
+.noti-title {
+    margin-left: 20px;
+}

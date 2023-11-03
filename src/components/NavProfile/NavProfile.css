@@ -1,0 +1,45 @@
+.navprofile-cont {
+    display: flex;
+    margin-right: 30px;
+    align-items: center;
+    gap: 20px;
+    cursor: pointer;
+    position: relative;
+}
+
+.navprofile-img {
+    height: 50px;
+    width: 50px;
+    border-radius: 1000px;
+    object-fit: cover;
+}
+
+.navprofile-name {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: white;
+}
+
+.navprofile-dropdown-cont {
+    position: absolute;
+    display: grid;
+    width: 220px;
+    right: 0;
+    top: 37.5px;
+    grid-template-columns: auto auto;
+    align-items: center;
+    background-color: white;
+    border-radius: 5px;
+    color: #004265;
+    border: 1px solid #004265;
+    padding: 15px;
+    font-size: 1.1rem;
+    z-index: 1;
+    gap: 15px;
+}
+
+.profile-config-link {
+    text-decoration: none;
+    color: #004265;
+}

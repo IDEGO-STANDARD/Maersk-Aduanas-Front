@@ -1,0 +1,31 @@
+.tabber-tab-cont {
+    border: 1px solid gray;
+    flex: 1;
+    border-top-right-radius: 1000px;
+    border-top-left-radius: 1000px;
+    padding-left: 10px;
+    padding-right: 10px;
+    display: flex;
+    align-items: center;
+    font-size: 0.9rem;
+    justify-content: center;
+    cursor: pointer;
+    text-decoration: none;
+    color: black;
+}
+
+.tabber-tab-cont:disabled {
+    background-color: gray;
+    opacity: 0.5;
+    cursor: no-drop;
+}
+
+.tabber-main-cont {
+    display: flex;
+    width: 100%;
+}
+
+#tabber a.active {
+    background-color: #004265;
+    color: white;
+}

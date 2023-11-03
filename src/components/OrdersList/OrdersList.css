@@ -1,0 +1,15 @@
+.ol-main-cont {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    flex: 1 1 0;
+    padding-top: 20px;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.ol-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+}

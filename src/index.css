@@ -1,0 +1,78 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100;8..144,200;8..144,300;8..144,400;8..144,500;8..144,600;8..144,700;8..144,800;8..144,900;8..144,1000&display=swap');
+
+
+* {
+    box-sizing: border-box;
+    font-family: "Roboto Flex";
+    margin: 0px;
+    padding: 0px;
+  }
+  
+  
+  .display-flex-row-div {
+    display: flex;
+    flex-direction: row;
+    justify-content: stretch;
+    flex: 1.5;
+  }
+  
+  .main-tab-cont {
+    flex: 1;
+    display: flex;
+    max-height: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 25px;
+  }
+  
+  .input-name-box {
+    display: flex;
+    background-color: #004165;
+    color: white;
+    border-radius: 1px;
+    padding: 10px;
+    align-items: center;
+  }
+  
+  .filter-input {
+    min-width: 50px;
+    flex-grow: 1;
+    outline: none;
+    text-indent: 3px;
+    text-justify: center;
+  }
+  
+  .filters-cont {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 20px;
+  }
+  
+  .input-cont-div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  
+  .checkboxes-cont {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: row;
+    padding: 5px;
+    padding-left: 20px;
+    color: white;
+    gap: 15px;
+  }
+  
+  .file-input-label {
+    color: black;
+    padding: 5px;
+    background-color: rgb(235, 235, 235); 
+    cursor: pointer;
+  }
+  
+  .total-amount-indicator {
+    color: white;
+  }

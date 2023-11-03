@@ -1,0 +1,36 @@
+.dd-rendered-keys-cont {
+    width: 100%;
+    flex: 1;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: left;
+}
+
+.dd-rendered-keys-key-cont {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    flex: 1;
+    min-width: 30%;
+    row-gap: 5px;
+}
+
+.dd-rendered-keys-key-text {
+    margin-right: auto;
+}
+
+.dd-rendered-keys-checkbox {
+    margin-left: auto;
+    outline: none;
+}
+
+.dd-rendered-keys-value-text {
+    outline: none;
+    width: 100%;
+    padding: 10px 10px 10px 5px;
+}

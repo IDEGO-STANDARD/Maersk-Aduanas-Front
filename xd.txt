@@ -1,0 +1,171 @@
+{
+    id: "999-999-999",
+    data: [
+        {
+            nombre: "LOL",
+            validado: true,
+            valor: "LOLAZO"
+        },
+        {
+            nombre: "LOL",
+            validado: true,
+            valor: "LOLAZO"
+        },
+        {
+            nombre: "LOL",
+            validado: true,
+            valor: "LOLAZO"
+        },
+        {
+            nombre: "LOL",
+            validado: true,
+            valor: "LOLAZO"
+        },
+        {
+            nombre: "LOL",
+            validado: true,
+            valor: "LOLAZO"
+        },
+        ...
+    ],
+    documents: [
+        {
+            type: "Bill of landing"
+            documents: [
+                {
+                    id: docu1
+                    url: "https://www.chess.com/game/live/92515925551",
+                    data: [
+                        {
+                            nombre: "LOL",
+                            validado: true,
+                            valor: "LOLAZO"
+                        },
+                        {
+                            nombre: "LOL",
+                            validado: true,
+                            valor: "LOLAZO"
+                        },
+                        {
+                            nombre: "LOL",
+                            validado: true,
+                            valor: "LOLAZO"
+                        },
+                        {
+                            nombre: "LOL",
+                            validado: true,
+                            valor: "LOLAZO"
+                        },
+                        {
+                            nombre: "LOL",
+                            validado: true,
+                            valor: "LOLAZO"
+                        },
+                        ...
+                    ]     
+                },
+                {
+                    id: docu2
+                    url: "https://www.chess.com/game/live/92515925551",
+                    data: [
+                        {
+                            nombre: "LOL",
+                            validado: true,
+                            valor: "LOLAZO"
+                        },
+                        {
+                            nombre: "LOL",
+                            validado: true,
+                            valor: "LOLAZO"
+                        },
+                        {
+                            nombre: "LOL",
+                            validado: true,
+                            valor: "LOLAZO"
+                        },
+                        {
+                            nombre: "LOL",
+                            validado: true,
+                            valor: "LOLAZO"
+                        },
+                        {
+                            nombre: "LOL",
+                            validado: true,
+                            valor: "LOLAZO"
+                        },
+                        ...
+                    ]     
+                }
+            ]
+        },
+        {
+            type: "Factura"
+            documents: [
+                {
+                    id: docu1
+                    url: "https://www.chess.com/game/live/92515925551",
+                    data: [
+                        {
+                            nombre: "LOL",
+                            validado: true,
+                            valor: "LOLAZO"
+                        },
+                        {
+                            nombre: "LOL",
+                            validado: true,
+                            valor: "LOLAZO"
+                        },
+                        {
+                            nombre: "LOL",
+                            validado: true,
+                            valor: "LOLAZO"
+                        },
+                        {
+                            nombre: "LOL",
+                            validado: true,
+                            valor: "LOLAZO"
+                        },
+                        {
+                            nombre: "LOL",
+                            validado: true,
+                            valor: "LOLAZO"
+                        },
+                        ...
+                    ]     
+                },
+                {
+                    id: docu2
+                    url: "https://www.chess.com/game/live/92515925551",
+                    data: [
+                        {
+                            nombre: "LOL",
+                            validado: true,
+                            valor: "LOLAZO"
+                        },
+                        {
+                            nombre: "LOL",
+                            validado: true,
+                            valor: "LOLAZO"
+                        },
+                        {
+                            nombre: "LOL",
+                            validado: true,
+                            valor: "LOLAZO"
+                        },
+                        {
+                            nombre: "LOL",
+                            validado: true,
+                            valor: "LOLAZO"
+                        },
+                        {
+                            nombre: "LOL",
+                            validado: true,
+                            valor: "LOLAZO"
+                        },
+                        ...
+                    ]     
+                }
+            ]
+        }
+    ]
+}
