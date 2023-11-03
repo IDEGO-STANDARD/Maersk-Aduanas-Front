@@ -29,7 +29,7 @@ function Main() {
 
     let tabItems = []
     tabItems.push({name: "Dashboard", icon: <BarChart />, path: "/"})
-    tabItems.push({name: "Ordenes de trabajo", icon: <EnvelopePaperFill />, path: "/ordenes/importacion"})
+    tabItems.push({name: "Ordenes de trabajo", icon: <EnvelopePaperFill />, path: "/ordenes"})
     
 
     const handleToggleSidebar = () => {
