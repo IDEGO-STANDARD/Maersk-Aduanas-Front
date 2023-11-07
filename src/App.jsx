@@ -6,8 +6,11 @@ import PasswordResetMain from "./components/PasswordResetMain/PasswordResetMain"
 import PasswordResetNewPass from "./components/PasswordResetNewPass/PasswordResetNewPass"
 import OrdersList from "./components/OrdersList/OrdersList"
 import OrderDetails from './components/OrderDetails/OrderDetails'
+import OrderDetailsDetails from './components/OrderDetailsDetails/OrderDetailsDetails'
 import OrderDocuments from './components/OrderDocuments/OrderDocuments'
 import OrderParent from './components/OrderParent/OrderParent'
+import ControlTowerInfo from './components/ControlTowerInfo/ControlTowerInfo'
+import ControlTowerSearch from './components/ControlTowerSearch/ControlTowerSearch'
 import './App.css'
 
 function App() {
@@ -18,10 +21,14 @@ function App() {
       <Routes>
         <Route path="/" element={<Main />}>
           <Route path="/" element={<div></div>} />
-          <Route path="/ordenes/" element={<OrdersList />} />
-          <Route path="/ordenes/:ordnumber" element={<OrderParent />}>
-            <Route path="/ordenes/:ordnumber" element={<OrderDetails />} />
-            <Route path="/ordenes/:ordnumber/:docutype" element={<OrderDocuments />} />
+          <Route path="/control" element={<ControlTowerSearch />}>
+            <Route path="/control/:ordnumber" element={<ControlTowerInfo />} />
+          </Route>
+          <Route path="/ordenes/:ordtype/" element={<OrdersList />} />
+          <Route path="/ordenes/:ordtype/detalles/:ordnumber" element={<OrderDetailsDetails />} />
+          <Route path="/ordenes/:ordtype/:ordnumber" element={<OrderParent />}>
+            <Route path="/ordenes/:ordtype/:ordnumber/validacion" element={<OrderDetails />} />
+            <Route path="/ordenes/:ordtype/:ordnumber/:docutype" element={<OrderDocuments />} />
           </Route>
         </Route>
         <Route path="/login" element={<Login />}/>

@@ -6,9 +6,9 @@ import axiosInstance from "../../axiosInstance/axiosInstance"
 import toast from "react-hot-toast";
 import "./OrderParent.css";
 
-const OrderParent = ({}) => {
+const OrderParent = ({ }) => {
 
-    const { ordnumber, docutype } = useParams()
+    const { ordtype, ordnumber, docutype } = useParams()
 
     const [order, setOrder] = useState("")
 
@@ -33,14 +33,12 @@ const OrderParent = ({}) => {
         }
     }, [])
 
-    console.log(order)
-
     return <>
         {order && 
             <div className="od-main-cont">
                 <span className="ol-title">{docutype ? `DOCUMENTOS DE ORDEN DE TRABAJO ${order.id}` :  `VALIDACIÓN DE ORDEN DE TRABAJO ${order.id}`}</span>
                 {order != 0 && <Outlet context={[order]}/>}
-                <Link to="/ordenes" className="od-back-button">Volver</Link>
+                <Link to={`/ordenes/${ordtype}}`} className="od-back-button">Volver</Link>
             </div>
         }
     </>

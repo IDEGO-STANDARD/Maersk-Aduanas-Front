@@ -4,7 +4,7 @@ import OrderDocumentDisplay from "../OrderDocumentDisplay/OrderDocumentDisplay";
 import "./OrderDocuments.css";
 import Tabber from "../Tabber/Tabber";
 
-const OrderDocuments = ({}) => {
+const OrderDocuments = ({ type }) => {
 
 
     const { docutype } = useParams()

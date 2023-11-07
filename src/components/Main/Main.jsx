@@ -1,7 +1,9 @@
 import { Outlet, Navigate } from "react-router-dom"
 import { useContext, useEffect, useState } from "react"
 import { UserContext } from "../../context/UserContext"
-import { HouseFill, GearFill, Cash, TruckFrontFill, Book, CardChecklist, Clipboard2PlusFill, CashStack, FilePersonFill, Boxes, BarChart, EnvelopePaperFill } from "react-bootstrap-icons"
+import { BarChart, EnvelopePaperFill } from "react-bootstrap-icons"
+import { TbMailUp, TbMailDown } from "react-icons/tb"
+import { FaTowerCell } from "react-icons/fa6"
 import Sidebar from "../Sidebar/Sidebar"
 import Navbar from "../Navbar/Navbar"
 import toast from "react-hot-toast"
@@ -29,7 +31,9 @@ function Main() {
 
     let tabItems = []
     tabItems.push({name: "Dashboard", icon: <BarChart />, path: "/"})
-    tabItems.push({name: "Ordenes de trabajo", icon: <EnvelopePaperFill />, path: "/ordenes"})
+    tabItems.push({name: "Ordenes de trabajo impo", icon: <TbMailDown />, path: "/ordenes/importacion"})
+    tabItems.push({name: "Ordenes de trabajo expo", icon: <TbMailUp />, path: "/ordenes/exportacion"})
+    tabItems.push({name: "Torre de control", icon: <FaTowerCell />, path: "/control"})
     
 
     const handleToggleSidebar = () => {
