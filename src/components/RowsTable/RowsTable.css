@@ -26,3 +26,14 @@
     border: 1px solid gray;
     overflow: auto;
 }
+
+.rt-fields-cont {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    width: auto;
+    height: 100px;
+    flex: 1;
+    
+}

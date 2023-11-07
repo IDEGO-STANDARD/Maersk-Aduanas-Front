@@ -1,4 +1,4 @@
-import { Link, Outlet, useParams } from "react-router-dom";
+import { useNavigate, Outlet, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { EyeFill } from "react-bootstrap-icons"
 import DataDisplay from "../DataDisplay/DataDisplay";
@@ -9,7 +9,7 @@ import "./OrderParent.css";
 const OrderParent = ({ }) => {
 
     const { ordtype, ordnumber, docutype } = useParams()
-
+    const nav = useNavigate()
     const [order, setOrder] = useState("")
 
     useEffect(() => {
@@ -36,9 +36,9 @@ const OrderParent = ({ }) => {
     return <>
         {order && 
             <div className="od-main-cont">
-                <span className="ol-title">{docutype ? `DOCUMENTOS DE ORDEN DE TRABAJO ${order.id}` :  `VALIDACIÓN DE ORDEN DE TRABAJO ${order.id}`}</span>
+                <span className="ol-title">{docutype ? `DOCUMENTOS DE ORDEN DE TRABAJO ${ordnumber}` :  `VALIDACIÓN DE ORDEN DE TRABAJO ${ordnumber}`}</span>
                 {order != 0 && <Outlet context={[order]}/>}
-                <Link to={`/ordenes/${ordtype}}`} className="od-back-button">Volver</Link>
+                <button onClick={() => {nav(-1)}} className="od-back-button">Volver</button>
             </div>
         }
     </>

@@ -6,10 +6,21 @@ import axiosInstance from "../../axiosInstance/axiosInstance"
 import toast from "react-hot-toast";
 import "./OrderDetails.css";
 
-const OrderDetails = ({ type }) => {
+const OrderDetails = ({}) => {
 
     const { ordtype, ordnumber } = useParams()
     const [order] = useOutletContext()
+
+    const createSintad = () => {
+        axiosInstance.post("/asignarLiquidador", {idOrdenT: ordnumber})
+        .then((res) => {
+
+        })
+        .catch((error) => {
+            console.error("ERROR", error)
+            toast.error(error.response.data.error)
+        })
+    }
 
     const renderDocutypes = order.documents.map((docutype) => {
         return (
@@ -32,6 +43,7 @@ const OrderDetails = ({ type }) => {
             <div className="od-split-div">
                 <div className="od-fields-cont">
                     <DataDisplay data={order.data} />
+                    <button onClick={createSintad} className="od-create-sintad-button">Crear en SINTAD</button>
                 </div>
                 <div className="od-docutypes-cont">
                     {renderDocutypes}

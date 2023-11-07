@@ -11,9 +11,11 @@ const RowsTable = ({ data, onClickFunc, ComponentBeforeKeys }) => {
             </div>)
         })}
 
-        return <div style={{cursor: onClickFunc ? "pointer" : "", borderTop: index != 0 ? "1px solid gray" : "", cursor: onClickFunc ? "pointer" : ""}} onClick={() => onClickFunc(index)} className="rt-rendered-item-cont">
+        return <div style={{cursor: onClickFunc ? "pointer" : "", borderTop: index != 0 ? "1px solid gray" : "", cursor: onClickFunc ? "pointer" : ""}} className="rt-rendered-item-cont">
             <ComponentBeforeKeys item={item} />
-            {keyItems}
+            <div className="rt-fields-cont" onClick={() => onClickFunc(index)}>
+                {keyItems}
+            </div>
         </div>
     })
 

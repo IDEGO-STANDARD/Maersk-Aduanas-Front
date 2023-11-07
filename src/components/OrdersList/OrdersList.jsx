@@ -36,8 +36,10 @@ const OrdersList = ({}) => {
     }, [])
 
     const openDetails = (index) => {
-        nav(`/orders/${ordtype}/detalles/${orders[index].id}`)
+        nav(`/ordenes/${ordtype}/detalles/${orders[index].id}`)
     }
+
+    console.log(orders)
 
     return <div className="ol-main-cont">
         <span className="ol-title">MIS ÓRDENES DE TRABAJO {ordtype.slice(0,4).toUpperCase()}</span>
