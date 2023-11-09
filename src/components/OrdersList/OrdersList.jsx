@@ -1,18 +1,18 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import axios from "axios";
 import RowsTable from "../RowsTable/RowsTable";
 import OrderRowsBeforeComponent from "../OrderRowsBeforeComponent/OrderRowsBeforeComponent";
-import ord from "../../test.js"
+import PageReload from "../PageReload/PageReload";
 import toast from "react-hot-toast";
 import axiosInstance from "../../axiosInstance/axiosInstance";
 import "./OrdersList.css";
 
 const OrdersList = ({}) => {
-    const [orders, setOrders] = useState([])
 
+    const [orders, setOrders] = useState([])
     const {ordtype} = useParams()
     const nav = useNavigate()
+
 
     useEffect(() => {
         const fetchOrders = () => {
@@ -39,8 +39,6 @@ const OrdersList = ({}) => {
         nav(`/ordenes/${ordtype}/detalles/${orders[index].id}`)
     }
 
-    console.log(orders)
-
     return <div className="ol-main-cont">
         <span className="ol-title">MIS ÓRDENES DE TRABAJO {ordtype.slice(0,4).toUpperCase()}</span>
         <RowsTable data={orders} ComponentBeforeKeys={OrderRowsBeforeComponent} onClickFunc={openDetails}/>
@@ -49,4 +47,4 @@ const OrdersList = ({}) => {
     </div>
 }
 
-export default OrdersList
+export default PageReload(OrdersList, "ordtype");

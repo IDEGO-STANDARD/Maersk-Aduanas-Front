@@ -5,7 +5,7 @@
     flex-direction: row;
     flex-wrap: wrap;
     gap: 20px;
-    justify-content: left;
+    justify-content: space-between;
 }
 
 .dd-rendered-keys-key-cont {
@@ -14,8 +14,8 @@
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
+    min-width: 15%;
     flex: 1;
-    min-width: 30%;
     row-gap: 5px;
 }
 

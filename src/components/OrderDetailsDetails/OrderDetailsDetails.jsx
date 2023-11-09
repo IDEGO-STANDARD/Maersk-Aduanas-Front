@@ -2,6 +2,7 @@ import { useState, useEffect } from "react"
 import { useParams, Link } from "react-router-dom"
 import DataDisplay from "../DataDisplay/DataDisplay"
 import axiosInstance from "../../axiosInstance/axiosInstance"
+import toast from "react-hot-toast"
 import "./OrderDetailsDetails.css"
 
 
@@ -13,13 +14,14 @@ const OrderDetailsDetails = () => {
 
     useEffect(() => {
         const fetchOrderDetails = () => {
-            axiosInstance.get(`/orden/detalles?id=${ordnumber}`)
+            axiosInstance.get(`/get_detalle?id=${ordnumber}`)
             .then((res) => {
+                console.log(res.data)
                 setOrder(res.data)
             })
             .catch((error) => {
                 console.error("ERROR", error)
-                /* toast.error(error.response.data.error) */
+                toast.error(error.response.data.error)
             })
         }
 
@@ -32,6 +34,7 @@ const OrderDetailsDetails = () => {
         }
     }, [])
 
+    console.log(order)
     
 
     return (

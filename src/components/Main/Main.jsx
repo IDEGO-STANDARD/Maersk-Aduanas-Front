@@ -31,8 +31,8 @@ function Main() {
 
     let tabItems = []
     tabItems.push({name: "Dashboard", icon: <BarChart />, path: "/"})
-    tabItems.push({name: "Ordenes de trabajo impo", icon: <TbMailDown />, path: "/ordenes/importacion"})
-    tabItems.push({name: "Ordenes de trabajo expo", icon: <TbMailUp />, path: "/ordenes/exportacion"})
+    tabItems.push({name: "Órdenes de trabajo impo", icon: <TbMailDown />, path: "/ordenes/importacion"})
+    tabItems.push({name: "Órdenes de trabajo expo", icon: <TbMailUp />, path: "/ordenes/exportacion"})
     tabItems.push({name: "Torre de control", icon: <FaTowerCell />, path: "/control"})
     
 

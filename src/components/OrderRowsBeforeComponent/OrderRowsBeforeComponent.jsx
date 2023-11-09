@@ -5,10 +5,11 @@ import "./OrderRowsBeforeComponent.css"
 
 const OrderRowsBeforeComponent = ({ item }) => {
 
+    
     const {ordtype} = useParams()
 
-    const renderedIncidents = item.incidents.map((incident) => {
-        return <div className="orbc-incident-cont">{incident}</div>
+    let renderedIncidents = item.incidents.slice(0, 3).map((incident) => {
+        return <div key={incident} className="orbc-incident-cont">{incident}</div>
     })
 
     return (
@@ -26,7 +27,7 @@ const OrderRowsBeforeComponent = ({ item }) => {
                     <div className="orbc-order-details-button" style={{color: "red"}}><XLg /></div>
                     <div className="orbc-order-details-button" style={{color: "red"}}><SlashCircle /></div>
                     <div className="orbc-order-details-button" style={{color: "blue"}}><BookmarkPlusFill /></div>
-                    <Link to={`/ordenes/${ordtype}/${item.id}/${item.firstDocutype}`} className="orbc-order-details-button" style={{color: "orange"}}><FolderFill /></Link >
+                    <Link to={item.firstDocutype ? `/ordenes/${ordtype}/${item.id}/${item.firstDocutype}` : ""} className="orbc-order-details-button" style={{color: "orange", opacity: item.firstDocutype ? "1" : "0.5"}}><FolderFill /></Link >
                 </div>
             </div>
             <div className="orbc-order-incidents-cont">

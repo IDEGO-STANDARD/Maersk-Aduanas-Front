@@ -33,6 +33,8 @@ const OrderParent = ({ }) => {
         }
     }, [])
 
+    console.log(order)
+
     return <>
         {order && 
             <div className="od-main-cont">

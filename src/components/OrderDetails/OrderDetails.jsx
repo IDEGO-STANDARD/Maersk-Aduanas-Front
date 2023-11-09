@@ -14,7 +14,7 @@ const OrderDetails = ({}) => {
     const createSintad = () => {
         axiosInstance.post("/asignarLiquidador", {idOrdenT: ordnumber})
         .then((res) => {
-
+            toast.success(res.data.mensaje)
         })
         .catch((error) => {
             console.error("ERROR", error)

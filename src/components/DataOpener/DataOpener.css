@@ -1,0 +1,26 @@
+.data-opener-cont {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.data-opener-chevron-name-cont {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.data-opener-item-icon {
+    margin-left: auto;
+    min-height: 16px;
+    min-width: 16px;
+}
+
+.data-opener-value-span {
+    margin-left: 21px;
+}
+
+.data-opener-16px-icon {
+    min-height: 16px;
+    min-width: 16px;
+}

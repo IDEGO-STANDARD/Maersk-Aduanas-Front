@@ -1,0 +1,61 @@
+.cti-main-cont {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.cti-upper-info-cont {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+
+.cti-infoboxes-cont {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    border: 1px solid gray;
+    border-radius: 5px;
+    padding: 5px;
+    flex: 1;
+    height: 100%;
+    align-items: center;
+}
+
+.cti-lower-info-cont {
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-between;
+    flex: 1;
+}
+
+.cti-towerbox-cont {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    height: 100%;
+}
+
+.cti-towerbox-title {
+    padding: 20px 40px 20px 40px;
+    border-radius: 1000px;
+    border: 2px solid #00243E;
+    background-color: green;
+    color: white;
+}
+
+.cti-towerbox-items-cont {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid gray;
+    border-radius: 10px;
+    margin-top: 20px;
+    padding: 10px;
+    flex: 1;
+    gap: 5px;
+
+}

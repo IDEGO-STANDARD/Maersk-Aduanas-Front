@@ -43,8 +43,8 @@
     align-items: center;
     justify-content: center;
     gap: 10px;
-    flex-wrap: wrap;
     max-height: 120px;
+    width: 200px;
 }
 
 .orbc-incident-cont {
@@ -54,7 +54,9 @@
     flex: 1;
     border: 1px solid gray;
     background-color: rgb(135, 224, 0);
+    text-align: center;
     border-radius: 1000px;
+    min-width: 100px;
     color: white;
     font-size: 0.8rem;
     padding: 5px;
