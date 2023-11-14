@@ -8,14 +8,16 @@ const DataOpener = ({ name, value }) => {
     const [opened, setOpened] = useState(false)
 
     const toggleOpen = () => {
-        setOpened((prev) => {
-            return !prev
-        })
+        if(value) {
+            setOpened((prev) => {
+                return !prev
+            })
+        }
     }
 
     return (
         <div className="data-opener-cont">
-            <div onClick={toggleOpen} className="data-opener-chevron-name-cont">
+            <div onClick={toggleOpen} style={{cursor: value ? "pointer": ""}} className="data-opener-chevron-name-cont">
                 {value ? opened ? <ChevronDown className="data-opener-16px-icon"/> : <ChevronRight className="data-opener-16px-icon"/> :  <Dash className="data-opener-16px-icon"/>}
                 <span>{name}</span>
                 {value ? <CheckCircle style={{color: "green"}} className="data-opener-item-icon"/> : <XCircle style={{color: "red"}} className="data-opener-item-icon"/>}

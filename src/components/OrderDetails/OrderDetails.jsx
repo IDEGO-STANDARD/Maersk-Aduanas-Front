@@ -1,8 +1,7 @@
 import { Link, useParams, useOutletContext } from "react-router-dom";
-import { useState, useEffect } from "react";
 import { EyeFill, EyeSlashFill } from "react-bootstrap-icons"
 import DataDisplay from "../DataDisplay/DataDisplay";
-import axiosInstance from "../../axiosInstance/axiosInstance"
+import axiosPythonInstance from "../../axiosInstance/axiosPythonInstance"
 import toast from "react-hot-toast";
 import "./OrderDetails.css";
 
@@ -12,9 +11,9 @@ const OrderDetails = ({}) => {
     const [order] = useOutletContext()
 
     const createSintad = () => {
-        axiosInstance.post("/asignarLiquidador", {idOrdenT: ordnumber})
+        axiosPythonInstance.post(`/asignarLiquidador?id_ot=${ordnumber}`)
         .then((res) => {
-            toast.success(res.data.mensaje)
+            toast.success("Liqidador asignado correctamente")
         })
         .catch((error) => {
             console.error("ERROR", error)
@@ -42,7 +41,7 @@ const OrderDetails = ({}) => {
         <>
             <div className="od-split-div">
                 <div className="od-fields-cont">
-                    <DataDisplay data={order.data} />
+                    <DataDisplay minwidth="30%" data={order.data} />
                     <button onClick={createSintad} className="od-create-sintad-button">Crear en SINTAD</button>
                 </div>
                 <div className="od-docutypes-cont">

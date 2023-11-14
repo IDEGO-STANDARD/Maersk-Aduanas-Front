@@ -12,7 +12,7 @@ const RowsTable = ({ data, onClickFunc, ComponentBeforeKeys }) => {
             </div>)
         })}
 
-        return <div key={index} style={{cursor: onClickFunc ? "pointer" : "", borderTop: index != 0 ? "1px solid gray" : "", cursor: onClickFunc ? "pointer" : ""}} className="rt-rendered-item-cont">
+        return <div key={index} style={{cursor: onClickFunc ? "pointer" : "", borderTop: index != 0 ? "1px solid gray" : ""}} className="rt-rendered-item-cont">
             <ComponentBeforeKeys item={item} />
             <div className="rt-fields-cont" onClick={() => onClickFunc(index)}>
                 {keyItems}

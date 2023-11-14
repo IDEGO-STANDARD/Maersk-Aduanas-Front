@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { Outlet, useNavigate, useParams } from "react-router-dom"
 import axiosInstance from "../../axiosInstance/axiosInstance"
 import toast from "react-hot-toast"
@@ -14,55 +14,131 @@ const ControlTowerSearch = () => {
     const [clientes, setClientes] = useState([])
     const [ordenes, setOrdenes] = useState([])
 
-    const [type, setType] = useState("")
-    const [client, setClient] = useState("")
-    const [orderid, setOrderid] = useState("")
+    const typeRef = useRef(null)
+    const clientRef = useRef(null)
+    const orderIdRef = useRef(null)
 
+    const [orderData, setOrderData] = useState(null); // State for order data
+    const [clientData, setClientData] = useState(null); // State for client data
+
+    // useEffect for fetching data based on ordnumber
     useEffect(() => {
-        if(ordnumber) {
-            setOrderid(ordnumber)
-            axiosInstance(`/get_torre_de_control_exp?id=${ordnumber}`)
-            .then((res) => {
-                setType(res.data.type)
-                setClient(res.data.client)
-            })
-            .catch((error) => {
-                console.error("ERROR", error)
-                toast.error(error.response.data.error)
-            })
+        const loadData = async () => {
+            if (ordnumber) {
+                try {
+                    // Fetch the initial order data
+                    const orderRes = await axiosInstance(`/get_torre_de_control_exp?id=${ordnumber}`);
+                    const fetchedOrderData = orderRes.data;
+                    setOrderData(fetchedOrderData); // Set the order data state
+                    typeRef.current.value = fetchedOrderData.type;
+
+                    // Fetch clients based on the type
+                    const clientRes = await axiosInstance.get(`/get_clientes?type=${fetchedOrderData.type}`);
+                    const fetchedClientData = clientRes.data;
+                    if (fetchedClientData.length === 0) {
+                        toast.error("No hay clientes válidos");
+                    } else {
+                        setClientes(fetchedClientData); // Update clients state
+                        setClientData(fetchedClientData); // Set the client data state
+                    }
+
+                    // Fetch orders based on the client
+                    const ordersRes = await axiosInstance.get(`/get_id_orden_trabajo_clientes?type=${fetchedOrderData.type}&client=${fetchedOrderData.client}`);
+                    const ordenesData = ordersRes.data;
+                    if (ordenesData.length === 0) {
+                        toast.error("No hay ordenes válidas");
+                    } else {
+                        setOrdenes(ordenesData); // Update orders state
+                    }
+                } catch (error) {
+                    console.error("ERROR", error);
+                    toast.error(error.response.data.error);
+                }
+            }
+        };
+
+        loadData();
+    }, [ordnumber]);
+
+    // useEffect for updating clientRef when clientData changes
+    useEffect(() => {
+        if (clientData && orderData) {
+            clientRef.current.value = orderData.client;
         }
-    })
+    }, [clientData, orderData]); // Depend on clientData and orderData
 
+    // useEffect for updating orderIdRef when ordenes changes
     useEffect(() => {
-        if(type === "") {
+        if (ordenes.includes(ordnumber)) {
+            orderIdRef.current.value = ordnumber;
+        }
+    }, [ordenes, ordnumber]); 
+
+
+
+    const handleChangeType = () => {
+        nav("/control")
+        if(!typeRef.current.value) {
             setClientes([])
-            setClient("")
             setOrdenes([])
-            setOrderid("")
+            clientRef.current.value = ""
+            orderIdRef.current.value = ""
         }
         else {
-            axiosInstance.get(`/get_clientes?type=${type}`)
+            axiosInstance.get(`/get_clientes?type=${typeRef.current.value}`)
             .then((res) => {
                 if(res.data.length === 0) {
                     toast.error("No hay clientes validos")
                 }
+                clientRef.current.value = ""
+                orderIdRef.current.value = ""
                 setClientes([...res.data])
+                setOrdenes([])
             })
             .catch((error) => {
                 console.error("ERROR", error)
                 toast.error(error.response.data.error)
             })
         }
-    }, [type]) 
+    }
 
-    useEffect(() => {
-        if(client === "") {
-            setOrdenes([])
-            setOrderid("")
+/*     useEffect(() => {
+        console.log(`Change type: ${type}`)
+        if(type === "") {
+            setClient("")
+            setClientes([])
         }
         else {
-            axiosInstance.get(`/get_id_orden_trabajo_clientes?type=${type}&client=${client}`)
+            if(type) {
+                axiosInstance.get(`/get_clientes?type=${type}`)
+                .then((res) => {
+                    if(res.data.length === 0) {
+                        toast.error("No hay clientes validos")
+                    }
+                    setClient("")
+                    setClientes([...res.data])
+                })
+                .catch((error) => {
+                    console.error("ERROR", error)
+                    toast.error(error.response.data.error)
+                })
+            }
+        }
+    }, [type])  */
+
+    const handleChangeClient = () => {
+        nav("/control")
+        if(!clientRef.current.value) {
+            setOrdenes([])
+            orderIdRef.current.value = ""
+        }
+        else {
+            axiosInstance.get(`/get_id_orden_trabajo_clientes?type=${typeRef.current.value}&client=${clientRef.current.value}`)
             .then((res) => {
+                if(res.data.length === 0) {
+                    toast.error("No hay ordenes validas")
+                }
+                orderIdRef.current.value = ""
                 setOrdenes([...res.data])
             })
             .catch((error) => {
@@ -70,18 +146,46 @@ const ControlTowerSearch = () => {
                 toast.error(error.response.data.error)
             })
         }
-    }, [client]) 
-        
-    useEffect(() => {
-        if(!ordnumber) {
-            if(orderid === "") {
-                nav(`/control`)
-            }
-            else {
-                nav(`/control/${orderid}`)
+    }
+
+/*     useEffect(() => {
+        console.log(`Change client: ${client}`)
+        if(client === "") {
+            setOrderid("")
+            setOrdenes([])
+        }
+        else {
+            if(client && type) {
+                axiosInstance.get(`/get_id_orden_trabajo_clientes?type=${type}&client=${client}`)
+                .then((res) => {
+                    setOrdenes([...res.data])
+                })
+                .catch((error) => {
+                    console.error("ERROR", error)
+                    toast.error(error.response.data.error)
+                })
             }
         }
-    }, [orderid]) 
+    }, [client])  */
+
+    const handleChangeOrderId = () => {
+        if(!orderIdRef.current.value) {
+            nav(`/control`)
+        }
+        else {
+            nav(`/control/${orderIdRef.current.value}`)
+        }
+    }
+  
+/*     useEffect(() => {
+        console.log(`Change ordid: ${orderid}`)
+        if(orderid === "") {
+            nav(`/control`)
+        }
+        else {
+            nav(`/control/${orderid}`)
+        }
+    }, [orderid])  */
 
     const renderOptionElems = (options, defaultmsg="Seleccione una opción") => {
         let opelems = options.map((op) => {
@@ -93,35 +197,32 @@ const ControlTowerSearch = () => {
         return opelems
     }
 
-
-    console.log(clientes)
-
   return (
     <div className="ct-main-cont">
         <span className="ct-title">Torre de control</span>
         <div className="ct-search-cont">
             <div className="ct-input-table-cont">
                 <label className="ct-label" htmlFor="operacion">Operación</label>
-                <select className="ct-search-input" value={type} id="operacion" onChange={(e) => {setType(e.target.value)}}>
+                <select ref={typeRef} className="ct-search-input" id="operacion" onChange={handleChangeType}>
                     {renderOptionElems(operationelems, "Seleccione un tipo de operación")}
                 </select>
             </div>
             <FaArrowRightLong />
             <div className="ct-input-table-cont">
                 <label className="ct-label" htmlFor="cliente">Cliente</label>
-                <select className="ct-search-input" value={client} disabled={clientes.length === 0} id="cliente" onChange={(e) => {setClient(e.target.value)}}>
+                <select ref={clientRef} className="ct-search-input" disabled={clientes.length === 0} id="cliente" onChange={handleChangeClient}>
                     {renderOptionElems(clientes, "Seleccione un cliente")}
                 </select>
             </div>
             <FaArrowRightLong />
             <div className="ct-input-table-cont">
                 <label className="ct-label" htmlFor="ordentrabajo">Orden de trabajo</label>
-                <select className="ct-search-input" value={orderid} disabled={ordenes.length === 0} id="ordentrabajo" onChange={(e) => {setOrderid(e.target.value)}}>
+                <select ref={orderIdRef} className="ct-search-input" disabled={ordenes.length === 0} id="ordentrabajo" onChange={handleChangeOrderId}>
                     {renderOptionElems(ordenes, "Seleccione una orden de trabajo")}
                 </select>
             </div>
         </div>
-        {ordnumber ? 
+        {ordnumber ?
             <Outlet />
             :
             <div className="ct-no-order-cont">

@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom"
 import { useState, useEffect } from "react"
 import axiosInstance from "../../axiosInstance/axiosInstance"
 import DataOpener from "../DataOpener/DataOpener"
+import PageReload from "../PageReload/PageReload"
 import toast from "react-hot-toast"
 import "./ControlTowerInfo.css"
 
@@ -11,18 +12,17 @@ const ControlTowerInfo = () => {
     const {ordnumber} = useParams()
     
     useEffect(() => {
-        axiosInstance(`/get_torre_de_control_exp?id=${ordnumber}`)
-        .then((res) => {
-            console.log(res.data)
-            setOrder(res.data)
-        })
-        .catch((error) => {
-            console.error("ERROR", error)
-            toast.error(error.response.data.error)
-        })
+        if(ordnumber) {
+            axiosInstance(`/get_torre_de_control_exp?id=${ordnumber}`)
+            .then((res) => {
+                setOrder(res.data)
+            })
+            .catch((error) => {
+                console.error("ERROR", error)
+                toast.error(error.response.data.error)
+            })
+        }
     }, [])
-
-    console.log(order.control)
 
     const renderedInfoboxes = !order ? [] : order.info.map((item) => {
         return <div className="cti-infoboxes-cont">
@@ -42,7 +42,6 @@ const ControlTowerInfo = () => {
         </div>
     })
 
-
     return (
         <div className="cti-main-cont">
             <div className="cti-upper-info-cont">
@@ -55,4 +54,4 @@ const ControlTowerInfo = () => {
     )
 }
 
-export default ControlTowerInfo
+export default PageReload(ControlTowerInfo, "ordnumber")

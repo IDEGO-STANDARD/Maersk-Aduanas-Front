@@ -10,13 +10,15 @@
 
 .dd-rendered-keys-key-cont {
     display: flex;
-    flex-direction: row;
-    align-items: center;
+    flex-direction: column;
     justify-content: space-between;
-    flex-wrap: wrap;
-    min-width: 15%;
     flex: 1;
     row-gap: 5px;
+}
+
+.dd-rendered-keys-top-cont {
+    display: flex;
+
 }
 
 .dd-rendered-keys-key-text {
