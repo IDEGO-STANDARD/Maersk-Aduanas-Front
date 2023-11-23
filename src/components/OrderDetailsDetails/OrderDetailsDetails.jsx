@@ -41,8 +41,8 @@ const OrderDetailsDetails = () => {
         <div className="odd-main-cont">
             <div className="odd-titles-cont">
                 <span className="odd-order-title">Orden {ordnumber}</span>
-                {ordtype === "importacion" && <span className="odd-ordtype-title">Importación</span>}
-                {ordtype === "exportacion" && <span className="odd-ordtype-title">Exportación</span>}
+                {ordtype === "ingreso" && <span className="odd-ordtype-title">Ingreso</span>}
+                {ordtype === "salida" && <span className="odd-ordtype-title">Salida</span>}
                 <span className="odd-order-title">Sectorista: {order.sectorista}</span>
                 <span className="odd-order-title">Liquidador: {order.liquidador}</span>
             </div>

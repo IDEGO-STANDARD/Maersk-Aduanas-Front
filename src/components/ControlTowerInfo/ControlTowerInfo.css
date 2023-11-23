@@ -11,6 +11,7 @@
     align-items: center;
     justify-content: space-between;
     margin-top: 30px;
+    gap: 5px;
 }
 
 .cti-infoboxes-cont {
@@ -20,6 +21,7 @@
     border: 1px solid gray;
     border-radius: 5px;
     padding: 5px;
+    min-width: max-content;
     flex: 1;
     height: 100%;
     align-items: center;
@@ -44,8 +46,8 @@
     padding: 20px 40px 20px 40px;
     border-radius: 1000px;
     border: 2px solid #00243E;
-    background-color: green;
-    color: white;
+    background-color: lightgray;
+    color: black;
 }
 
 .cti-towerbox-items-cont {

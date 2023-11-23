@@ -1,0 +1,22 @@
+.column-select-checkboxes-cont {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border-top: 1px solid gray;
+    margin-top: 0.5rem;
+    padding: 20px 20px 12px 20px;
+    flex-wrap: wrap;
+    gap: 2%;
+    width: calc(100% + 1rem);
+}
+
+.column-select-rendered-checkbox {
+    display: flex;
+    flex: 1;
+    min-width: 23%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    align-items: center;
+    justify-content: center;
+    gap: 10px
+}

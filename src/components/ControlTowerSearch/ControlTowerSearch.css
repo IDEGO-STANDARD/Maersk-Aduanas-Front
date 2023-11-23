@@ -8,8 +8,9 @@
 }
 
 .ct-title {
-    font-size: 2rem;
+    font-size: 1.5rem;
     margin-bottom: 80px;
+    font-weight: bold;
 }
 
 .ct-search-cont {
@@ -34,7 +35,8 @@
     padding: 10px;
     font-size: 0.9;
     border-radius: 5px;
-    border: none;
+    border: 1px solid lightgray;
+    background-color: rgb(238, 238, 238);
     cursor: pointer;
 }
 

@@ -12,6 +12,10 @@ const OrderRowsBeforeComponent = ({ item }) => {
         return <div key={incident} className="orbc-incident-cont">{incident}</div>
     })
 
+    if(renderedIncidents.length === 0) {
+        renderedIncidents.push(<div key={"No incident"} className="orbc-incident-cont">No hay incidencias</div>)
+    }
+
     return (
         <div className="orbc-main-cont">
 {            <div className="orbc-order-channel-cont">
@@ -19,9 +23,9 @@ const OrderRowsBeforeComponent = ({ item }) => {
                 <div style={{backgroundColor: item.channel}} className="channel-orb"></div>
             </div>}
             <div className="orbc-order-details-cont">
-                <span className="orbc-order-details-title">ORDEN DE TRABAJO</span>  
-                <span className="orbc-order-details-title-value">Nro: {item.id}</span>
-                <span className="orbc-order-details-client">Cliente: <span className="orbc-order-details-client-value">{item.client}</span></span>
+                <span className="orbc-order-details-title-value">{item.client}</span>
+                <span className="orbc-order-details-client">ORDEN DE TRABAJO</span>
+                <span className="orbc-order-details-client-value"> Nro: {item.id}</span>
                 <div className="orbc-order-details-buttons-cont">
                     <Link to={`/ordenes/${ordtype}/${item.id}/validacion`} className="orbc-order-details-button" style={{color: "green"}}><CheckLg /></Link>
                     <div className="orbc-order-details-button" style={{color: "red"}}><XLg /></div>

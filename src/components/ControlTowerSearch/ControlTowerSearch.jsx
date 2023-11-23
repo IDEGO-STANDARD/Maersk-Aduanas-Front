@@ -10,7 +10,7 @@ const ControlTowerSearch = () => {
     const nav = useNavigate()
     const {ordnumber} = useParams()
 
-    const operationelems = ["Importacion", "Exportacion"]
+    const operationelems = ["Ingreso", "Salida"]
     const [clientes, setClientes] = useState([])
     const [ordenes, setOrdenes] = useState([])
 
@@ -18,41 +18,37 @@ const ControlTowerSearch = () => {
     const clientRef = useRef(null)
     const orderIdRef = useRef(null)
 
-    const [orderData, setOrderData] = useState(null); // State for order data
-    const [clientData, setClientData] = useState(null); // State for client data
+    const [orderData, setOrderData] = useState(null)
+    const [clientData, setClientData] = useState(null)
 
-    // useEffect for fetching data based on ordnumber
     useEffect(() => {
         const loadData = async () => {
             if (ordnumber) {
                 try {
-                    // Fetch the initial order data
-                    const orderRes = await axiosInstance(`/get_torre_de_control_exp?id=${ordnumber}`);
-                    const fetchedOrderData = orderRes.data;
-                    setOrderData(fetchedOrderData); // Set the order data state
-                    typeRef.current.value = fetchedOrderData.type;
+                    const orderRes = await axiosInstance(`/get_torre_de_control_exp?id=${ordnumber}`)
+                    const fetchedOrderData = orderRes.data
+                    setOrderData(fetchedOrderData)
+                    typeRef.current.value = fetchedOrderData.type
+                    console.log(fetchedOrderData.type)
 
-                    // Fetch clients based on the type
-                    const clientRes = await axiosInstance.get(`/get_clientes?type=${fetchedOrderData.type}`);
-                    const fetchedClientData = clientRes.data;
+                    const clientRes = await axiosInstance.get(`/get_clientes?type=${fetchedOrderData.type}`)
+                    const fetchedClientData = clientRes.data
                     if (fetchedClientData.length === 0) {
-                        toast.error("No hay clientes válidos");
+                        toast.error("No hay clientes válidos")
                     } else {
-                        setClientes(fetchedClientData); // Update clients state
-                        setClientData(fetchedClientData); // Set the client data state
+                        setClientes(fetchedClientData)
+                        setClientData(fetchedClientData)
                     }
-
-                    // Fetch orders based on the client
-                    const ordersRes = await axiosInstance.get(`/get_id_orden_trabajo_clientes?type=${fetchedOrderData.type}&client=${fetchedOrderData.client}`);
-                    const ordenesData = ordersRes.data;
+                    const ordersRes = await axiosInstance.get(`/get_id_orden_trabajo_clientes?type=${fetchedOrderData.type}&client=${fetchedOrderData.client}`)
+                    const ordenesData = ordersRes.data
                     if (ordenesData.length === 0) {
-                        toast.error("No hay ordenes válidas");
+                        toast.error("No hay ordenes válidas")
                     } else {
-                        setOrdenes(ordenesData); // Update orders state
+                        setOrdenes(ordenesData)
                     }
                 } catch (error) {
-                    console.error("ERROR", error);
-                    toast.error(error.response.data.error);
+                    console.error("ERROR", error)
+                    toast.error(error.response.data.error)
                 }
             }
         };
@@ -60,19 +56,16 @@ const ControlTowerSearch = () => {
         loadData();
     }, [ordnumber]);
 
-    // useEffect for updating clientRef when clientData changes
     useEffect(() => {
         if (clientData && orderData) {
-            clientRef.current.value = orderData.client;
+            clientRef.current.value = orderData.client
         }
-    }, [clientData, orderData]); // Depend on clientData and orderData
-
-    // useEffect for updating orderIdRef when ordenes changes
+    }, [clientData, orderData])
     useEffect(() => {
         if (ordenes.includes(ordnumber)) {
-            orderIdRef.current.value = ordnumber;
+            orderIdRef.current.value = ordnumber
         }
-    }, [ordenes, ordnumber]); 
+    }, [ordenes, ordnumber])
 
 
 
@@ -199,7 +192,7 @@ const ControlTowerSearch = () => {
 
   return (
     <div className="ct-main-cont">
-        <span className="ct-title">Torre de control</span>
+        <span className="ct-title">TORRE DE CONTROL</span>
         <div className="ct-search-cont">
             <div className="ct-input-table-cont">
                 <label className="ct-label" htmlFor="operacion">Operación</label>

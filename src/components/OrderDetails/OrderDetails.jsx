@@ -1,4 +1,5 @@
 import { Link, useParams, useOutletContext } from "react-router-dom";
+import { useState } from "react";
 import { EyeFill, EyeSlashFill } from "react-bootstrap-icons"
 import DataDisplay from "../DataDisplay/DataDisplay";
 import axiosPythonInstance from "../../axiosInstance/axiosPythonInstance"
@@ -10,12 +11,17 @@ const OrderDetails = ({}) => {
     const { ordtype, ordnumber } = useParams()
     const [order] = useOutletContext()
 
+    const [loading, setLoading] = useState(false)
+
     const createSintad = () => {
+        setLoading(true)
         axiosPythonInstance.post(`/asignarLiquidador?id_ot=${ordnumber}`)
         .then((res) => {
+            setLoading(false)
             toast.success("Liqidador asignado correctamente")
         })
         .catch((error) => {
+            setLoading(false)
             console.error("ERROR", error)
             toast.error(error.response.data.error)
         })
@@ -24,9 +30,9 @@ const OrderDetails = ({}) => {
     const renderDocutypes = order.documents.map((docutype) => {
         return (
             <div className="docutypes-main-cont" key={docutype.type} >
-                <span style={{backgroundColor: docutype.documents.length > 0 ? "rgb(60, 192, 60)" : "orange" }} className="docutypes-item-number">{docutype.documents.length}</span>
+                <span style={{backgroundColor: docutype.documents.length && !docutype.documents[0].isDummy ? "rgb(60, 192, 60)" : "orange" }} className="docutypes-item-number">{docutype.documents[0].isDummy ? 0 : docutype.documents.length}</span>
                 <span>{docutype.type}</span>
-                {docutype.documents.length > 0 ? <Link to={`/ordenes/${ordtype}/${ordnumber}/${docutype.type}`} className="docutypes-eye">
+                {docutype.documents.length > 0 && !docutype.documents[0].isDummy ? <Link to={`/ordenes/${ordtype}/${ordnumber}/${docutype.type}`} className="docutypes-eye">
                     <EyeFill />
                 </Link>
                 :
@@ -42,7 +48,7 @@ const OrderDetails = ({}) => {
             <div className="od-split-div">
                 <div className="od-fields-cont">
                     <DataDisplay minwidth="30%" data={order.data} />
-                    <button onClick={createSintad} className="od-create-sintad-button">Crear en SINTAD</button>
+                    <button disabled={loading} onClick={createSintad} className="od-create-sintad-button">Crear en SINTAD</button>
                 </div>
                 <div className="od-docutypes-cont">
                     {renderDocutypes}

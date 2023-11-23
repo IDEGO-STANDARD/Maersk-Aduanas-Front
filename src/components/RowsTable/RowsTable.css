@@ -3,13 +3,14 @@
     align-items: center;
     padding: 10px 20px 10px 20px;
     justify-content: space-between;
+    flex: 1;
 }
 
 .rt-rendered-item-key-cont {
     display: flex;
     flex-direction: column;
+    justify-content: baseline;
     align-items: center;
-    width: 200px;
     text-align: center;
 }
 
@@ -20,12 +21,14 @@
 
 .rt-rendered-item-value-text {
     font-size: 1rem;
+    min-height: calc(1rem + 3px);
     color: black;
 }
 
 .rt-item-list-cont {
     width: 100%;
     border: 1px solid gray;
+    flex: 1;
     overflow: auto;
 }
 
@@ -37,5 +40,17 @@
     width: auto;
     height: 100px;
     flex: 1;
-    
+}
+
+.rt-message-cont {
+    display: flex;
+    justify-content: center;
+    padding-top: 20vh;
+    flex: 1;
+    height: 100%;
+}
+
+.rt-message-span {
+    font-size: 1.3rem;
+
 }

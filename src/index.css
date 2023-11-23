@@ -76,3 +76,8 @@
   .total-amount-indicator {
     color: white;
   }
+
+  button:disabled {
+    cursor: no-drop;
+    opacity: 0.5;
+  }

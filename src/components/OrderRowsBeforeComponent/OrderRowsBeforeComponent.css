@@ -2,8 +2,8 @@
     display: flex;
     align-items: center;
     gap: 30px;
-    height: 100px;
-    max-height: 100px;
+    max-height: 150px;
+    padding-right: 10px;
 }
 
 .orbc-order-details-cont {
@@ -11,6 +11,12 @@
     flex-direction: column;
     font-size: 0.9rem;
     gap: 5px;
+    height: 100%;
+    justify-content: space-between;
+    width: 12vw;
+    text-align: center;
+    max-width: 300px;
+    align-items: center;
 }
 
 .orbc-order-details-title {
@@ -28,6 +34,7 @@
     border: 1px solid black;
     align-items: center;
     justify-content: space-between;
+    width: 150px;
     padding: 2px;
 }
 
@@ -44,7 +51,6 @@
     justify-content: center;
     gap: 10px;
     max-height: 120px;
-    width: 200px;
 }
 
 .orbc-incident-cont {
@@ -56,8 +62,8 @@
     background-color: rgb(135, 224, 0);
     text-align: center;
     border-radius: 1000px;
-    min-width: 100px;
     color: white;
+    width: 200px;
     font-size: 0.8rem;
     padding: 5px;
 }
