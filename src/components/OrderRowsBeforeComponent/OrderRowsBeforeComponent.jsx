@@ -2,8 +2,9 @@ import { CheckLg, XLg, SlashCircle, BookmarkPlusFill, FolderFill } from "react-b
 import { useParams } from "react-router-dom"
 import { Link } from "react-router-dom"
 import "./OrderRowsBeforeComponent.css"
+import TooltipElement from "../TooltipElement/TooltipElement"
 
-const OrderRowsBeforeComponent = ({ item }) => {
+const OrderRowsBeforeComponent = ({ item, onOpenPopup }) => {
 
     
     const {ordtype} = useParams()
@@ -27,11 +28,21 @@ const OrderRowsBeforeComponent = ({ item }) => {
                 <span className="orbc-order-details-client">ORDEN DE TRABAJO</span>
                 <span className="orbc-order-details-client-value"> Nro: {item.id}</span>
                 <div className="orbc-order-details-buttons-cont">
-                    <Link to={`/ordenes/${ordtype}/${item.id}/validacion`} className="orbc-order-details-button" style={{color: "green"}}><CheckLg /></Link>
-                    <div className="orbc-order-details-button" style={{color: "red"}}><XLg /></div>
-                    <div className="orbc-order-details-button" style={{color: "red"}}><SlashCircle /></div>
-                    <div className="orbc-order-details-button" style={{color: "blue"}}><BookmarkPlusFill /></div>
-                    <Link to={item.firstDocutype ? `/ordenes/${ordtype}/${item.id}/${item.firstDocutype}` : ""} className="orbc-order-details-button" style={{color: "orange", opacity: item.firstDocutype ? "1" : "0.5"}}><FolderFill /></Link >
+                    <TooltipElement tooltipText="Validación">
+                        <Link to={`/ordenes/${ordtype}/${item.id}/validacion`} className="orbc-order-details-button" style={{ color: "green" }}><CheckLg /></Link>
+                    </TooltipElement>
+                    <TooltipElement tooltipText="">
+                        <div className="orbc-order-details-button" style={{ color: "red" }}><XLg /></div>
+                    </TooltipElement>
+                    <TooltipElement tooltipText="">
+                        <div className="orbc-order-details-button" style={{ color: "red" }}><SlashCircle /></div>
+                    </TooltipElement>
+                    <TooltipElement tooltipText="Generar Incidencia">
+                        <div className="orbc-order-details-button" style={{ color: "blue" }} onClick={() => onOpenPopup(item.id)}><BookmarkPlusFill /></div>
+                    </TooltipElement>
+                    <TooltipElement tooltipText="Documentos">
+                        <Link to={item.firstDocutype ? `/ordenes/${ordtype}/${item.id}/${item.firstDocutype}` : ""} className="orbc-order-details-button" style={{ color: "orange", opacity: item.firstDocutype ? "1" : "0.5" }}><FolderFill /></Link >
+                    </TooltipElement>
                 </div>
             </div>
             <div className="orbc-order-incidents-cont">

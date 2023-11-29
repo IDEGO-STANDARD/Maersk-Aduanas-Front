@@ -8,51 +8,56 @@ import axiosInstance from "../../axiosInstance/axiosInstance";
 import FiltersMenu from "../FiltersMenu/FiltersMenu";
 import TableRowColumnSelect from "../TableRowColumnSelect/TableRowColumnSelect";
 import RowsTableConfigurationMenu from "../RowsTableConfigurationMenu/RowsTableConfigurationMenu"
+import IncidentPopup from '../IncidentPopup/IncidentPopup';
 import "./OrdersList.css";
 
-const OrdersList = ({}) => {
+const OrdersList = ({ }) => {
 
     const [orders, setOrders] = useState([])
-    const {ordtype} = useParams()
+    const { ordtype } = useParams()
     const nav = useNavigate()
 
     const [loading, setLoading] = useState(true)
     const [columns, setColumns] = useState([])
 
+    const [isPopupOpen, setPopupOpen] = useState(false)
+    const [popupOrderId, setPopupOrderId] = useState(null)
 
     useEffect(() => {
         const fetchOrders = () => {
             axiosInstance.get(`/ordenes?type=${ordtype}`)
-            .then((res) => {
-                console.log(res.data[0])
-                setLoading(false)
-                setOrders(res.data)
-                let cols = []
-                const objkeys = Object.keys(res.data[0].keys)
-                {objkeys.forEach((key) => {
-                    cols.push({
-                        name: key,
-                        active: true
-                    })
-                })}
-                console.log(cols)
-                setColumns(cols)
+                .then((res) => {
+                    console.log(res.data[0])
+                    setLoading(false)
+                    setOrders(res.data)
+                    let cols = []
+                    const objkeys = Object.keys(res.data[0].keys)
+                    {
+                        objkeys.forEach((key) => {
+                            cols.push({
+                                name: key,
+                                active: true
+                            })
+                        })
+                    }
+                    console.log(cols)
+                    setColumns(cols)
 
-            })
-            .catch((error) => {
-                setLoading(false)
-                console.error("ERROR", error)
-                toast.error(error.response.data.error)
-            })
+                })
+                .catch((error) => {
+                    setLoading(false)
+                    console.error("ERROR", error)
+                    toast.error(error.response.data.error)
+                })
         }
 
         fetchOrders()
 
-/*         const intervalId = setInterval(fetchOrders, 3000)
-
-        return () => {
-            clearInterval(intervalId)
-        } */
+        /*         const intervalId = setInterval(fetchOrders, 3000)
+        
+                return () => {
+                    clearInterval(intervalId)
+                } */
     }, [])
 
     const changeColumnExceptions = (e) => {
@@ -84,34 +89,34 @@ const OrdersList = ({}) => {
                 },
                 {
                     name: "Filtro 3"
-                }, 
+                },
                 {
                     name: "Filtro 10"
                 },
-/*                 {
-                    name: "Filtro 11"
-                },
-                {
-                    name: "Filtro 12"
-                }, 
-                {
-                    name: "Filtro 13"
-                },
-                {
-                    name: "Filtro 14"
-                },
-                {
-                    name: "Filtro 15"
-                }, 
-                {
-                    name: "Filtro 16"
-                },
-                {
-                    name: "Filtro 17"
-                },
-                {
-                    name: "Filtro 18"
-                },  */
+                /*                 {
+                                    name: "Filtro 11"
+                                },
+                                {
+                                    name: "Filtro 12"
+                                }, 
+                                {
+                                    name: "Filtro 13"
+                                },
+                                {
+                                    name: "Filtro 14"
+                                },
+                                {
+                                    name: "Filtro 15"
+                                }, 
+                                {
+                                    name: "Filtro 16"
+                                },
+                                {
+                                    name: "Filtro 17"
+                                },
+                                {
+                                    name: "Filtro 18"
+                                },  */
             ]
         },
         {
@@ -126,7 +131,7 @@ const OrdersList = ({}) => {
                 },
                 {
                     name: "Opción 6"
-                }, 
+                },
             ]
         },
         {
@@ -141,26 +146,38 @@ const OrdersList = ({}) => {
                 },
                 {
                     name: "Filtro 9"
-                }, 
+                },
             ]
         },
     ]
 
     let columnExceptions = []
     columns.forEach((col) => {
-        if(!col.active) {
+        if (!col.active) {
             columnExceptions.push(col.name)
         }
     })
 
+    const handleOpenPopup = (id) => {
+        setPopupOrderId(id)
+        setPopupOpen(true)
+      };
+
+    const handleClosePopup = () => {
+        setPopupOpen(false)
+        setPopupOrderId(null)
+    };
+
+
     return <div className="ol-main-cont">
         <span className="ol-title">MIS ÓRDENES DE TRABAJO {ordtype.toUpperCase()}</span>
-{/*         <div className="ol-filters-selector-cont">
+        {/*         <div className="ol-filters-selector-cont">
             <FiltersMenu filtersections={filtersections}/>
             <TableRowColumnSelect columns={columns} changeColumnExceptions={changeColumnExceptions} />
         </div> */}
-        <RowsTableConfigurationMenu filtersections={filtersections} columns={columns} changeColumnExceptions={changeColumnExceptions}/>
-        <RowsTable columnExceptions={columnExceptions} loading={loading} data={orders} ComponentBeforeKeys={OrderRowsBeforeComponent} onClickFunc={openDetails}/>
+        <RowsTableConfigurationMenu filtersections={filtersections} columns={columns} changeColumnExceptions={changeColumnExceptions} />
+        <RowsTable columnExceptions={columnExceptions} loading={loading} data={orders} ComponentBeforeKeys={OrderRowsBeforeComponent} onClickFunc={openDetails} onOpenPopup={handleOpenPopup} />
+        <IncidentPopup isOpen={isPopupOpen} onClose={handleClosePopup} orderId={popupOrderId}/>
         <div></div>
         <div></div>
     </div>

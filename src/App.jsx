@@ -13,7 +13,7 @@ import ControlTowerInfo from './components/ControlTowerInfo/ControlTowerInfo'
 import ControlTowerSearch from './components/ControlTowerSearch/ControlTowerSearch'
 import ConfigUsuarios from './components/ConfigUsuarios/ConfigUsuarios'
 import ConfigRoles from './components/ConfigRoles/ConfigRoles'
-
+import IncidentGenerator from './components/IncidentGenerator/IncidentGenerator'
 import './App.css'
 
 function App() {
@@ -35,6 +35,7 @@ function App() {
             <Route path="/ordenes/:ordtype/:ordnumber/validacion" element={<OrderDetails />} />
             <Route path="/ordenes/:ordtype/:ordnumber/:docutype" element={<OrderDocuments />} />
           </Route>
+          <Route path='/ordenes/:ordtype/:ordnumber/generacion/:incid' element={<IncidentGenerator />} />
         </Route>
         <Route path="/login" element={<Login />}/>
         <Route path="/passwordreset" element={<PasswordResetMain />}/>
