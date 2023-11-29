@@ -11,6 +11,9 @@ import OrderDocuments from './components/OrderDocuments/OrderDocuments'
 import OrderParent from './components/OrderParent/OrderParent'
 import ControlTowerInfo from './components/ControlTowerInfo/ControlTowerInfo'
 import ControlTowerSearch from './components/ControlTowerSearch/ControlTowerSearch'
+import ConfigUsuarios from './components/ConfigUsuarios/ConfigUsuarios'
+import ConfigRoles from './components/ConfigRoles/ConfigRoles'
+
 import './App.css'
 
 function App() {
@@ -21,6 +24,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Main />}>
           <Route path="/" element={<div></div>} />
+          <Route path="/administracion/usuarios" element={<ConfigUsuarios />} />
+          <Route path="/administracion/roles" element={<ConfigRoles />} />
           <Route path="/control" element={<ControlTowerSearch />}>
             <Route path="/control/:ordnumber" element={<ControlTowerInfo />} />
           </Route>

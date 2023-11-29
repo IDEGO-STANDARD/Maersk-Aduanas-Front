@@ -1,0 +1,77 @@
+.edit-reg-cont {
+    position: absolute;
+    left: 0;
+    top: -76px;
+    z-index: 1;
+    width: 100%;
+    height: calc(100% + 76px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(144, 144, 144, 0.5);
+}
+
+.edit-reg-main-cont {
+    display: flex;
+    flex-direction: column;
+    background-color:#004165;
+    padding: 20px;
+    gap: 10px;
+    border-radius: 7px;
+    width: 80%;
+    max-width: 600px;
+    position: relative;
+}
+
+.edit-reg-label {
+    color: white;
+    margin-right: auto;
+    padding-right: 50px;
+}
+
+.edit-reg-input {
+    width: 350px;
+    height: 30px;
+    text-indent: 10px;
+}
+
+.edit-reg-title {
+    color: white;
+    font-size: 2rem;
+}
+
+.edit-reg-hr {
+    margin-bottom: 10px;
+}
+
+.edit-reg-confirm-btn {
+    background-color: green;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.edit-reg-delete-btn {
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    margin-right: auto;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.edit-reg-back-button {
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    padding-left: 30px;
+    padding-right: 30px;
+    margin-right: auto;
+    font-size: 1rem;
+    cursor: pointer;
+}

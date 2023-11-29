@@ -1,0 +1,81 @@
+::-webkit-scrollbar {
+    width: 3px;
+}
+
+::-webkit-scrollbar-track {
+    background: #F2F2F2;
+    border-right: 1px solid lightgray;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #9c9c9c;
+    border-radius: 100px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #606060;
+} 
+
+.table-main-cont {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    align-content: start;
+    color: black;
+    background-color: rgb(236, 236, 236);
+    border-top: 1px solid lightgray;
+    border-bottom: 1px solid lightgray;
+    position: relative;
+    flex: 1 1 100%;
+    overflow: overlay;
+
+}
+
+.table-col-box {
+    display: flex;
+    background-color: #004165;
+    color: white;
+    min-width: 80px;
+    height: 50px;
+    border: 1px solid lightgray;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
+}
+
+.table-row-box {
+    display: flex;
+    min-width: 80px;
+    min-height: 50px;
+    height: 50px;
+    border: 1px solid lightgray;
+    font-size: 0.8rem;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
+}
+
+.loading-table-text {
+    position: absolute;
+    width: 100%;
+    top: 100px;
+    text-align: center;
+}
+
+.table-sub-grid-cols {
+    display: grid;
+}
+
+.table-sub-grid-elems {
+    display: grid;
+    overflow: overlay;
+
+}
+
+.checkedrow-table-checkbox {
+    height: calc(100% - 20px);
+    flex: 1;
+}
+

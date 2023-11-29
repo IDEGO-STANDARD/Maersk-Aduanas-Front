@@ -12,11 +12,43 @@
     left: 0;
     transition: all 0.5s;
     z-index: 1;
-
 }
 
 .sidebar-closed {
     width: 76px;
+}
+
+.sidebar-tab {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    color: white;   
+    padding: 12px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    outline: none; 
+    transition: all 0.1s;
+}
+
+.sidebar-title-icon-cont {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    outline: none; 
+    gap: 55px;
+}
+
+.submenu-container {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    color: white;
+    text-decoration: none;
+    margin-top: 20px;
+    padding: 5px;
+    border-radius: 0.5rem;
+    width: 100%;
 }
 
 .sidebar-navlinks {
@@ -38,6 +70,15 @@
     color: #353535;
 }
 
+.maintbasactive {
+    background-color: white;
+    color: #353535;
+}
+
+.reducedpadding {
+    padding-bottom: 0px;
+}
+
 .navlink-tab-name {
     overflow: hidden;
     white-space: nowrap;
@@ -55,15 +96,48 @@
     transition: all 0.2s;
 }
 
+.sidebar-submenu-navlinks {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: white;
+    text-decoration: none;
+    border-radius: 10px;
+    padding: 10px;
+    width: calc(100% + 30px);
+    color: white;
+    margin-left: -15px;
+}
+
+.submenu-tab-name {
+    overflow: hidden;
+    white-space: nowrap;
+    transition: all 0.5s, color 1ms;
+    visibility: visible;
+    transition-delay: 0.15s, color 1ms;
+}
+
+.submenu-tab-name-closed {
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden; 
+    transition: all 0.2s;
+}
+
 .navlink-icon {
     display: flex;
     font-size: 24px;
 }
 
 #sidebar a.active {
-    background-color: white;
+    background-color: #353535;
+    color: white;
+}
+
+.navsubtabsactivesubmenu {
     color: #353535;
 }
+
 
 .move-block {
     width: 76px;

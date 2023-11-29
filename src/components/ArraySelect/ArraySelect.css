@@ -1,0 +1,47 @@
+.arrayselect-cont {
+    display: grid;
+    flex: 1;
+    margin-left: auto;
+    overflow: hidden;
+    color: white;
+    margin-top: 10px;
+    gap: 10px 0px;
+}
+
+.arrayselect-cont div {
+    background-color: rgb(243, 243, 243);
+    color: black;
+    width: 100%;
+    display: flex;
+    padding: 5px;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.arrayselect-cont span {
+    border-left: none;
+    width: 100%;
+    display: flex;
+    padding-top: 5px;
+    align-items: center;
+    justify-content: center;
+}
+
+.arrayselect-cont input {
+    width: calc(100% - 5px);
+    padding: 5px;
+    outline: none;
+    border: none;
+}
+
+.arrayselect-cont select {
+    width: calc(100% - 5px);
+    padding: 5px;
+    outline: none;
+    border: none;
+}
+
+.arrayselect-insert {
+    cursor: pointer;
+}

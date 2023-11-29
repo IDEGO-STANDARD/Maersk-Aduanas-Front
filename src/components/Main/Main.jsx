@@ -1,8 +1,8 @@
 import { Outlet, Navigate } from "react-router-dom"
 import { useContext, useEffect, useState } from "react"
 import { UserContext } from "../../context/UserContext"
-import { BarChart, EnvelopePaperFill } from "react-bootstrap-icons"
-import { TbMailUp, TbMailDown } from "react-icons/tb"
+import { BarChart, EnvelopePaperFill, People, Person, Lock, Gear } from "react-bootstrap-icons"
+import { TbMailUp, TbMailDown, TbMail } from "react-icons/tb"
 import { FaTowerCell } from "react-icons/fa6"
 import Sidebar from "../Sidebar/Sidebar"
 import Navbar from "../Navbar/Navbar"
@@ -29,11 +29,53 @@ function Main() {
         })
     }, []) */
 
-    let tabItems = []
-    tabItems.push({name: "Dashboard", icon: <BarChart />, path: "/"})
-    tabItems.push({name: "Órdenes de trabajo impo", icon: <TbMailDown />, path: "/ordenes/ingreso"})
-    tabItems.push({name: "Órdenes de trabajo expo", icon: <TbMailUp />, path: "/ordenes/salida"})
-    tabItems.push({name: "Torre de control", icon: <FaTowerCell />, path: "/control"})
+    let tabItems = [
+        {
+            name: "Dashboard",
+            icon: <BarChart />,
+            path: "/",
+            submenus: [] // No submenus for Dashboard
+        },
+        {
+            name: "Órdenes de trabajo",
+            icon: <TbMail />, // Use a general icon for the parent tab
+            submenus: [
+                {
+                    name: "Órdenes de trabajo ingreso",
+                    icon: <TbMailDown />,
+                    path: "/ordenes/ingreso"
+                },
+                {
+                    name: "Órdenes de trabajo salida",
+                    icon: <TbMailUp />,
+                    path: "/ordenes/salida"
+                }
+            ]
+        },
+        {
+            name: "Torre de control",
+            icon: <FaTowerCell />,
+            path: "/control",
+            submenus: [] // No submenus for Torre de control
+        },
+        {
+            name: "Administración",
+            icon: <Gear />,
+            submenus: [
+                {
+                    name: "Usuarios",
+                    icon: <Person />,
+                    path: "/administracion/usuarios"
+                },
+                {
+                    name: "Roles",
+                    icon: <Lock />,
+                    path: "/administracion/roles"
+                }
+            ] // No submenus for Torre de control
+        }
+    ];
+    
     
 
     const handleToggleSidebar = () => {

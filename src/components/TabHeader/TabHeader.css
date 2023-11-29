@@ -1,0 +1,12 @@
+.tab-header-main-cont {
+    display: flex;
+    border-bottom: 2px solid gray;
+    padding: 10px 0px 10px 0px;
+    margin-bottom: 30px;
+}
+
+.tab-header-title {
+    font-size: 2rem;
+    font-weight: 600;
+    color: black;
+}
