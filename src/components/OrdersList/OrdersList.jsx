@@ -8,7 +8,8 @@ import axiosInstance from "../../axiosInstance/axiosInstance";
 import FiltersMenu from "../FiltersMenu/FiltersMenu";
 import TableRowColumnSelect from "../TableRowColumnSelect/TableRowColumnSelect";
 import RowsTableConfigurationMenu from "../RowsTableConfigurationMenu/RowsTableConfigurationMenu"
-import IncidentPopup from '../IncidentPopup/IncidentPopup';
+import OrderPopup from "../OrderPopup/OrderPopup";
+import OrderPopupIncident from "../OrderPopupIncident/OrderPopupIncident";
 import "./OrdersList.css";
 
 const OrdersList = ({ }) => {
@@ -177,7 +178,7 @@ const OrdersList = ({ }) => {
         </div> */}
         <RowsTableConfigurationMenu filtersections={filtersections} columns={columns} changeColumnExceptions={changeColumnExceptions} />
         <RowsTable columnExceptions={columnExceptions} loading={loading} data={orders} ComponentBeforeKeys={OrderRowsBeforeComponent} onClickFunc={openDetails} onOpenPopup={handleOpenPopup} />
-        <IncidentPopup isOpen={isPopupOpen} onClose={handleClosePopup} orderId={popupOrderId}/>
+        <OrderPopup isOpen={isPopupOpen} onClose={handleClosePopup} orderId={popupOrderId} PopupComponent={OrderPopupIncident} />
         <div></div>
         <div></div>
     </div>
