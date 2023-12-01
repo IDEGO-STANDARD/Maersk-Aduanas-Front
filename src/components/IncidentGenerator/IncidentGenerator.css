@@ -115,6 +115,15 @@
     background-color: rgb(233, 233, 233);
 }
 
+.ig-rendered-keys-value-textarea {
+    outline: none;
+    width: 100%;
+    padding: 10px 10px 10px 5px;
+    border: 1px solid gray;
+    resize: vertical;
+}
+
+
 .ig-buttons-cont {
     display: flex;
     justify-content: space-between;

@@ -1,30 +1,33 @@
-import { useState, useEffect } from "react"
-import { useParams, Link, useNavigate } from "react-router-dom"
-import axiosInstance from "../../axiosInstance/axiosInstance"
-import toast from "react-hot-toast"
-import "./IncidentGenerator.css"
+import { useState, useEffect, useRef } from "react";
+import { useParams, Link, useNavigate } from "react-router-dom";
+import axiosInstance from "../../axiosInstance/axiosInstance";
+import toast from "react-hot-toast";
+import "./IncidentGenerator.css";
 
 const IncidentGenerator = () => {
+  const { ordtype, ordnumber, incid } = useParams();
+  const navigate = useNavigate();
 
-  let { ordtype, ordnumber, incid } = useParams();
-  const navigate = useNavigate()
+  const formRef = useRef(null);
 
-  const [order, setOrder] = useState("")
-  const [incidentParam, setIncidentsParam] = useState([])
+  const [order, setOrder] = useState("");
+  const [incidentParam, setIncidentsParam] = useState([]);
   const [paramLoading, setParamLoading] = useState(true);
 
+  const [formValues, setFormValues] = useState({});
+  const [observaciones, setObservaciones] = useState("");
+
   useEffect(() => {
-    const fetchOrderDetails = () => {
-      axiosInstance.get(`/get_detalle?id=${ordnumber}`)
-        .then((res) => {
-          console.log(res.data)
-          setOrder(res.data)
-        })
-        .catch((error) => {
-          console.error("ERROR", error)
-          toast.error(error.response.data.error)
-        })
-    }
+    const fetchOrderDetails = async () => {
+      try {
+        const res = await axiosInstance.get(`/get_detalle?id=${ordnumber}`);
+        console.log(res.data);
+        setOrder(res.data);
+      } catch (error) {
+        console.error("ERROR", error);
+        toast.error(error.response?.data?.error || "Error fetching order details");
+      }
+    };
 
     const fetchIncidents = async () => {
       try {
@@ -35,27 +38,92 @@ const IncidentGenerator = () => {
       } catch (error) {
         setParamLoading(false);
         console.error("ERROR", error);
-        toast.error(error.response.data.error);
+        toast.error(error.response?.data?.error || "Error fetching incidents");
       }
-    }
+    };
 
-    fetchOrderDetails()
-    fetchIncidents()
+    fetchOrderDetails();
+    fetchIncidents();
+  }, [ordnumber, ordtype, incid]);
 
-  }, [])
+  const handleInputChange = (event) => {
+    const { name, value, type, checked } = event.target;
+    setFormValues((prevValues) => ({
+      ...prevValues,
+      [name]: type === "checkbox" ? checked : value,
+    }));
+  };
 
-  console.log(order)
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const formData = {
+      "incidentId": incid,
+      "orderId": ordnumber,
+      "operacion": ordtype,
+      "sistema": { ...incidentParam.parametros.sistema },
+      "manuales": { ...formValues, observaciones }
+    };
+    console.log(formData);
+    /*
+    try {
+      const response = await axiosInstance.post("/your-endpoint", formData);
+      console.log(response.data);
+    } catch (error) {
+      console.error("ERROR", error);
+      toast.error(error.response?.data?.error || "Error submitting form");
+    }*/
+  };
 
   const inputType = {
     "SINI": "checkbox",
     "Certificado de Origen": "radio"
-  }
+  };
 
   const inputList = {
     "Certificado de Origen": ["Si", "No", "Acogimiento Posterior"]
-  }
+  };
 
-
+  const renderInputs = (item, index) => (
+    <div key={index} style={{ minWidth: "18%" }} className="ig-rendered-keys-key-cont">
+      <div className="ig-rendered-keys-top-cont">
+        <span className="ig-rendered-keys-key-text">{item}</span>
+      </div>
+      {inputType[item] === 'radio' ? (
+        <div>
+          {inputList[item].map((option, i) => (
+            <label key={i}>
+              <input
+                type="radio"
+                value={option}
+                name={item}
+                checked={formValues[item] === option}
+                onChange={handleInputChange}
+              />
+              {option}
+            </label>
+          ))}
+        </div>
+      ) : inputType[item] === 'checkbox' ? (
+        <label>
+          <input
+            type="checkbox"
+            checked={formValues[item] || false}
+            className="ig-rendered-keys-value-checkbox"
+            onChange={handleInputChange}
+            name={item}
+          />
+        </label>
+      ) : (
+        <input
+          className={`ig-rendered-keys-value-${inputType[item] || 'text'}`}
+          type={inputType[item] || 'text'}
+          value={formValues[item] || ''}
+          name={item}
+          onChange={handleInputChange}
+        />
+      )}
+    </div>
+  );
 
   return (
     <div className="ig-main-cont">
@@ -77,28 +145,25 @@ const IncidentGenerator = () => {
         {paramLoading ? 'Cargando...' :
           incidentParam.parametros.manuales.length > 0 && (
             <div className="ig-ingreso-cont">
-              {incidentParam.parametros.manuales.map((item, index) => (
-                <div key={index} style={{ minWidth: "18%" }} className="ig-rendered-keys-key-cont">
+              <form ref={formRef} onSubmit={handleSubmit}>
+                {incidentParam.parametros.manuales.map(renderInputs)}
+                <div className="ig-rendered-keys-key-cont">
                   <div className="ig-rendered-keys-top-cont">
-                    <span className="ig-rendered-keys-key-text">{item}</span>
+                    <span className="ig-rendered-keys-key-text">Observaciones</span>
                   </div>
-                  {inputType[item] === 'radio' ? (
-                    <div>
-                      {inputList[item].map((option, i) => (
-                        <label key={i}>
-                          <input type="radio" value={option} name={item} />
-                          {option}
-                        </label>
-                      ))}
-                    </div>
-                  ) : (
-                    <input className={'ig-rendered-keys-value-' + (inputType[item] || 'text')} type={inputType[item] || 'text'} />
-                  )}
+                  <textarea
+                    className="ig-rendered-keys-value-textarea"
+                    value={observaciones}
+                    onChange={(e) => setObservaciones(e.target.value)}
+                  />
                 </div>
-              ))}
+                <div className="ig-buttons-cont">
+                  <Link to={`/ordenes/${ordtype}`} className="ig-back-button">Volver</Link>
+                  <button type="submit" className="ig-send-button">Enviar</button>
+                </div>
+              </form>
             </div>
-          )
-        }
+          )}
         {paramLoading ? 'Cargando...' :
           Object.keys(incidentParam.parametros.sistema).length > 0 && (
             <div className="ig-sistema-cont">
@@ -110,17 +175,31 @@ const IncidentGenerator = () => {
                   <input type="text" className="ig-rendered-keys-value-text" value={value || 'Dato inválido/no existe.'} disabled />
                 </div>
               ))}
+              {incidentParam.parametros.manuales.length > 0 ? <div /> : (
+                <div>
+                  <form ref={formRef} onSubmit={handleSubmit}>
+                    <div className="ig-rendered-keys-key-cont">
+                      <div className="ig-rendered-keys-top-cont">
+                        <span className="ig-rendered-keys-key-text">Observaciones</span>
+                      </div>
+                      <textarea
+                        className="ig-rendered-keys-value-textarea"
+                        value={observaciones}
+                        onChange={(e) => setObservaciones(e.target.value)}
+                      />
+                    </div>
+                    <div className="ig-buttons-cont">
+                      <Link to={`/ordenes/${ordtype}`} className="ig-back-button">Volver</Link>
+                      <button type="submit" className="ig-send-button">Enviar</button>
+                    </div>
+                  </form >
+                </div>)}
             </div>
           )
         }
-
-      </div>
-      <div className="ig-buttons-cont">
-        <Link to={`/ordenes/${ordtype}`} className="ig-back-button">Volver</Link>
-        {order && <button className="ig-send-button">Enviar</button>}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default IncidentGenerator
+export default IncidentGenerator;
