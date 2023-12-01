@@ -29,22 +29,22 @@ function Login() {
 
     const loginSubmit = (e) => {
         e.preventDefault()
-        handleSet({"username":"IDEGO","registeredAt":"2023-08-16T01:15:13.530842Z","modifiedAt":"2023-10-10T15:22:59.100876Z","email":"irubio@idegostd.com","dni":"70365051","firstName":"Admin","lastName":"Admin","profilePicture":"https://storage.googleapis.com/maersk-entregas-production/profile-pictures/irubio.jpg","status":"ACTIVO","password":"","modules":["dashboard","solicitudesope","liquidaciones","app","integraciones","solicitudesfin","guias","cargasolicitudes","configuracion","liquidacionesope","liquidacionesfin","reportes","liquidaciontransportisa","liquidaciontransportista","liquidacionesanticipoope","liquidacionesanticipofin","liquidacionpersona","anticipoope","anticipofin","cargaanticipo","configroles","configusers","configcarriers","configroutes","configconcepts","configcenters","configdevices","configmobilities","configpeople"]})
-/*         setSubmitting(true)
-        axiosInstanceNoToken.post('/users/login', formData)
+        setSubmitting(true)
+        axiosInstanceNoToken.post('/login', formData)
         .then((res) => {
             toast.dismiss()
             toast.success("Login exitoso")
-            handleSet({...res.data.data})
+            console.log(res.data)
+            handleSet({...res.data})
             console.log(res)
-            localStorage.setItem('token', `${res.data.token}`);
+            localStorage.setItem('token', `${res.data.access_token}`);
         })
         .catch((error) => {
             console.log(error)
             toast.dismiss()
             toast.error("Credenciales inválidas")
             setSubmitting(false)
-        }) */
+        })
     }
 
     return (
@@ -56,12 +56,12 @@ function Login() {
                         <form className="login-form" onSubmit={loginSubmit}>
                             <div style={{display: "flex", flexDirection: "column", marginBottom: "30px"}}>
                                 <label className="login-input-label" htmlFor="loginusername">Usuario</label>
-                                <input /* required={true} */ value={formData.username} name="username" onChange={changeFormData} className="login-input" type="text" placeholder="Ingrese su username" id="loginusername"></input>
+                                <input required={true} value={formData.username} name="username" onChange={changeFormData} className="login-input" type="text" placeholder="Ingrese su username" id="loginusername"></input>
                             </div>
                             <div style={{display: "flex", flexDirection: "column", marginBottom: "70px"}}>
                                 <label className="login-input-label" htmlFor="loginpassword">Contraseña</label>
                                 <div style={{display: "flex", alignItems: "center", position: "relative"}}>
-                                    <input /* required={true} */ value={formData.password} name="password"onChange={changeFormData} className="login-input" type={seePassword ? "text" : "password"} placeholder="Ingrese su contraseña" id="loginpassword"></input>
+                                    <input required={true} value={formData.password} name="password"onChange={changeFormData} className="login-input" type={seePassword ? "text" : "password"} placeholder="Ingrese su contraseña" id="loginpassword"></input>
                                     <Eye style={{position: "absolute", right: "10px", color: "gray", cursor: "pointer"}} onClick={() => {setSeePassword(prev => !prev)}}/>
                                 </div>
                             </div>

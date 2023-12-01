@@ -35,7 +35,7 @@ function NavProfile({}) {
 
     return (
         <div className="navprofile-cont" onMouseDown={handleToggleOpenProfile} id="profile-cont">
-            <span className="navprofile-name" id="profile-cont">{`${userdata.firstName} ${userdata.lastName}`} <ChevronDown id="profile-cont"/></span>
+            <span className="navprofile-name" id="profile-cont">{`${userdata.nombre} ${userdata.apellido}`} <ChevronDown id="profile-cont"/></span>
             {isOpen && <div className="navprofile-dropdown-cont" id="profile">
                 <PersonCircle />
                 <Link to="/perfil" className="profile-config-link" id="profile">Perfil y preferencias</Link>

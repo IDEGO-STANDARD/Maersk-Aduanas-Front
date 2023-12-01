@@ -16,10 +16,10 @@ function Sidebar({ isOpen, tabs }) {
         } else {
             // Navigate to the tab's path if it has no submenus
             navigate(tab.path);
-            // Close all submenus
-            setActiveSubmenus([]);
+            // Do not change the activeSubmenus state
         }
     };
+    
 
     const navLinkElems = tabs.map((tab) => {
         const isActive = (tab.path !== "/" ? location.pathname.includes(tab.path) : location.pathname === tab.path) || (tab.submenus && tab.submenus.some(submenu => location.pathname.includes(submenu.path)));

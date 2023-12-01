@@ -1,7 +1,7 @@
 import { useState } from "react"
 import ConfirmationPopup from "../ConfirmationPopup/ConfirmationPopup"
 import ArraySelect from "../ArraySelect/ArraySelect"
-import axiosPythonInstance from "../../axiosInstance/axiosPythonInstance"
+import axiosInstance from "../../axiosInstance/axiosInstance"
 import toast from "react-hot-toast"
 import "./CreateReg.css"
 
@@ -120,7 +120,7 @@ function CreateReg({ filekey, back, stringfile, changeOpenCreate, freewidth, add
             body = form
         }
         console.log(body)
-        axiosPythonInstance.post(submitEndpoint, body, config)
+        axiosInstance.post(submitEndpoint, body, config)
         .then((res) => {
             setSubmitting(false)
             if(additionalfunc) {
@@ -137,7 +137,7 @@ function CreateReg({ filekey, back, stringfile, changeOpenCreate, freewidth, add
             setSubmitting(false)
             console.log(err)
             toast.dismiss()
-            toast.error(err.response.data.message)
+            toast.error(err.response.message)
             clearCreateReg()
             changeOpenCreate(false)
         })

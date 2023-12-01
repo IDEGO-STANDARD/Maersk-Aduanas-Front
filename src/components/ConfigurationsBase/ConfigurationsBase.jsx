@@ -48,11 +48,12 @@ function ConfigurationsBase({editRegInputRows, opencloseout, pagination=true ,re
             const queryParams = new URLSearchParams(filters).toString();
             axiosInstance.get(pagination ? `${configpath}?${defaultfilter}&${queryParams}&offset=${offset}&size=${pagesize}` : `${configpath}?${defaultfilter}&${queryParams}`)
             .then((res) => {
+                console.log(res.data)
                 setLoading(false)
                 setTotalrows(res.data.total_rows)
                 if(notalldata && notalldata.length > 0) {
                     let resarr = []
-                    res.data.data.forEach((row) => {
+                    res.data.roles.forEach((row) => {
                         let flag = true
                         notalldata.forEach((item) => {
                             if(row[item.key] != item.value) {
@@ -71,7 +72,7 @@ function ConfigurationsBase({editRegInputRows, opencloseout, pagination=true ,re
                     }
                 }
                 else {
-                    setRawData(res.data.data)
+                    setRawData(res.data)
                     if(tablecheck) {
                         setCheckedrows(res.data.data.map((dataobj) => {
                             return false
@@ -240,7 +241,7 @@ function ConfigurationsBase({editRegInputRows, opencloseout, pagination=true ,re
                     body[key] = `${body[key]}T00:00:00.000Z`
                 }
             })}
-            axiosInstance.put(`${configpath}/update`, body)
+            axiosInstance.put(`${configpath}`, body)
             .then((res) => {
                 setSubmitting(false)
                 setRawData((prev) => {
@@ -256,7 +257,7 @@ function ConfigurationsBase({editRegInputRows, opencloseout, pagination=true ,re
                 console.log(error)
                 setEditRow(-1)
                 toast.dismiss()
-                toast.error(err.response.data.message)
+                toast.error(err.response.message)
                 toast.error(`Error al actualizar ${mainname.toLowerCase}`)
             })
         }

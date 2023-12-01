@@ -18,7 +18,7 @@ function Main() {
     const [isOpen, setIsOpen] = useState(false)
     
 /*     useEffect(() => {
-        axiosInstance.get("/users/validate-token")
+        axiosInstance.get("/validate-token")
         .then(() => {
         })
         .catch((error) => {

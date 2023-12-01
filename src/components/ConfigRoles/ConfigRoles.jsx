@@ -4,81 +4,28 @@ import "./ConfigRoles.css"
 
 function ConfigRoles() {
 
+    const modulos = [
+        {label: "Dashboard", name: "dashboard"},
+        {label: "Ordenes de trabajo", name: "ordenestrabajo"},
+        {label: "Torre de control", name: "torrecontrol"},
+        {label: "Administracion usuarios", name: "adminusuarios"},
+    ]
+
     const editRegInputRows = [
-        {label: "Nombre", name: "name", type: "text"}, 
-        {label: "Modulos", type: "checkboxes", name: "modules", checkboxes: [
-            {label: "Dashboard", name: "dashboard"},
-            {label: "Reportes", name: "reportes"},
-            {label: "Configuración", name: "configuracion"},
-            {label: "Carga de solicitudes", name: "cargasolicitudes"},
-            {label: "Gestión de solicitudes - OPE", name: "solicitudesope"},
-            {label: "Gestión de solicitudes - FIN", name: "solicitudesfin"},
-            {label: "Carga de anticipo", name: "cargaanticipo"},
-            {label: "Gestión de solicitudes anticipo - OPE", name: "anticipoope"},
-            {label: "Gestión de solicitudes anticipo - FIN", name: "anticipofin"},
-            {label: "Gestión de liquidaciones - OPE", name: "liquidacionesope"},
-            {label: "Gestión de liquidaciones - FIN", name: "liquidacionesfin"},
-            {label: "Gestión de liquidaciones de anticipo - OPE", name: "liquidacionesanticipoope"},
-            {label: "Gestión de liquidaciones de anticipo - FIN", name: "liquidacionesanticipofin"},
-            {label: "Rendición viajes", name: "liquidaciontransportista"},
-            {label: "Rendición anticipos", name: "liquidacionpersona"},
-            {label: "Integraciones", name: "integraciones"},
-            {label: "Guías de remisión", name: "guias"},
-            {label: "App móvil", name: "app"},
-            {label: "Administración usuarios", name: "configusers"},
-            {label: "Administración transportistas", name: "configcarriers"},
-            {label: "Administración personas", name: "configpeople"},
-            {label: "Administración tarifarios", name: "configroutes"},
-            {label: "Administración conceptos", name: "configconcepts"},
-            {label: "Administración dispositivos", name: "configdevices"},
-            {label: "Administración centros", name: "configcenters"},
-            {label: "Administración movilidades", name: "configmobilities"},
-            {label: "Administración roles", name: "configroles"},
-            {label: "Administración impuestos de proveedor", name: "configtaxes"},
-            {label: "Administración proveedores frecuentes", name: "configfrecuent"},
-        ]}
+        {label: "Nombre", name: "nombre", type: "text"}, 
+        {label: "Modulos", type: "checkboxes", name: "modules", checkboxes: modulos}
     ]
 
     const createRegInputRows = [
-        {label: "Nombre", name: "name", type: "text", ph: "Ingrese nombre del rol"}, 
-        {label: "Modulos", type: "checkboxes", name: "modules", checkboxes: [
-            {label: "Dashboard", name: "dashboard"},
-            {label: "Reportes", name: "reportes"},
-            {label: "Configuración", name: "configuracion"},
-            {label: "Carga de solicitudes", name: "cargasolicitudes"},
-            {label: "Gestión de solicitudes - OPE", name: "solicitudesope"},
-            {label: "Gestión de solicitudes - FIN", name: "solicitudesfin"},
-            {label: "Carga de anticipo", name: "cargaanticipo"},
-            {label: "Gestión de solicitudes anticipo - OPE", name: "anticipoope"},
-            {label: "Gestión de solicitudes anticipo - FIN", name: "anticipofin"},
-            {label: "Gestión de liquidaciones - OPE", name: "liquidacionesope"},
-            {label: "Gestión de liquidaciones - FIN", name: "liquidacionesfin"},
-            {label: "Gestión de liquidaciones de anticipo - OPE", name: "liquidacionesanticipoope"},
-            {label: "Gestión de liquidaciones de anticipo - FIN", name: "liquidacionesanticipofin"},
-            {label: "Rendición viajes", name: "liquidaciontransportista"},
-            {label: "Rendición anticipos", name: "liquidacionpersona"},
-            {label: "Integraciones", name: "integraciones"},
-            {label: "Guías de remisión", name: "guias"},
-            {label: "App móvil", name: "app"},
-            {label: "Administración usuarios", name: "configusers"},
-            {label: "Administración transportistas", name: "configcarriers"},
-            {label: "Administración personas", name: "configpeople"},
-            {label: "Administración tarifarios", name: "configroutes"},
-            {label: "Administración conceptos", name: "configconcepts"},
-            {label: "Administración dispositivos", name: "configdevices"},
-            {label: "Administración centros", name: "configcenters"},
-            {label: "Administración movilidades", name: "configmobilities"},
-            {label: "Administración roles", name: "configroles"},
-            {label: "Administración impuestos de proveedor", name: "configtaxes"},
-            {label: "Administración proveedores frecuentes", name: "configfrecuent"},   
-        ]}
+        {label: "Nombre", name: "nombre", type: "text", ph: "Ingrese nombre del rol"}, 
+        {label: "Modulos", type: "checkboxes", name: "modules", checkboxes: modulos}
     ]
     
     const dataColumns = ["Nombre de rol"]
 
-    const createDataObj = {name: "", modules: []}
+    const createDataObj = {nombre: "", modules: []}
 
-    const filtersObj = [{key: "name", name: "Nombre", type: "text", ph: "Ingrese nombre de rol"}]
+    const filtersObj = [{key: "nombre", name: "Nombre", type: "text", ph: "Ingrese nombre de rol"}]
 
     const configpath = "/roles"
 
@@ -94,7 +41,7 @@ function ConfigRoles() {
 
     const setDataArr = (rawdata) => {
         const newarr = rawdata.map((row) => {
-            return {name: row.name}
+            return {nombre: row.nombre}
         })
         return newarr
     }
