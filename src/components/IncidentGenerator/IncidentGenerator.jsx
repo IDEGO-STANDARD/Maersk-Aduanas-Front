@@ -14,6 +14,9 @@ const IncidentGenerator = () => {
   const [order, setOrder] = useState("");
   const [incidentParam, setIncidentsParam] = useState([]);
   const [paramLoading, setParamLoading] = useState(true);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [postState, setPostState] = useState(false)
+
 
   const [formValues, setFormValues] = useState({});
   const [observaciones, setObservaciones] = useState("");
@@ -57,6 +60,7 @@ const IncidentGenerator = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setIsSubmitting(true); // disable the button
     const formData = {
       "incidentId": incid,
       "orderId": ordnumber,
@@ -69,11 +73,17 @@ const IncidentGenerator = () => {
     try {
       const response = await pythonInstance.post("/testpost", formData);
       console.log(response.data);
+      toast.success("Form submitted successfully!");
+      setIncidentsParam(response.data);
+      setPostState(true)
     } catch (error) {
       console.error("ERROR", error);
       toast.error(error.response?.data?.error || "Error submitting form");
+    } finally {
+      setIsSubmitting(false); // enable the button
     }
   };
+
 
   const inputType = {
     "SINI": "checkbox",
@@ -142,63 +152,90 @@ const IncidentGenerator = () => {
           <div className="ig-section-title">Liquidador: <span className="ig-order-title">{order.liquidador}</span></div>
         </div>
       </div>
-      <div className="ig-data-cont">
-        {paramLoading ? 'Cargando...' :
-          incidentParam.parametros.manuales.length > 0 && (
-            <div className="ig-ingreso-cont">
-              <form ref={formRef} onSubmit={handleSubmit}>
-                {incidentParam.parametros.manuales.map(renderInputs)}
-                <div className="ig-rendered-keys-key-cont">
-                  <div className="ig-rendered-keys-top-cont">
-                    <span className="ig-rendered-keys-key-text">Observaciones</span>
-                  </div>
-                  <textarea
-                    className="ig-rendered-keys-value-textarea"
-                    value={observaciones}
-                    onChange={(e) => setObservaciones(e.target.value)}
-                  />
-                </div>
-                <div className="ig-buttons-cont">
-                  <Link to={`/ordenes/${ordtype}`} className="ig-back-button">Volver</Link>
-                  <button type="submit" className="ig-send-button">Enviar</button>
-                </div>
-              </form>
-            </div>
-          )}
-        {paramLoading ? 'Cargando...' :
-          Object.keys(incidentParam.parametros.sistema).length > 0 && (
-            <div className="ig-sistema-cont">
-              {Object.entries(incidentParam.parametros.sistema).map(([key, value], index) => (
-                <div key={index} className="ig-rendered-keys-key-cont">
-                  <div className="ig-rendered-keys-top-cont">
-                    <span className="ig-rendered-keys-key-text">{key}</span>
-                  </div>
-                  <input type="text" className="ig-rendered-keys-value-text" value={value || 'Dato inválido/no existe.'} disabled />
-                </div>
+
+      {postState ?
+        (
+          <div id="response-container" className="ig-data-cont">
+            <h2 id="response-title" className="response-title">Response:</h2>
+            <hr />
+            <ul id="response-list" className="response-list">
+              {Object.entries(incidentParam).map(([key, value], index) => (
+                <li key={index} id={`response-item-${index}`} className="response-item">
+                  <strong className="response-key">{key}: </strong>
+                  {typeof value === 'object' ? (
+                    <ul id={`sublist-${index}`} className="sublist">
+                      {Object.entries(value).map(([subKey, subValue], subIndex) => (
+                        <li key={subIndex} id={`subitem-${index}-${subIndex}`} className="subitem">
+                          <strong className="subitem-key">{subKey}:</strong> {typeof subValue === 'object' ? JSON.stringify(subValue, null, 2) : subValue}
+                        </li>
+                      ))}
+                    </ul>
+                  ) : value}
+                </li>
               ))}
-              {incidentParam.parametros.manuales.length > 0 ? <div /> : (
-                <div>
-                  <form ref={formRef} onSubmit={handleSubmit}>
-                    <div className="ig-rendered-keys-key-cont">
-                      <div className="ig-rendered-keys-top-cont">
-                        <span className="ig-rendered-keys-key-text">Observaciones</span>
+            </ul>
+          </div>
+
+        ) :
+        (paramLoading ? <div className="ig-data-cont">Cargando...</div> :
+          <div className="ig-data-cont">
+            {incidentParam.parametros.manuales.length > 0 && (
+              <div className="ig-ingreso-cont">
+                <form ref={formRef} onSubmit={handleSubmit}>
+                  {incidentParam.parametros.manuales.map(renderInputs)}
+                  <div className="ig-rendered-keys-key-cont">
+                    <div className="ig-rendered-keys-top-cont">
+                      <span className="ig-rendered-keys-key-text">Observaciones</span>
+                    </div>
+                    <textarea
+                      className="ig-rendered-keys-value-textarea"
+                      value={observaciones}
+                      onChange={(e) => setObservaciones(e.target.value)}
+                    />
+                  </div>
+                  <div className="ig-buttons-cont">
+                    <Link to={`/ordenes/${ordtype}`} className="ig-back-button">Volver</Link>
+                    <button type="submit" className="ig-send-button" disabled={isSubmitting}>Enviar</button>
+                  </div>
+                </form>
+              </div>
+            )}
+            {Object.keys(incidentParam.parametros.sistema).length > 0 && (
+              <div className="ig-sistema-cont">
+                {Object.entries(incidentParam.parametros.sistema).map(([key, value], index) => (
+                  <div key={index} className="ig-rendered-keys-key-cont">
+                    <div className="ig-rendered-keys-top-cont">
+                      <span className="ig-rendered-keys-key-text">{key}</span>
+                    </div>
+                    <input type="text" className="ig-rendered-keys-value-text" value={value || 'Dato inválido/no existe.'} disabled />
+                  </div>
+                ))}
+                {incidentParam.parametros.manuales.length > 0 ? <div /> : (
+                  <div>
+                    <form ref={formRef} onSubmit={handleSubmit}>
+                      <div className="ig-rendered-keys-key-cont">
+                        <div className="ig-rendered-keys-top-cont">
+                          <span className="ig-rendered-keys-key-text">Observaciones</span>
+                        </div>
+                        <textarea
+                          className="ig-rendered-keys-value-textarea"
+                          value={observaciones}
+                          onChange={(e) => setObservaciones(e.target.value)}
+                        />
                       </div>
-                      <textarea
-                        className="ig-rendered-keys-value-textarea"
-                        value={observaciones}
-                        onChange={(e) => setObservaciones(e.target.value)}
-                      />
-                    </div>
-                    <div className="ig-buttons-cont">
-                      <Link to={`/ordenes/${ordtype}`} className="ig-back-button">Volver</Link>
-                      <button type="submit" className="ig-send-button">Enviar</button>
-                    </div>
-                  </form >
-                </div>)}
-            </div>
-          )
-        }
-      </div>
+                      <div className="ig-buttons-cont">
+                        <Link to={`/ordenes/${ordtype}`} className="ig-back-button">Volver</Link>
+                        <button type="submit" className="ig-send-button" disabled={isSubmitting}>Enviar</button>
+                      </div>
+                    </form >
+                  </div>)}
+              </div>
+            )}
+          </div>
+        )
+      }
+
+
     </div>
   );
 };
