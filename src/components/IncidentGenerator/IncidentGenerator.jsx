@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
-import axiosInstance from "../../axiosInstance/axiosInstance";
+import instance from "../../axiosInstance/axiosInstance";
+import pythonInstance from "../../axiosInstance/axiosPythonInstance";
 import toast from "react-hot-toast";
 import "./IncidentGenerator.css";
 
@@ -20,7 +21,7 @@ const IncidentGenerator = () => {
   useEffect(() => {
     const fetchOrderDetails = async () => {
       try {
-        const res = await axiosInstance.get(`/get_detalle?id=${ordnumber}`);
+        const res = await instance.get(`/get_detalle?id=${ordnumber}`);
         console.log(res.data);
         setOrder(res.data);
       } catch (error) {
@@ -31,7 +32,7 @@ const IncidentGenerator = () => {
 
     const fetchIncidents = async () => {
       try {
-        const response = await axiosInstance.get(`/incidenciasParametros?operacion=${ordtype}&orderId=${ordnumber}&id=${incid}`);
+        const response = await instance.get(`/incidenciasParametros?operacion=${ordtype}&orderId=${ordnumber}&id=${incid}`);
         console.log(response);
         setIncidentsParam(response.data);
         setParamLoading(false);
@@ -60,18 +61,18 @@ const IncidentGenerator = () => {
       "incidentId": incid,
       "orderId": ordnumber,
       "operacion": ordtype,
+      "recipient_email": "rvidal@idegostd.com",
       "sistema": { ...incidentParam.parametros.sistema },
       "manuales": { ...formValues, observaciones }
     };
     console.log(formData);
-    /*
     try {
-      const response = await axiosInstance.post("/your-endpoint", formData);
+      const response = await pythonInstance.post("/testpost", formData);
       console.log(response.data);
     } catch (error) {
       console.error("ERROR", error);
       toast.error(error.response?.data?.error || "Error submitting form");
-    }*/
+    }
   };
 
   const inputType = {
