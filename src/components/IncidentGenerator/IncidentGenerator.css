@@ -194,29 +194,44 @@
     color: #333;
 }
 
-.response-list {
-    list-style-type: none;
+.response-table {
+    border-collapse: collapse;
+    width: 100%;
 }
 
-.response-item {
-    margin-bottom: 1em;
+.response-row {
+    border-bottom: 1px solid #ddd;
 }
 
 .response-key {
     color: #666;
+    padding: 0.5em;
+    text-align: left;
 }
 
-.sublist {
-    padding-left: 1em;
-    list-style-type: none;
+.response-value {
+    padding: 0.5em;
+    text-align: left;
 }
 
-.subitem {
-    margin-bottom: 0.5em;
+.subtable {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.subrow {
+    border-bottom: 1px solid #eee;
 }
 
 .subitem-key {
     color: #999;
+    padding: 0.25em;
+    text-align: left;
+}
+
+.subitem-value {
+    padding: 0.25em;
+    text-align: left;
 }
 
 
