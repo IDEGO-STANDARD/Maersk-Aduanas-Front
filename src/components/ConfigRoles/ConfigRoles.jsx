@@ -12,18 +12,18 @@ function ConfigRoles() {
     ]
 
     const editRegInputRows = [
-        {label: "Nombre", name: "nombre", type: "text"}, 
-        {label: "Modulos", type: "checkboxes", name: "modules", checkboxes: modulos}
+        {label: "Nombre", name: "rol", type: "text"}, 
+        {label: "Modulos", type: "checkboxes", name: "permisos", checkboxes: modulos}
     ]
 
     const createRegInputRows = [
-        {label: "Nombre", name: "nombre", type: "text", ph: "Ingrese nombre del rol"}, 
-        {label: "Modulos", type: "checkboxes", name: "modules", checkboxes: modulos}
+        {label: "Nombre", name: "rol", type: "text", ph: "Ingrese nombre del rol"}, 
+        {label: "Modulos", type: "checkboxes", name: "permisos", checkboxes: modulos}
     ]
     
     const dataColumns = ["Nombre de rol"]
 
-    const createDataObj = {nombre: "", modules: []}
+    const createDataObj = {rol: "", permisos: []}
 
     const filtersObj = [{key: "nombre", name: "Nombre", type: "text", ph: "Ingrese nombre de rol"}]
 
@@ -35,13 +35,13 @@ function ConfigRoles() {
 
     const delkey = "id"
 
-    const checkboxeskey = "modules"
+    const checkboxeskey = "permisos"
 
     const tabname = "Administración"
 
     const setDataArr = (rawdata) => {
         const newarr = rawdata.map((row) => {
-            return {nombre: row.nombre}
+            return {nombre: row.rol}
         })
         return newarr
     }

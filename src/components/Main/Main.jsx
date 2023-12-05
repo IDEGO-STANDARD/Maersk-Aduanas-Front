@@ -17,8 +17,8 @@ function Main() {
     const [timer, setTimer] = useState(false)
     const [isOpen, setIsOpen] = useState(false)
     
-/*     useEffect(() => {
-        axiosInstance.get("/validate-token")
+    useEffect(() => {
+        axiosInstance.get("/verify-token")
         .then(() => {
         })
         .catch((error) => {
@@ -27,7 +27,7 @@ function Main() {
                 toast.remove()
             }
         })
-    }, []) */
+    }, [])
 
     let tabItems = [
         {

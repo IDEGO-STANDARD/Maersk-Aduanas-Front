@@ -53,7 +53,7 @@ function ConfigurationsBase({editRegInputRows, opencloseout, pagination=true ,re
                 setTotalrows(res.data.total_rows)
                 if(notalldata && notalldata.length > 0) {
                     let resarr = []
-                    res.data.roles.forEach((row) => {
+                    res.data.forEach((row) => {
                         let flag = true
                         notalldata.forEach((item) => {
                             if(row[item.key] != item.value) {
@@ -74,7 +74,7 @@ function ConfigurationsBase({editRegInputRows, opencloseout, pagination=true ,re
                 else {
                     setRawData(res.data)
                     if(tablecheck) {
-                        setCheckedrows(res.data.data.map((dataobj) => {
+                        setCheckedrows(res.data.map((dataobj) => {
                             return false
                         }))
                     }
@@ -241,12 +241,13 @@ function ConfigurationsBase({editRegInputRows, opencloseout, pagination=true ,re
                     body[key] = `${body[key]}T00:00:00.000Z`
                 }
             })}
-            axiosInstance.put(`${configpath}`, body)
+            const queryParams = rawdata[index][delkey];
+            axiosInstance.put(`${configpath}/${queryParams}`, body)
             .then((res) => {
                 setSubmitting(false)
                 setRawData((prev) => {
                     let newarr = prev
-                    newarr[index] = reg
+                    newarr[index] = res.data.data
                     return [...newarr]
                 })
                 toast.dismiss()
@@ -257,7 +258,7 @@ function ConfigurationsBase({editRegInputRows, opencloseout, pagination=true ,re
                 console.log(error)
                 setEditRow(-1)
                 toast.dismiss()
-                toast.error(err.response.message)
+                toast.error(error.response.message)
                 toast.error(`Error al actualizar ${mainname.toLowerCase}`)
             })
         }
@@ -293,8 +294,7 @@ function ConfigurationsBase({editRegInputRows, opencloseout, pagination=true ,re
             console.log(error)
             setEditRow(-1)
             toast.dismiss()
-            toast.error(err.response.data.message)
-            toast.error(`Error al eliminar ${mainname.toLowerCase}`)
+            toast.error(error.response.data.message)
         })
     }
 

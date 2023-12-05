@@ -119,7 +119,6 @@ function CreateReg({ filekey, back, stringfile, changeOpenCreate, freewidth, add
             })}
             body = form
         }
-        console.log(body)
         axiosInstance.post(submitEndpoint, body, config)
         .then((res) => {
             setSubmitting(false)
