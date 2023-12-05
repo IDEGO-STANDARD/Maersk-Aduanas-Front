@@ -127,7 +127,7 @@ function CreateReg({ filekey, back, stringfile, changeOpenCreate, freewidth, add
             }
             toast.dismiss()
             console.log(res)
-            addRegToData(res.data.data)
+            addRegToData(res.data)
             toast.success(`${title} registrado/a exitosamente`)
             clearCreateReg()
             changeOpenCreate(false)

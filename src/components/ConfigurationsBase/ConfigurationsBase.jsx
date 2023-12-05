@@ -247,7 +247,8 @@ function ConfigurationsBase({editRegInputRows, opencloseout, pagination=true ,re
                 setSubmitting(false)
                 setRawData((prev) => {
                     let newarr = prev
-                    newarr[index] = res.data.data
+                    console.log(res.data)
+                    newarr[index] = res.data
                     return [...newarr]
                 })
                 toast.dismiss()

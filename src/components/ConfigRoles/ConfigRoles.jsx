@@ -1,8 +1,31 @@
+import { useState, useEffect } from "react"
+import axiosInstance from "../../axiosInstance/axiosInstance"
 import ConfigurationsBase from "../ConfigurationsBase/ConfigurationsBase"
 import "./ConfigRoles.css"
 
 
 function ConfigRoles() {
+
+    const [permisosOptions, setPermisosOptions] = useState([])
+
+
+    useEffect(() => {
+        axiosInstance.get("/permisos")
+        .then((res) => {
+            console.log(res)
+            setPermisosOptions(() => {
+                let resultarr = []
+                res.data.forEach((permiso) => {
+                    resultarr.push({label: permiso.nombre, name: permiso.id})
+                })
+                return resultarr    
+            })
+        })
+        .catch((error) => {
+            console.log(error)
+        })
+    }, [])
+
 
     const modulos = [
         {label: "Dashboard", name: "dashboard"},
@@ -12,18 +35,18 @@ function ConfigRoles() {
     ]
 
     const editRegInputRows = [
-        {label: "Nombre", name: "rol", type: "text"}, 
-        {label: "Modulos", type: "checkboxes", name: "permisos", checkboxes: modulos}
+        {label: "Nombre", name: "nombre", type: "text"}, 
+        {label: "Modulos", type: "checkboxes", name: "permisos", checkboxes: permisosOptions}
     ]
 
     const createRegInputRows = [
-        {label: "Nombre", name: "rol", type: "text", ph: "Ingrese nombre del rol"}, 
-        {label: "Modulos", type: "checkboxes", name: "permisos", checkboxes: modulos}
+        {label: "Nombre", name: "nombre", type: "text", ph: "Ingrese nombre del rol"}, 
+        {label: "Modulos", type: "checkboxes", name: "permisos", checkboxes: permisosOptions}
     ]
     
     const dataColumns = ["Nombre de rol"]
 
-    const createDataObj = {rol: "", permisos: []}
+    const createDataObj = {nombre: "", permisos: []}
 
     const filtersObj = [{key: "nombre", name: "Nombre", type: "text", ph: "Ingrese nombre de rol"}]
 
@@ -41,7 +64,7 @@ function ConfigRoles() {
 
     const setDataArr = (rawdata) => {
         const newarr = rawdata.map((row) => {
-            return {nombre: row.rol}
+            return {nombre: row.nombre}
         })
         return newarr
     }

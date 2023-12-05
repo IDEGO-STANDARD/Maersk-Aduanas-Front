@@ -16,7 +16,7 @@ function ConfigUsuarios() {
                 let resultarr = []
                 resultarr.push({name: "Seleccione un rol", value: ""})
                 res.data.forEach((role) => {
-                    resultarr.push({name: role.rol, value: role.id})
+                    resultarr.push({name: role.nombre, value: role.id})
                 })
                 return resultarr    
             })
