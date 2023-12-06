@@ -1,12 +1,14 @@
+import { useContext } from "react"
 import { CheckLg, XLg, SlashCircle, BookmarkPlusFill, FolderFill } from "react-bootstrap-icons"
 import { useParams } from "react-router-dom"
 import { Link } from "react-router-dom"
+import { UserContext } from "../../context/UserContext"
 import "./OrderRowsBeforeComponent.css"
 import TooltipElement from "../TooltipElement/TooltipElement"
 
 const OrderRowsBeforeComponent = ({ item, onOpenPopup }) => {
 
-    
+    const {userdata} = useContext(UserContext)
     const {ordtype} = useParams()
 
     let renderedIncidents = item.incidents.slice(0, 3).map((incident) => {
@@ -31,12 +33,14 @@ const OrderRowsBeforeComponent = ({ item, onOpenPopup }) => {
                     <TooltipElement tooltipText="Validación">
                         <Link to={`/ordenes/${ordtype}/${item.id}/validacion`} className="orbc-order-details-button" style={{ color: "green" }}><CheckLg /></Link>
                     </TooltipElement>
+                    {userdata.permisos.includes("4") && 
                     <TooltipElement tooltipText="">
                         <div className="orbc-order-details-button" style={{ color: "red" }}><XLg /></div>
-                    </TooltipElement>
+                    </TooltipElement>}
+                    {userdata.permisos.includes("4") && 
                     <TooltipElement tooltipText="">
                         <div className="orbc-order-details-button" style={{ color: "red" }}><SlashCircle /></div>
-                    </TooltipElement>
+                    </TooltipElement>}
                     <TooltipElement tooltipText="Generar Incidencia">
                         <div className="orbc-order-details-button" style={{ color: "blue" }} onClick={() => onOpenPopup(item.id)}><BookmarkPlusFill /></div>
                     </TooltipElement>

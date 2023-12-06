@@ -41,6 +41,7 @@ function ConfigUsuarios() {
         {label: "Nombre", name: "first_name", type: "text", ph: "Ingrese nombre"}, 
         {label: "Apellido", name: "last_name", type: "text", ph: "Ingrese apellido"}, 
         {label: "Email", name: "email", type: "email", ph: "Ingrese email"}, 
+        {label: "Contraseña", name: "password", type: "password", ph: "Ingrese contraseña"}, 
         {label: "Rol de usuario", required: true, name: "rol_id", type: "select", options: roleOptions},
     ]
     

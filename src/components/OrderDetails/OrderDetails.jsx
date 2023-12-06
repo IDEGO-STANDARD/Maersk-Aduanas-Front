@@ -1,15 +1,18 @@
 import { Link, useParams, useOutletContext } from "react-router-dom";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { EyeFill, EyeSlashFill } from "react-bootstrap-icons"
 import DataDisplay from "../DataDisplay/DataDisplay";
 import axiosPythonInstance from "../../axiosInstance/axiosPythonInstance"
 import toast from "react-hot-toast";
 import "./OrderDetails.css";
+import { UserContext } from "../../context/UserContext";
 
 const OrderDetails = ({}) => {
 
     const { ordtype, ordnumber } = useParams()
     const [order] = useOutletContext()
+
+    const {userdata} = useContext(UserContext)
 
     const [loading, setLoading] = useState(false)
 
@@ -47,8 +50,8 @@ const OrderDetails = ({}) => {
         <>
             <div className="od-split-div">
                 <div className="od-fields-cont">
-                    <DataDisplay minwidth="30%" data={order.data} />
-                    <button disabled={loading} onClick={createSintad} className="od-create-sintad-button">Crear en SINTAD</button>
+                    <DataDisplay minwidth="30%" data={order.data} edit={userdata.permisos.includes("4")} />
+                    {userdata.permisos.includes("4") && <button disabled={loading} onClick={createSintad} className="od-create-sintad-button">Crear en SINTAD</button>}
                 </div>
                 <div className="od-docutypes-cont">
                     {renderDocutypes}

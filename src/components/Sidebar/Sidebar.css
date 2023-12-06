@@ -37,6 +37,7 @@
     align-items: center;
     outline: none; 
     gap: 55px;
+    cursor: pointer;
 }
 
 .submenu-container {
@@ -107,6 +108,7 @@
     width: calc(100% + 30px);
     color: white;
     margin-left: -15px;
+    cursor: pointer;
 }
 
 .submenu-tab-name {

@@ -29,55 +29,59 @@ function Main() {
         })
     }, [])
 
-    let tabItems = [
-        {
-            name: "Dashboard",
-            icon: <BarChart />,
-            path: "/",
-            submenus: [] // No submenus for Dashboard
-        },
-        {
-            name: "Órdenes de trabajo",
-            icon: <TbMail />, // Use a general icon for the parent tab
-            submenus: [
-                {
-                    name: "Órdenes de trabajo ingreso",
-                    icon: <TbMailDown />,
-                    path: "/ordenes/ingreso"
-                },
-                {
-                    name: "Órdenes de trabajo salida",
-                    icon: <TbMailUp />,
-                    path: "/ordenes/salida"
-                }
-            ]
-        },
-        {
-            name: "Torre de control",
-            icon: <FaTowerCell />,
-            path: "/control",
-            submenus: [] // No submenus for Torre de control
-        },
-        {
-            name: "Administración",
-            icon: <Gear />,
-            submenus: [
-                {
-                    name: "Usuarios",
-                    icon: <Person />,
-                    path: "/administracion/usuarios"
-                },
-                {
-                    name: "Roles",
-                    icon: <Lock />,
-                    path: "/administracion/roles"
-                }
-            ] // No submenus for Torre de control
-        }
-    ];
-    
-    
+    let tabItems = []
+    tabItems.push({
+        name: "Dashboard",
+        icon: <BarChart />,
+        path: "/",
+        submenus: []
+    })
+    tabItems.push({
+        name: "Órdenes de trabajo",
+        icon: <TbMail />,
+        submenus: [
+            {
+                name: "Órdenes de trabajo ingreso",
+                icon: <TbMailDown />,
+                path: "/ordenes/ingreso"
+            },
+            {
+                name: "Órdenes de trabajo salida",
+                icon: <TbMailUp />,
+                path: "/ordenes/salida"
+            }
+        ]
+    })
+    tabItems.push({
+        name: "Torre de control",
+        icon: <FaTowerCell />,
+        path: "/control",
+        submenus: []
+    })
+    let admintab = {
+        name: "Administración",
+        icon: <Gear />,
+        submenus: []
+    }
+    if(userdata.permisos && userdata.permisos.includes("1")) {
+        admintab.submenus.push({
+            name: "Usuarios",
+            icon: <Person />,
+            path: "/administracion/usuarios"
+        })
+    }
+    if(userdata.permisos && userdata.permisos.includes("2")) {
+        admintab.submenus.push({
+            name: "Roles",
+            icon: <Lock />,
+            path: "/administracion/roles"
+        })
+    }
+    if(admintab.submenus.length > 0) {
+        tabItems.push(admintab)
+    }
 
+    
     const handleToggleSidebar = () => {
         setIsOpen((prev) => !prev)
     }
