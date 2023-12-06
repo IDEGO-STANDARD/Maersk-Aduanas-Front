@@ -30,8 +30,12 @@ function UserContextProvider({children}) {
         }
     }, [userdata])
 
+    const hasPermission = (permiso) => {
+        return userdata.permisos && userdata.permisos.includes(permiso);
+    }
+
     return (
-        <UserContext.Provider value={{isLogged: isLogged, userdata: userdata, handleSet: handleSet}}>
+        <UserContext.Provider value={{isLogged: isLogged, userdata: userdata, handleSet: handleSet, hasPermission: hasPermission}}>
             {children}
         </UserContext.Provider>
     )

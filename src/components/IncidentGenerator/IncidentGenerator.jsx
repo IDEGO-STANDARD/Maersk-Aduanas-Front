@@ -64,7 +64,7 @@ const IncidentGenerator = () => {
       "incidentId": incid,
       "orderId": ordnumber,
       "operacion": ordtype,
-      "recipient_email": "rvidal@idegostd.com",
+      "recipient_email": "csantamaria@idegostd.com",
       "sistema": { ...incidentParam.parametros.sistema },
       "manuales": { ...formValues, observaciones }
     };
