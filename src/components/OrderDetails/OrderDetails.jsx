@@ -50,8 +50,8 @@ const OrderDetails = ({}) => {
         <>
             <div className="od-split-div">
                 <div className="od-fields-cont">
-                    <DataDisplay minwidth="30%" data={order.data} edit={userdata.permisos.includes("4")} />
-                    {userdata.permisos.includes("4") && <button disabled={loading} onClick={createSintad} className="od-create-sintad-button">Crear en SINTAD</button>}
+                    <DataDisplay minwidth="30%" data={order.data} edit={userdata.permisos &&  userdata.permisos.includes("4")} />
+                    {userdata.permisos && userdata.permisos.includes("4") && <button disabled={loading} onClick={createSintad} className="od-create-sintad-button">Crear en SINTAD</button>}
                 </div>
                 <div className="od-docutypes-cont">
                     {renderDocutypes}

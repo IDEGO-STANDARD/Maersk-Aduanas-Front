@@ -54,7 +54,7 @@ const OrderParent = ({}) => {
             <div className="od-main-cont">
                 <span className="ol-title">{docutype ? `DOCUMENTOS DE ORDEN DE TRABAJO ${ordnumber}` :  `VALIDACIÓN DE ORDEN DE TRABAJO ${ordnumber}`}</span>
                 {order != 0 && <Outlet context={[order, handleChangeOrder, handleChangeDocument]}/>}
-                <button onClick={() => {nav(-1)}} className="od-back-button">Volver</button>
+                <button onClick={() => {nav(`/ordenes/${ordtype}`)}} className="od-back-button">Volver</button>
             </div>
         }
     </>

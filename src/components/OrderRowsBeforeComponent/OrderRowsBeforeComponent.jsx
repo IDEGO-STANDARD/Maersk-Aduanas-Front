@@ -29,15 +29,15 @@ const OrderRowsBeforeComponent = ({ item, onOpenPopup }) => {
                 <span className="orbc-order-details-title-value">{item.client}</span>
                 <span className="orbc-order-details-client">ORDEN DE TRABAJO</span>
                 <span className="orbc-order-details-client-value"> Nro: {item.id}</span>
-                <div className="orbc-order-details-buttons-cont">
+                <div className="orbc-order-details-buttons-cont" style={{width: userdata.permisos && userdata.permisos.includes("4") ? "150px" : "90px"}}>
                     <TooltipElement tooltipText="Validación">
                         <Link to={`/ordenes/${ordtype}/${item.id}/validacion`} className="orbc-order-details-button" style={{ color: "green" }}><CheckLg /></Link>
                     </TooltipElement>
-                    {userdata.permisos.includes("4") && 
+                    {userdata.permisos && userdata.permisos.includes("4") && 
                     <TooltipElement tooltipText="">
                         <div className="orbc-order-details-button" style={{ color: "red" }}><XLg /></div>
                     </TooltipElement>}
-                    {userdata.permisos.includes("4") && 
+                    {userdata.permisos && userdata.permisos.includes("4") && 
                     <TooltipElement tooltipText="">
                         <div className="orbc-order-details-button" style={{ color: "red" }}><SlashCircle /></div>
                     </TooltipElement>}
