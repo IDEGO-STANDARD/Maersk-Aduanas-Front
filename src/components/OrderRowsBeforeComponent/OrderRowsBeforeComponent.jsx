@@ -11,10 +11,11 @@ const OrderRowsBeforeComponent = ({ item, onOpenPopup }) => {
     const {userdata} = useContext(UserContext)
     const {ordtype} = useParams()
 
-    let renderedIncidents = item.incidents.slice(0, 3).map((incident) => {
-        return <div key={incident} className="orbc-incident-cont">{incident}</div>
-    })
-
+    // let renderedIncidents = item.incidents.slice(0, 3).map((incident) => {
+    //     return <div key={incident} className="orbc-incident-cont">{incident}</div>
+    // })
+    let renderedIncidents = <div key={item.incidents[item.incidents.length - 1]} className="orbc-incident-cont">{item.incidents[item.incidents.length - 1]}</div>
+    
     if(renderedIncidents.length === 0) {
         renderedIncidents.push(<div key={"No incident"} className="orbc-incident-cont">No hay incidencias</div>)
     }

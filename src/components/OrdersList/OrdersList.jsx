@@ -31,6 +31,7 @@ const OrdersList = ({ }) => {
                     console.log(res.data[0])
                     setLoading(false)
                     setOrders(res.data)
+                    console.log(res.data)
                     let cols = []
                     const objkeys = Object.keys(res.data[0].keys)
                     {

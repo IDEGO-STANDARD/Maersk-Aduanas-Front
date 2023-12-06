@@ -36,6 +36,7 @@ const IncidentGenerator = () => {
         const response = await instance.get(`/incidenciasParametros?operacion=${ordtype}&orderId=${ordnumber}&id=${incid}`);
         setIncidentsParam(response.data);
         setParamLoading(false);
+        console.log(`/incidenciasParametros?operacion=${ordtype}&orderId=${ordnumber}&id=${incid}`)
       } catch (error) {
         setParamLoading(false);
         console.error("ERROR", error);
@@ -63,13 +64,12 @@ const IncidentGenerator = () => {
       "incidentId": incid,
       "orderId": ordnumber,
       "operacion": ordtype,
-      "recipient_email": "csantamaria@idegostd.com",
+      "recipient_email": "rvidal@idegostd.com",
       "sistema": { ...incidentParam.parametros.sistema },
       "manuales": { ...formValues, observaciones }
     };
 
     try {
-      console.log("*****************************")
       const response = await pythonInstance.post("/testpost", formData);
       toast.success("Form submitted successfully!");
       setIncidentsParam(response.data);
