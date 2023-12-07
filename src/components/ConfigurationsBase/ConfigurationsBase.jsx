@@ -88,10 +88,10 @@ function ConfigurationsBase({editRegInputRows, opencloseout, pagination=true ,re
                 console.log(error)
                 if(error.response.status === 401) {
                     toast.dismiss()
-                    toast.error("El token ha caducado, actualice la ventana para volver al inicio de sesión")
+                    toast.error("El token ha caducado")
                 }
                 else {
-                    toast.error(error.response.data.message)
+                    toast.error(error.response.data.mensaje)
                 }
             })
         }
@@ -259,7 +259,7 @@ function ConfigurationsBase({editRegInputRows, opencloseout, pagination=true ,re
                 console.log(error)
                 setEditRow(-1)
                 toast.dismiss()
-                toast.error(error.response.message)
+                toast.error(error.response.mensaje)
                 toast.error(`Error al actualizar ${mainname.toLowerCase}`)
             })
         }
@@ -295,7 +295,7 @@ function ConfigurationsBase({editRegInputRows, opencloseout, pagination=true ,re
             console.log(error)
             setEditRow(-1)
             toast.dismiss()
-            toast.error(error.response.data.message)
+            toast.error(error.response.data.mensaje)
         })
     }
 
@@ -368,7 +368,7 @@ function ConfigurationsBase({editRegInputRows, opencloseout, pagination=true ,re
             setSubmitting(false)
             setOpenconfirmapprove(false)
             toast.dismiss()
-            toast.success(res.data.message)
+            toast.success(res.data.mensaje)
             removeRegs(res.data.data, approvekey)
             uncheckAllCheckedRows()
         })
@@ -376,7 +376,7 @@ function ConfigurationsBase({editRegInputRows, opencloseout, pagination=true ,re
             setSubmitting(false)
             setOpenconfirmapprove(false)
             console.log(error)
-            toast.error(error.response.data.message)
+            toast.error(error.response.data.mensaje)
             uncheckAllCheckedRows()
         })
     }
@@ -441,7 +441,7 @@ function ConfigurationsBase({editRegInputRows, opencloseout, pagination=true ,re
         })
         .catch((error) => {
             console.log(error)
-            toast.error(error.response.data.message)
+            toast.error(error.response.data.mensaje)
             setSubmitting(false)
         })
     }
@@ -476,14 +476,14 @@ function ConfigurationsBase({editRegInputRows, opencloseout, pagination=true ,re
         .then((res) => {
             setSubmitting(false)
             removeRegs([rawdata[openDetails][approvekey]], approvekey)
-            toast.success(res.data.message)
+            toast.success(res.data.mensaje)
             setOpenDetails(-1)
         })
         .catch((error) => {
             setSubmitting(false)
             setOpenDetails(-1)
             console.log(error)
-            toast.error(error.response.data.message)
+            toast.error(error.response.data.mensaje)
         })
     }
 

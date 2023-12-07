@@ -22,7 +22,7 @@ function UserContextProvider({children}) {
     
     useEffect(() => {
         localStorage.setItem('userdata', JSON.stringify(userdata))
-        if(userdata.username) {
+        if(userdata.email) {
             setIsLogged(true)
         }
         else {

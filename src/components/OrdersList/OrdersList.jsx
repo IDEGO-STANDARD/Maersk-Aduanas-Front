@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import RowsTable from "../RowsTable/RowsTable";
 import OrderRowsBeforeComponent from "../OrderRowsBeforeComponent/OrderRowsBeforeComponent";
@@ -11,11 +11,13 @@ import RowsTableConfigurationMenu from "../RowsTableConfigurationMenu/RowsTableC
 import OrderPopup from "../OrderPopup/OrderPopup";
 import OrderPopupIncident from "../OrderPopupIncident/OrderPopupIncident";
 import "./OrdersList.css";
+import { UserContext } from "../../context/UserContext";
 
 const OrdersList = ({ }) => {
 
     const [orders, setOrders] = useState([])
     const { ordtype } = useParams()
+    const {userdata} = useContext(UserContext)
     const nav = useNavigate()
 
     const [loading, setLoading] = useState(true)
@@ -26,7 +28,8 @@ const OrdersList = ({ }) => {
 
     useEffect(() => {
         const fetchOrders = () => {
-            axiosInstance.get(`/ordenes?type=${ordtype}`)
+            console.log(userdata.email)
+            axiosInstance.get(`/ordenes?type=${ordtype}?email=${userdata.email}`)
                 .then((res) => {
                     console.log(res.data[0])
                     setLoading(false)
@@ -173,10 +176,6 @@ const OrdersList = ({ }) => {
 
     return <div className="ol-main-cont">
         <span className="ol-title">MIS ÓRDENES DE TRABAJO {ordtype.toUpperCase()}</span>
-        {/*         <div className="ol-filters-selector-cont">
-            <FiltersMenu filtersections={filtersections}/>
-            <TableRowColumnSelect columns={columns} changeColumnExceptions={changeColumnExceptions} />
-        </div> */}
         <RowsTableConfigurationMenu filtersections={filtersections} columns={columns} changeColumnExceptions={changeColumnExceptions} />
         <RowsTable columnExceptions={columnExceptions} loading={loading} data={orders} ComponentBeforeKeys={OrderRowsBeforeComponent} onClickFunc={openDetails} onOpenPopup={handleOpenPopup} />
         <OrderPopup isOpen={isPopupOpen} onClose={handleClosePopup} orderId={popupOrderId} PopupComponent={OrderPopupIncident} />

@@ -29,27 +29,29 @@ function ConfigUsuarios() {
 
 
     const editRegInputRows = [
-        {label: "Usuario", name: "username", type: "text", ph: "Ingrese nombre de usuario"}, 
-        {label: "Nombre", name: "first_name", type: "text", ph: "Ingrese nombre"}, 
-        {label: "Apellido", name: "last_name", type: "text", ph: "Ingrese apellido"}, 
+        {label: "Usuario", name: "usuario", type: "text", ph: "Ingrese nombre de usuario"}, 
+        {label: "Nombre", name: "nombre", type: "text", ph: "Ingrese nombre"}, 
+        {label: "Apellido", name: "apellido", type: "text", ph: "Ingrese apellido"}, 
         {label: "Email", name: "email", type: "email", ph: "Ingrese email"}, 
-        {label: "Rol de usuario", required: true, name: "rol_id", type: "select", options: roleOptions},
+        {label: "Celular", name: "celular", type: "celular", ph: "Ingrese numero celular"}, 
+        {label: "Rol de usuario", required: true, name: "id_rol", type: "select", options: roleOptions},
+        {label: "Estado", required: true, name: "estado", type: "select", options: [{name: "Activo", value: "Activo"},{name: "Inactivo", value: "Inactivo"}]},
     ]
 
     const createRegInputRows = [
-        {label: "Usuario", name: "username", type: "text", ph: "Ingrese nombre de usuario"}, 
-        {label: "Nombre", name: "first_name", type: "text", ph: "Ingrese nombre"}, 
-        {label: "Apellido", name: "last_name", type: "text", ph: "Ingrese apellido"}, 
+        {label: "Usuario", name: "usuario", type: "text", ph: "Ingrese nombre de usuario"}, 
+        {label: "Nombre", name: "nombre", type: "text", ph: "Ingrese nombre"}, 
+        {label: "Apellido", name: "apellido", type: "text", ph: "Ingrese apellido"}, 
         {label: "Email", name: "email", type: "email", ph: "Ingrese email"}, 
         {label: "Contraseña", name: "password", type: "password", ph: "Ingrese contraseña"}, 
-        {label: "Rol de usuario", required: true, name: "rol_id", type: "select", options: roleOptions},
+        {label: "Rol de usuario", required: true, name: "id_rol", type: "select", options: roleOptions},
     ]
     
-    const dataColumns = ["Usuario", "Nombre", "Email", "Rol"]
+    const dataColumns = ["Usuario", "Nombre", "Email", "Celular", "Rol"]
 
-    const createDataObj = {username: "", email: "" , first_name: "", last_name:"", password: "", rol_id: ""}
+    const createDataObj = {usuario: "", email: "" , celular: "" ,nombre: "", apellido:"", password: "", id_rol: "", estado: "Activo"}
 
-    const filtersObj = [{key: "username", name: "Usuario", type: "text", ph: "Ingrese nombre de usuario"}, {key: "name", type: "text", name: "Nombre", ph: "Ingrese nombre de persona"}]
+    const filtersObj = [{key: "usuario", name: "Usuario", type: "text", ph: "Ingrese nombre de usuario"}, {key: "name", type: "text", name: "Nombre", ph: "Ingrese nombre de persona"}]
 
     const configpath = "/usuarios"
 
@@ -57,13 +59,13 @@ function ConfigUsuarios() {
 
     const titlename = "Usuarios"
 
-    const delkey = "id"
+    const delkey = "email"
 
     const tabname = "Administración"
 
     const setDataArr = (rawdata) => {
         const newarr = rawdata.map((row) => {
-            return {username: row.username, name: `${row.first_name} ${row.last_name}`, email: row.email, rol: row.rol}
+            return {usuario: row.usuario, name: `${row.nombre} ${row.apellido}`, email: row.email, celular: row.celular, rol: row.rol}
         })
         return newarr
     }
