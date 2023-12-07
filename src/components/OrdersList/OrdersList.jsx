@@ -29,7 +29,7 @@ const OrdersList = ({ }) => {
     useEffect(() => {
         const fetchOrders = () => {
             console.log(userdata.email)
-            axiosInstance.get(`/ordenes?type=${ordtype}?email=${userdata.email}`)
+            axiosInstance.get(`/ordenes?type=${ordtype}&email=${userdata.email}`)
                 .then((res) => {
                     console.log(res.data[0])
                     setLoading(false)
