@@ -33,7 +33,6 @@ const OrderDocuments = () => {
     }
 
     console.log(documentToDisplay)
-
     const handleDocumentChange = (itemName, newCheckedValue, newValue) => {
         handleChangeDocument(docutype, itemName, newCheckedValue, newValue);
     }
