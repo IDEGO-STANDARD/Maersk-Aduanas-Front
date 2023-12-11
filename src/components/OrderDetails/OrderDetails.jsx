@@ -12,7 +12,7 @@ const OrderDetails = ({}) => {
     const { ordtype, ordnumber } = useParams()
     const [order] = useOutletContext()
 
-    const {userdata} = useContext(UserContext)
+    const {userdata, hasPermission} = useContext(UserContext)
 
     const [loading, setLoading] = useState(false)
 
@@ -50,8 +50,8 @@ const OrderDetails = ({}) => {
         <>
             <div className="od-split-div">
                 <div className="od-fields-cont">
-                    <DataDisplay minwidth="30%" data={order.data} edit={userdata.permisos &&  userdata.permisos.includes("4")} />
-                    {userdata.permisos && userdata.permisos.includes("4") && <button disabled={loading} onClick={createSintad} className="od-create-sintad-button">Crear en SINTAD</button>}
+                    <DataDisplay minwidth="30%" data={order.data} edit={hasPermission("4")} />
+                    {hasPermission("4") && <button disabled={loading} onClick={createSintad} className="od-create-sintad-button">Crear en SINTAD</button>}
                 </div>
                 <div className="od-docutypes-cont">
                     {renderDocutypes}

@@ -7,7 +7,7 @@ import { UserContext } from "../../context/UserContext";
 const OrderDocumentDisplay = ({ document, handleChangeDocument, handleSaveDocumentChanges, loading}) => {
 
     const {userdata} = useContext(UserContext)
-
+    console.log(document)
     return (
         <>
             <div className="od-split-div">

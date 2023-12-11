@@ -19,7 +19,7 @@ const OrdersList = ({ }) => {
     const { ordtype } = useParams()
     const {userdata} = useContext(UserContext)
     const nav = useNavigate()
-
+    console.log(userdata)
     const [loading, setLoading] = useState(true)
     const [columns, setColumns] = useState([])
 
@@ -28,9 +28,9 @@ const OrdersList = ({ }) => {
 
     useEffect(() => {
         const fetchOrders = () => {
-            console.log(userdata.email)
-            axiosInstance.get(`/ordenes?type=${ordtype}&email=${userdata.email}`)
+            axiosInstance.get(`/ordenes?type=${ordtype}&email=${userdata.email}&rol=${userdata.rol}`)
                 .then((res) => {
+                    console.log(userdata.rol)
                     console.log(res.data[0])
                     setLoading(false)
                     setOrders(res.data)
