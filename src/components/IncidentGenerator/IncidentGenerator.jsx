@@ -1,5 +1,6 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useContext } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
+import { UserContext } from "../../context/UserContext"
 import instance from "../../axiosInstance/axiosInstance";
 import pythonInstance from "../../axiosInstance/axiosPythonInstance";
 import toast from "react-hot-toast";
@@ -7,6 +8,7 @@ import "./IncidentGenerator.css";
 
 const IncidentGenerator = () => {
   const { ordtype, ordnumber, incid } = useParams();
+  const { userdata } = useContext(UserContext)
   const navigate = useNavigate();
 
   const formRef = useRef(null);
@@ -57,19 +59,20 @@ const IncidentGenerator = () => {
   };
 
   const handleSubmit = async (event) => {
-    event.preventDefault();
-    setIsSubmitting(true);
+    event.preventDefault()
+    setIsSubmitting(true)
 
     const formData = {
       "incidentId": incid,
       "orderId": ordnumber,
       "operacion": ordtype,
-      "recipient_email": "csantamaria@idegostd.com",
+      "recipient_email": userdata.email,
       "sistema": { ...incidentParam.parametros.sistema },
       "manuales": { ...formValues, observaciones }
-    };
+    }
 
     try {
+      console.log(formData)
       const response = await pythonInstance.post("/testpost", formData);
       toast.success("Form submitted successfully!");
       setIncidentsParam(response.data);

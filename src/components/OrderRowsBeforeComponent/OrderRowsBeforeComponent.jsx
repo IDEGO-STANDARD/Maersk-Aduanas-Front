@@ -10,11 +10,17 @@ const OrderRowsBeforeComponent = ({ item, onOpenPopup }) => {
 
     const {userdata, hasPermission} = useContext(UserContext)
     const {ordtype} = useParams()
-
+    
     // let renderedIncidents = item.incidents.slice(0, 3).map((incident) => {
     //     return <div key={incident} className="orbc-incident-cont">{incident}</div>
     // })
-    let renderedIncidents = <div key={item.incidents[item.incidents.length - 1]} className="orbc-incident-cont">{item.incidents[item.incidents.length - 1]}</div>
+    let lastIncident = item.incidents[item.incidents.length - 1];
+    let bgColor = lastIncident !== "Instruccion Recibida" ? "rgb(228, 200, 59)" : "rgb(135, 224, 0)";
+
+    let renderedIncidents =
+        <div key={lastIncident} className="orbc-incident-cont" style={{ backgroundColor: bgColor }}>
+            {lastIncident}
+        </div>
     
     if(renderedIncidents.length === 0) {
         renderedIncidents.push(<div key={"No incident"} className="orbc-incident-cont">No hay incidencias</div>)
