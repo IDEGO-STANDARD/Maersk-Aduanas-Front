@@ -19,7 +19,7 @@ const OrderDocumentDisplay = ({ document, handleChangeDocument, handleSaveDocume
                     {hasPermission("4") && <button disabled={loading} className="odocd-save-changes-button" onClick={handleSaveDocumentChanges}>Guardar cambios</button>}
                 </div>
                 <div className="od-fields-cont">
-                    {document.url?.endsWith('.xls') || document.url?.endsWith('.xlsx') ? (
+                    {/\.xls[xm]?$/.test(document.url) ? (
                         <iframe className="odocd-embed" style={{overflow: 'hidden', border: 'none'}}  src={createEmbedUrl(document.url)}></iframe>
                     ) : (
                         <embed className="odocd-embed" src={document.url} />
