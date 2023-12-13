@@ -19,15 +19,19 @@ const OrdersList = ({ }) => {
     const { ordtype } = useParams()
     const {userdata} = useContext(UserContext)
     const nav = useNavigate()
-    console.log(userdata)
+
     const [loading, setLoading] = useState(true)
     const [columns, setColumns] = useState([])
+    const [currentPage, setCurrentPage] = useState(1)
+    const [totalPages, setTotalPages] = useState()
+    const [itemsPerPage, setItemsPerPage] = useState()
 
     const [isPopupOpen, setPopupOpen] = useState(false)
     const [popupOrderId, setPopupOrderId] = useState(null)
 
-    useEffect(() => {
+    /*useEffect(() => {
         const fetchOrders = () => {
+            console.log(`/ordenes?type=${ordtype}&email=${userdata.email}&rol=${userdata.rol}`)
             axiosInstance.get(`/ordenes?type=${ordtype}&email=${userdata.email}&rol=${userdata.rol}`)
                 .then((res) => {
                     console.log(userdata.rol)
@@ -58,12 +62,48 @@ const OrdersList = ({ }) => {
 
         fetchOrders()
 
-        /*         const intervalId = setInterval(fetchOrders, 3000)
+                //  const intervalId = setInterval(fetchOrders, 3000)
         
-                return () => {
-                    clearInterval(intervalId)
-                } */
-    }, [])
+                // return () => {
+                //     clearInterval(intervalId)
+                // } 
+    }, [])*/
+
+    useEffect(() => {
+        const fetchOrders = () => {
+            const itemsPerPageParam = `&itemsPerPage=${itemsPerPage||0}` // If  0, return all ordenes. To change when Pagination is implemented
+            console.log(`/ordenes/${currentPage}?type=${ordtype}&email=${userdata.email}&rol=${userdata.rol}${itemsPerPageParam}`)
+            axiosInstance.get(`/ordenes/${currentPage}?type=${ordtype}&email=${userdata.email}&rol=${userdata.rol}${itemsPerPageParam}`)
+                .then((res) => {
+                    console.log("*********")
+                    console.log(res.data.orders)
+                    console.log("*********")
+                    setLoading(false)
+                    setTotalPages(res.data.totalPages)
+                    setOrders(res.data.orders)
+                    let cols = []
+                    const objkeys = Object.keys(res.data.orders[0].keys)
+                    {
+                        objkeys.forEach((key) => {
+                            cols.push({
+                                name: key,
+                                active: true
+                            })
+                        })
+                    }
+                    console.log(cols)
+                    setColumns(cols)
+
+                })
+                .catch((error) => {
+                    setLoading(false)
+                    console.error("ERROR", error)
+                    toast.error(error.response.data.error)
+                })
+        }
+
+        fetchOrders()
+    }, [ordtype, currentPage, itemsPerPage])
 
     const changeColumnExceptions = (e) => {
         const colname = e.target.name

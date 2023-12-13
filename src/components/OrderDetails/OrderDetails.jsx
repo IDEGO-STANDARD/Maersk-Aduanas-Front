@@ -21,7 +21,7 @@ const OrderDetails = ({}) => {
         axiosPythonInstance.post(`/asignarLiquidador?id_ot=${ordnumber}`)
         .then((res) => {
             setLoading(false)
-            toast.success("Liqidador asignado correctamente")
+            toast.success("Solicitud de orden generada correctamente")
         })
         .catch((error) => {
             setLoading(false)

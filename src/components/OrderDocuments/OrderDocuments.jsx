@@ -18,6 +18,7 @@ const OrderDocuments = () => {
 
     const handleSaveDocumentChanges = () => {
         setLoading(true)
+        //const docqueryparam = `&docid=${docid}`
         axiosPythonInstance.post(`/validarCampos?id=${order.id}&type=${documentToDisplay.type}`, {
             data: documentToDisplay.documents[0].data
         })

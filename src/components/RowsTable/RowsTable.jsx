@@ -2,7 +2,8 @@ import "./RowsTable.css"
 
 const RowsTable = ({ data, onClickFunc, ComponentBeforeKeys, loading, columnExceptions, onOpenPopup }) => {
 
-
+    console.log("ORDER DATA:")
+    console.log(data)
     const renderedRows = data.map((item, index) => {
         const keyItems = []
         const objkeys = Object.keys(item.keys)
