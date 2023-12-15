@@ -71,12 +71,12 @@ const OrdersList = ({ }) => {
 
     useEffect(() => {
         const fetchOrders = () => {
-            const itemsPerPageParam = `&itemsPerPage=${itemsPerPage||0}` // If  0, return all ordenes. To change when Pagination is implemented
+            const itemsPerPageParam = `&itemsPerPage=${itemsPerPage||"0"}` // If  0, return all ordenes. To change when Pagination is implemented
             console.log(`/ordenes/${currentPage}?type=${ordtype}&email=${userdata.email}&rol=${userdata.rol}${itemsPerPageParam}`)
-            axiosInstance.get(`/ordenes/${currentPage}?type=${ordtype}&email=${userdata.email}&rol=${userdata.rol}${itemsPerPageParam}`)
+            axiosInstance.get(`/ordenes/${currentPage}?type=${ordtype}&email=${userdata.email}&rol=${userdata.rol}&itemsPerPage=0`)
                 .then((res) => {
                     console.log("*********")
-                    console.log(res.data.orders)
+                    console.log(res.data)
                     console.log("*********")
                     setLoading(false)
                     setTotalPages(res.data.totalPages)
@@ -118,7 +118,8 @@ const OrdersList = ({ }) => {
     }
 
     const openDetails = (index) => {
-        nav(`/ordenes/${ordtype}/detalles/${orders[index].id}`)
+        // nav(`/ordenes/${ordtype}/detalles/${orders[index].id}`)
+        nav(`/ordenes/${ordtype}/detalles/${index}`)
     }
 
     const filtersections = [

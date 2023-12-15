@@ -2,8 +2,6 @@ import "./RowsTable.css"
 
 const RowsTable = ({ data, onClickFunc, ComponentBeforeKeys, loading, columnExceptions, onOpenPopup }) => {
 
-    console.log("ORDER DATA:")
-    console.log(data)
     const renderedRows = data.map((item, index) => {
         const keyItems = []
         const objkeys = Object.keys(item.keys)
@@ -17,10 +15,10 @@ const RowsTable = ({ data, onClickFunc, ComponentBeforeKeys, loading, columnExce
                 }
             })
         }
-
+        console.log(keyItems)
         return <div key={index} style={{ cursor: onClickFunc ? "pointer" : "", borderTop: index != 0 ? "1px solid gray" : "", borderBottom: index === data.length - 1 ? "1px solid gray" : "" }} className="rt-rendered-item-cont">
-            <ComponentBeforeKeys item={item} onOpenPopup={onOpenPopup} />
-            <div className="rt-fields-cont" onClick={() => onClickFunc(index)}>
+            <ComponentBeforeKeys item={item} onOpenPopup={onOpenPopup} onClickFunc={onClickFunc} />
+            <div className="rt-fields-cont">
                 {keyItems}
             </div>
         </div>

@@ -6,7 +6,7 @@ import { UserContext } from "../../context/UserContext"
 import "./OrderRowsBeforeComponent.css"
 import TooltipElement from "../TooltipElement/TooltipElement"
 
-const OrderRowsBeforeComponent = ({ item, onOpenPopup }) => {
+const OrderRowsBeforeComponent = ({ item, onOpenPopup, onClickFunc }) => {
 
     const {userdata, hasPermission} = useContext(UserContext)
     const {ordtype} = useParams()
@@ -32,24 +32,24 @@ const OrderRowsBeforeComponent = ({ item, onOpenPopup }) => {
                 <span className="orbc-order-details-channel">CANAL</span>
                 <div style={{backgroundColor: item.channel}} className="channel-orb"></div>
             </div>}
-            <div className="orbc-order-details-cont">
+            <div className="orbc-order-details-cont" onClick={() => onClickFunc(item.id)}>
                 <span className="orbc-order-details-title-value">{item.client}</span>
                 <span className="orbc-order-details-client">ORDEN DE TRABAJO</span>
                 <span className="orbc-order-details-client-value"> Nro: {item.id}</span>
-                <div className="orbc-order-details-buttons-cont" style={{width: hasPermission("4") ? "150px" : "90px"}}>
+                <div className="orbc-order-details-buttons-cont" style={{ width: hasPermission("4") ? "150px" : "90px" }} onClick={(e) => e.stopPropagation()}>
                     <TooltipElement tooltipText="Validación">
                         <Link to={`/ordenes/${ordtype}/${item.id}/validacion`} className="orbc-order-details-button" style={{ color: "green" }}><CheckLg /></Link>
                     </TooltipElement>
-                    {userdata.permisos && userdata.permisos.includes("4") && 
+                    {userdata.permisos && userdata.permisos.includes("4") &&
                     <TooltipElement tooltipText="">
                         <div className="orbc-order-details-button" style={{ color: "red" }}><XLg /></div>
                     </TooltipElement>}
-                    {userdata.permisos && userdata.permisos.includes("4") && 
+                    {userdata.permisos && userdata.permisos.includes("4") &&
                     <TooltipElement tooltipText="">
                         <div className="orbc-order-details-button" style={{ color: "red" }}><SlashCircle /></div>
                     </TooltipElement>}
                     <TooltipElement tooltipText="Generar Incidencia">
-                        <div className="orbc-order-details-button" style={{ color: "blue" }} onClick={() => onOpenPopup(item.id)}><BookmarkPlusFill /></div>
+                        <div className="orbc-order-details-button" style={{ color: "blue" }} onClick={(e) => onOpenPopup(item.id)}><BookmarkPlusFill /></div>
                     </TooltipElement>
                     <TooltipElement tooltipText="Documentos">
                         <Link to={item.firstDocutype ? `/ordenes/${ordtype}/${item.id}/${item.firstDocutype}` : ""} className="orbc-order-details-button" style={{ color: "orange", opacity: item.firstDocutype ? "1" : "0.5" }}><FolderFill /></Link >
