@@ -6,34 +6,39 @@ import Tabber from "../Tabber/Tabber";
 import axiosPythonInstance from "../../axiosInstance/axiosPythonInstance"
 import toast from "react-hot-toast";
 import "./OrderDocuments.css";
+import { useEffect } from "react";
 
 const OrderDocuments = () => {
     const { docutype } = useParams()
-    const [order, handleChangeOrder, handleChangeDocument] = useOutletContext()
+    const [order, documentid, setDocumentid, handleChangeOrder, handleChangeDocument] = useOutletContext()
 
     const [loading, setLoading] = useState(false)
 
-
     const documentToDisplay = order.documents.find((document) => document.type === docutype)
 
-    const handleSaveDocumentChanges = () => {
+    useEffect(() => {
+        setDocumentid(0)
+    }, [docutype])
+
+    const handleSaveDocumentChanges = (id) => {
         setLoading(true)
-        //const docqueryparam = `&docid=${docid}`
+        const docid = id ? id : 0
+        const docqueryparam = `&docid=${docid}` // docid
         axiosPythonInstance.post(`/validarCampos?id=${order.id}&type=${documentToDisplay.type}`, {
-            data: documentToDisplay.documents[0].data
+            data: documentToDisplay.documents[docid].data
         })
         .then((res) => {
+            console.log(res)
             setLoading(false)
             toast.success("Campos guardados correctamente")
         })
         .catch((error) => {
             setLoading(false)
             console.error("ERROR", error)
-            toast.error(error.response.data.error)
+            toast.error(error.response?.data?.error || "Error guardando cambios")
         })
     }
 
-    console.log(documentToDisplay)
     const handleDocumentChange = (itemName, newCheckedValue, newValue) => {
         handleChangeDocument(docutype, itemName, newCheckedValue, newValue);
     }
@@ -41,9 +46,11 @@ const OrderDocuments = () => {
 
     return (
         <>
-            <Tabber order={order} />
+            <Tabber order={order} onClickSet={setDocumentid}/>
             <OrderDocumentDisplay 
-                document={documentToDisplay.documents[0]} 
+                documents={documentToDisplay.documents} 
+                documentid={documentid}
+                setDocumentid={setDocumentid}
                 handleChangeDocument={handleDocumentChange}
                 handleSaveDocumentChanges={handleSaveDocumentChanges}
                 loading={loading}

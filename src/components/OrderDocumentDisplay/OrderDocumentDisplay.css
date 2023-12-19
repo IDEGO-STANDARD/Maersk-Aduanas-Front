@@ -13,3 +13,27 @@
     border-radius: 3px;
     cursor: pointer;
 }
+
+.od-buttons-cont {
+    display: flex;
+    gap: 10px; /* Adjust the space between buttons */
+}
+
+.od-button {
+    background-color: #3498db; /* Set your desired background color */
+    padding: 10px 20px 10px 20px;
+    font-size: 1rem;
+    color: #fff; /* Set your desired text color */
+    border: none;
+    border-radius: 5px; /* Add some border-radius for a modern look */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.od-button:hover {
+    background-color: #2980b9; /* Set a darker color on hover */
+}
+
+.od-button-active {
+    background-color: #27ae60; /* Set a different color for the active button */
+}

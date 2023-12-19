@@ -1,17 +1,15 @@
 import { NavLink, useParams } from "react-router-dom"
 import "./Tabber.css"
 
-const Tabber = ({ order }) => {
+const Tabber = ({ order }, onClickSet) => {
 
     const {ordtype, ordnumber} = useParams()
 
-    console.log(order.documents)
     const docutypes = order.documents
     .filter((documentType) => documentType.documents.length > 0)
     .map((documentType) => documentType.type);
-    console.log(docutypes)
-    const renderedTabs = docutypes.map((tab) => {
-        return <NavLink to={`/ordenes/${ordtype}/${ordnumber}/${tab}`} className="tabber-tab-cont">{tab}</NavLink >
+    const renderedTabs = docutypes.map((tab, index) => {
+        return <NavLink key={`${index}-${tab}`} to={`/ordenes/${ordtype}/${ordnumber}/${tab}`} className="tabber-tab-cont">{tab}</NavLink >
     })
 
     return (

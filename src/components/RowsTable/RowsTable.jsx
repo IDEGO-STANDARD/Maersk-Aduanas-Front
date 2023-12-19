@@ -15,7 +15,6 @@ const RowsTable = ({ data, onClickFunc, ComponentBeforeKeys, loading, columnExce
                 }
             })
         }
-        console.log(keyItems)
         return <div key={index} style={{ cursor: onClickFunc ? "pointer" : "", borderTop: index != 0 ? "1px solid gray" : "", borderBottom: index === data.length - 1 ? "1px solid gray" : "" }} className="rt-rendered-item-cont">
             <ComponentBeforeKeys item={item} onOpenPopup={onOpenPopup} onClickFunc={onClickFunc} />
             <div className="rt-fields-cont">

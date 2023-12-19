@@ -11,6 +11,7 @@ const OrderParent = ({}) => {
     const { ordtype, ordnumber, docutype } = useParams()
     const nav = useNavigate()
     const [order, setOrder] = useState("")
+    const [documentid, setDocumentid] = useState(0)
 
     useEffect(() => {
         axiosInstance.get(`/orden?id=${ordnumber}`)
@@ -46,14 +47,12 @@ const OrderParent = ({}) => {
             return newOrder
         })
     }
-
-    console.log(order)
     
     return <>
         {order && 
             <div className="od-main-cont">
                 <span className="ol-title">{docutype ? `DOCUMENTOS DE ORDEN DE TRABAJO ${ordnumber}` :  `VALIDACIÓN DE ORDEN DE TRABAJO ${ordnumber}`}</span>
-                {order != 0 && <Outlet context={[order, handleChangeOrder, handleChangeDocument]}/>}
+                {order != 0 && <Outlet context={[order, documentid, setDocumentid, handleChangeOrder, handleChangeDocument]}/>}
                 <button onClick={() => {nav(`/ordenes/${ordtype}`)}} className="od-back-button">Volver</button>
             </div>
         }
