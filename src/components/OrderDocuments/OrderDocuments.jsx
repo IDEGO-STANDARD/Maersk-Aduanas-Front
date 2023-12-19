@@ -40,8 +40,8 @@ const OrderDocuments = () => {
         })
     }
 
-    const handleDocumentChange = (itemName, newCheckedValue, newValue) => {
-        handleChangeDocument(docutype, itemName, newCheckedValue, newValue);
+    const handleDocumentChange = (itemName, newCheckedValue, newValue, documentid) => {
+        handleChangeDocument(docutype, itemName, newCheckedValue, newValue, documentid);
     }
 
 

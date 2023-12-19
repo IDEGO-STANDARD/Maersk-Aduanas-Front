@@ -8,11 +8,10 @@ const OrderDocumentDisplay = ({ documents, documentid, setDocumentid, handleChan
 
     const { hasPermission } = useContext(UserContext)
     const createEmbedUrl = (url) => {
-        return `https://view.officeapps.live.com/op/embed.aspx?src=${encodeURIComponent(url)}&wdAllowInteractivity=False&wdHideGridlines=True&wdHideHeaders=True&wdDownloadButton=True&wdInConfigurator=True&wdInConfigurator=True`
+        return `https://view.officeapps.live.com/op/embed.aspx?src=${encodeURIComponent(url)}&wdAllowInteractivity=False&wdHideGridlines=True&wdHideHeaders=True&wdDownloadButton=True&wdInConfigurator=True`
     }
     const document = documents[documentid] || documents[0]
     const documentids = documents.length
-    console.log(document.id)
     return (
         <>
             <div className="od-split-div">
@@ -29,7 +28,7 @@ const OrderDocumentDisplay = ({ documents, documentid, setDocumentid, handleChan
                                 </button>
                             ))}
                     </div>
-                    <DataDisplay minwidth="30%" data={document.data} handleChangeData={handleChangeDocument} edit={hasPermission("4")} />
+                    <DataDisplay minwidth="30%" data={document.data} handleChangeData={handleChangeDocument} edit={hasPermission("4")} documentid={documentid} />
                     {hasPermission("4") && <button disabled={loading} className="odocd-save-changes-button" onClick={() => handleSaveDocumentChanges(documentid, document.id)}>Guardar cambios</button>}
                 </div>
                 <div className="od-fields-cont">
