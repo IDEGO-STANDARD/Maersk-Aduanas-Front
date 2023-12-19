@@ -12,7 +12,7 @@ const OrderDocumentDisplay = ({ documents, documentid, setDocumentid, handleChan
     }
     const document = documents[documentid] || documents[0]
     const documentids = documents.length
-
+    console.log(document.id)
     return (
         <>
             <div className="od-split-div">
@@ -30,7 +30,7 @@ const OrderDocumentDisplay = ({ documents, documentid, setDocumentid, handleChan
                             ))}
                     </div>
                     <DataDisplay minwidth="30%" data={document.data} handleChangeData={handleChangeDocument} edit={hasPermission("4")} />
-                    {hasPermission("4") && <button disabled={loading} className="odocd-save-changes-button" onClick={() => handleSaveDocumentChanges(documentid)}>Guardar cambios</button>}
+                    {hasPermission("4") && <button disabled={loading} className="odocd-save-changes-button" onClick={() => handleSaveDocumentChanges(documentid, document.id)}>Guardar cambios</button>}
                 </div>
                 <div className="od-fields-cont">
                     {/\.xls[xm]?$/.test(document.url) ? (

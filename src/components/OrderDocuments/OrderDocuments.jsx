@@ -20,12 +20,13 @@ const OrderDocuments = () => {
         setDocumentid(0)
     }, [docutype])
 
-    const handleSaveDocumentChanges = (id) => {
+    const handleSaveDocumentChanges = (docindex, id) => {
         setLoading(true)
         const docid = id ? id : 0
-        const docqueryparam = `&docid=${docid}` // docid
-        axiosPythonInstance.post(`/validarCampos?id=${order.id}&type=${documentToDisplay.type}`, {
-            data: documentToDisplay.documents[docid].data
+        const docqueryparam = `id=${order.id}&docid=${docid}&type=${documentToDisplay.type}`
+        console.log(documentToDisplay.documents[docindex].data)
+        axiosPythonInstance.post(`/validarCampos?${docqueryparam}`, {
+            data: documentToDisplay.documents[docindex].data
         })
         .then((res) => {
             console.log(res)
