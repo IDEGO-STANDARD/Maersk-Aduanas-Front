@@ -24,7 +24,7 @@ const OrderDocumentDisplay = ({ documents, documentid, setDocumentid, handleChan
                                     className={`od-button ${index === documentid ? 'od-button-active' : ''}`}
                                     onClick={() => setDocumentid(index)}
                                 >
-                                    {index}
+                                    {index + 1}
                                 </button>
                             ))}
                     </div>
