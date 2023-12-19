@@ -34,10 +34,8 @@ const OrderParent = ({}) => {
             const docIndex = newOrder.documents.findIndex(doc => doc.type === docType);
             if (docIndex !== -1) {
                 newOrder.documents[docIndex].documents.forEach((document, documentIndex) => {
-                    console.log(documentIndex)
                     const itemIndex = document.data.findIndex(item => item.name === itemName)
                     if (itemIndex !== -1 && documentIndex === documentid) {
-                        console.log(document)
                         const newItem = { ...document.data[itemIndex] }
                         newItem.checked = newCheckedValue
                         newItem.value = newValue
