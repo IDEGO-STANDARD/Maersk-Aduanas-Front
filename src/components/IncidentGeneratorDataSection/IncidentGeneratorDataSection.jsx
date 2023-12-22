@@ -9,7 +9,6 @@ const IncidentGeneratorDataSection = ({ incidentdata, handleSubmit, observacione
 
 	const inputType = {
 		"SINI": "checkbox",
-		"Agente de Carga": "checkbox",
 		"Certificado de Origen": "radio",
 		"Adjuntar Documentos": "button",
 		"Fecha" : "date"
@@ -21,7 +20,7 @@ const IncidentGeneratorDataSection = ({ incidentdata, handleSubmit, observacione
 
 	const inputList = {
 		"Certificado de Origen": ["Si", "No", "Acogimiento Posterior"]
-	};
+	}
 
 	const renderInputs = (item, index) => (
 		<div key={index} style={{ minWidth: "18%" }} className="ig-rendered-keys-key-cont">

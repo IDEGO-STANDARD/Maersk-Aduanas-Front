@@ -17,7 +17,6 @@ const OrderDocumentDisplay = ({ documents, documentid, setDocumentid, handleChan
         <>
             <div className="od-split-div">
                 <div className="od-fields-cont">
-                    {document?.url && (<>
                         <div className="od-buttons-cont">
                             {documentids > 1 &&
                                 documents.map((_, index) => (
@@ -32,14 +31,12 @@ const OrderDocumentDisplay = ({ documents, documentid, setDocumentid, handleChan
                         </div>
                         <DataDisplay minwidth="30%" data={document.data} handleChangeData={handleChangeDocument} edit={hasPermission("4")} documentid={documentid} />
                         {hasPermission("4") && <button disabled={loading} className="odocd-save-changes-button" onClick={() => handleSaveDocumentChanges(documentid, document.id)}>Guardar cambios</button>}
-                    </>)}
                 </div>
-                <div className="od-fields-cont">
-                    {/\.xls[xm]?$/.test(document.url) ? (
-                        <iframe className="odocd-embed" style={{ overflow: 'hidden', border: 'none' }} src={createEmbedUrl(document.url)}></iframe>
-                    ) : (
-                        <embed className="odocd-embed" src={document.url} />
-                    )}
+                <div className={`od-fields-cont ${document?.isDummy && "od-fields-cont-dummy"}`}>
+                    {document?.isDummy ? <span className="odocd-embed dummy-document">No hay Documento</span> : 
+                        /\.xls[xm]?$/.test(document.url) ? <iframe className="odocd-embed" style={{ overflow: 'hidden', border: 'none' }} src={createEmbedUrl(document.url)}></iframe> : 
+                            <embed className="odocd-embed" src={document.url} />
+                        }
                 </div>
             </div>
         </>

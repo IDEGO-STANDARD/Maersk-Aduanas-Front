@@ -1,7 +1,38 @@
+.od-fields-cont-dummy {
+    display: flex;
+    gap: 10px;
+    position: relative;
+    align-items: center;
+}
+
 .odocd-embed {
     height: 100%;
     width: 100%;
+    border: 2px solid #666666;
+    background-color: #f4f4f4;
+    opacity: 0;
+    animation: fadeIn .5s forwards;
 }
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.dummy-document {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    text-align: center;
+    padding: 20px;
+    font-size: 1.5rem;
+}
+
 
 .odocd-save-changes-button {
     background-color: #35c359;
