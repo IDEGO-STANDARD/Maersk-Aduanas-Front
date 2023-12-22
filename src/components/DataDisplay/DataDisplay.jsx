@@ -2,7 +2,7 @@ import "./DataDisplay.css"
 
 const DataDisplay = ({ data, minwidth="18%", handleChangeData, edit, documentid }) => {
     
-    const renderedKeys = data.map((elem, index) => {
+    const renderedKeys = data?.map((elem, index) => {
         let name = elem.name.charAt(0).toUpperCase() + elem.name.slice(1);
         return (<div key={index} style={{minWidth: minwidth}} className="dd-rendered-keys-key-cont">
             <div className="dd-rendered-keys-top-cont">

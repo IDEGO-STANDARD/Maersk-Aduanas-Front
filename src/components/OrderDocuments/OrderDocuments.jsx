@@ -49,7 +49,7 @@ const OrderDocuments = () => {
         <>
             <Tabber order={order} onClickSet={setDocumentid}/>
             <OrderDocumentDisplay 
-                documents={documentToDisplay.documents} 
+                documents={documentToDisplay?.documents} 
                 documentid={documentid}
                 setDocumentid={setDocumentid}
                 handleChangeDocument={handleDocumentChange}

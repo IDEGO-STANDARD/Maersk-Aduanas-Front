@@ -17,6 +17,7 @@ const OrderParent = ({}) => {
         axiosInstance.get(`/orden?id=${ordnumber}`)
         .then((res) => {
             setOrder(res.data)
+            console.log(res.data)
         })
         .catch((error) => {
             console.error("ERROR", error)
