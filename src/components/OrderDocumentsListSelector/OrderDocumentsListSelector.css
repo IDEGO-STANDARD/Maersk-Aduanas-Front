@@ -1,15 +1,19 @@
+
+.od-fields-cont {
+    align-items: center;
+}
+
 .list-selector-main-cont {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     margin: 10px;
     padding: 10px;
-    width: 66%;
+    width: 95%;
     border: 1px solid #ccc;
     position: relative;
     z-index: 1;
     max-height: 80%; 
-    overflow-y: auto;
 }
 
 .list-selector-search-bar-container {
@@ -24,9 +28,10 @@
 }
 
 .list-selector-list-container {
-    height: 500px;
+    min-height: 200px;
+    max-height: 500px;
     width: 100%;
-    overflow: auto;
+    overflow-y: auto;
 }
 
 .list-selector-list-container span {
