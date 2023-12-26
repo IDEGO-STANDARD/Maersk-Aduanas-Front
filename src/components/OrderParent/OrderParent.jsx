@@ -45,7 +45,29 @@ const OrderParent = ({}) => {
                 });
             }
             
-            // console.log(newOrder)
+            console.log(newOrder)
+            return newOrder
+        })
+    }
+
+    const handleChangeSubDocument = (docType, itemid, newCheckedValue, newData, documentid) => {
+        setOrder(prevOrder => {
+            const newOrder = { ...prevOrder }
+            const docIndex = newOrder.documents.findIndex(doc => doc.type === docType)
+            
+            if (docIndex !== -1) {
+                const nestedData = [...newOrder.documents[docIndex].documents[documentid].nestedData]
+                const itemIndex = nestedData.findIndex((item) => item.id === itemid)
+                if (itemIndex !== -1) {
+                    nestedData[itemIndex] = {
+                        ...nestedData[itemIndex],
+                        checked: newCheckedValue,
+                        data: newData,
+                    }
+
+                    newOrder.documents[docIndex].documents[documentid].nestedData = nestedData;
+                }
+            }
             return newOrder
         })
     }
@@ -54,7 +76,7 @@ const OrderParent = ({}) => {
         {order && 
             <div className="od-main-cont">
                 <span className="ol-title">{docutype ? `DOCUMENTOS DE ORDEN DE TRABAJO ${ordnumber}` :  `VALIDACIÓN DE ORDEN DE TRABAJO ${ordnumber}`}</span>
-                {order != 0 && <Outlet context={[order, documentid, setDocumentid, handleChangeOrder, handleChangeDocument]}/>}
+                {order != 0 && <Outlet context={[order, documentid, setDocumentid, handleChangeOrder, handleChangeDocument, handleChangeSubDocument]}/>}
                 <button onClick={() => {nav(`/ordenes/${ordtype}`)}} className="od-back-button">Volver</button>
             </div>
         }

@@ -1,0 +1,51 @@
+.dd-rendered-keys-subcont {
+    width: 100%;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: space-between;
+    border: 1px solid gray;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+.dd-rendered-keys-key-cont {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex: 1;
+    row-gap: 5px;
+}
+
+.dd-rendered-keys-top-cont {
+    display: flex;
+
+}
+
+.dd-rendered-keys-key-text {
+    display: flex;
+    align-items: center;
+    margin-right: 5px;
+}
+
+.dd-rendered-keys-key-cont select {
+    width: 100%;
+    padding: 10px 10px 10px 5px;
+}
+.dd-rendered-keys-checkbox {
+    margin-left: auto;
+    outline: none;
+}
+
+.dd-rendered-keys-value-text {
+    outline: none;
+    width: 100%;
+    padding: 10px 10px 10px 5px;
+    border: 1px solid gray;
+}
+
+.dd-rendered-keys-value-text:disabled {
+    background-color: rgb(233, 233, 233);
+}

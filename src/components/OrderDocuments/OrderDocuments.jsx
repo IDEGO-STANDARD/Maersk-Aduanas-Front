@@ -10,7 +10,7 @@ import { useEffect } from "react";
 
 const OrderDocuments = () => {
     const { docutype } = useParams()
-    const [order, documentid, setDocumentid, handleChangeOrder, handleChangeDocument] = useOutletContext()
+    const [order, documentid, setDocumentid, handleChangeOrder, handleChangeDocument, handleChangeSubDocument] = useOutletContext()
 
     const [loading, setLoading] = useState(false)
 
@@ -24,9 +24,10 @@ const OrderDocuments = () => {
         setLoading(true)
         const docid = id ? id : 0
         const docqueryparam = `id=${order.id}&docid=${docid}&type=${documentToDisplay.type}`
-        console.log(documentToDisplay.documents[docindex].data)
+        console.log(docqueryparam)
         axiosPythonInstance.post(`/validarCampos?${docqueryparam}`, {
-            data: documentToDisplay.documents[docindex].data
+            data: documentToDisplay.documents[docindex].data,
+            nestedData: documentToDisplay.documents[docindex].nestedData
         })
         .then((res) => {
             console.log(res)
@@ -44,15 +45,20 @@ const OrderDocuments = () => {
         handleChangeDocument(docutype, itemName, newCheckedValue, newValue, documentid);
     }
 
+    const handleSubDocumentChange = (itemid, newCheckedValue, newData, documentid) => {
+        handleChangeSubDocument(docutype, itemid, newCheckedValue, newData, documentid);
+    }
 
     return (
         <>
             <Tabber order={order} onClickSet={setDocumentid}/>
             <OrderDocumentDisplay 
+                docutype={docutype}
                 documents={documentToDisplay?.documents} 
                 documentid={documentid}
                 setDocumentid={setDocumentid}
                 handleChangeDocument={handleDocumentChange}
+                handleSubDocumentChange={handleSubDocumentChange}
                 handleSaveDocumentChanges={handleSaveDocumentChanges}
                 loading={loading}
             />
