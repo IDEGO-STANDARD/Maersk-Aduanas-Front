@@ -16,6 +16,7 @@
     gap: 10px;
     position: relative;
     align-items: center;
+    height: 100%;
 }
 
 .odocd-embed {
