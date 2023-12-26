@@ -11,10 +11,10 @@
 .od-fields-cont {
     display: flex;
     flex-direction: column;
-    align-items: start;
-    justify-content: center;
+    margin: auto;
     flex: 1;
     gap: 20px;
+    overflow: auto;
 }
 
 .od-field-item-cont {

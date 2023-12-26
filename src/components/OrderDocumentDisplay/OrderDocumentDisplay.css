@@ -1,13 +1,3 @@
-.od-fields-cont {
-    display: flex;
-    align-items: flex-start;
-    flex-direction: column;
-    width: 100%;
-    gap: 20px;
-    max-height: 90%;
-    overflow: auto;
-}
-
 .od-fields-cont-dummy {
     display: flex;
     gap: 10px;
@@ -58,7 +48,6 @@
 .od-buttons-cont {
     display: flex;
     gap: 10px;
-    height: auto;
 }
 
 .od-button {

@@ -19,23 +19,23 @@ const OrderDocumentDisplay = ({ docutype, documents, documentid, setDocumentid, 
         <>
             <div className="od-split-div">
                 <div className="od-fields-cont">
-                    {docutype !== "Otros" ? (<>
-                        <div className="od-buttons-cont">
-                            {documentids > 1 &&
-                                documents.map((_, index) => (
-                                    <button
-                                        key={index}
-                                        className={`od-button ${index === documentid ? 'od-button-active' : ''}`}
-                                        onClick={() => setDocumentid(index)}
-                                    >
-                                        {index + 1}
-                                    </button>
-                                ))}
-                        </div>
-                        <DataDisplay minwidth="30%" data={document.data} handleChangeData={handleChangeDocument} documentid={documentid} edit={hasPermission("4")} />
-                        {docutype === "Bill of Landing" && <OrderDocumentDisplaySubdata subDocName={"Contenedor:"} nestedData={document?.nestedData} handleChangeData={handleSubDocumentChange} documentid={documentid} edit={hasPermission("4")}/>}
-                        {hasPermission("4") && <button disabled={loading} className="odocd-save-changes-button" onClick={() => handleSaveDocumentChanges(documentid, document.id)}>Guardar cambios</button>}
-                    </>) : <OrderDocumentsListSelector documents={documents} documentid={documentid} setDocumentid={setDocumentid} handleChangeData={handleChangeDocument} />}
+                        {docutype !== "Otros" ? (<>
+                            <div className="od-buttons-cont">
+                                {documentids > 1 &&
+                                    documents.map((_, index) => (
+                                        <button
+                                            key={index}
+                                            className={`od-button ${index === documentid ? 'od-button-active' : ''}`}
+                                            onClick={() => setDocumentid(index)}
+                                        >
+                                            {index + 1}
+                                        </button>
+                                    ))}
+                            </div>
+                            <DataDisplay minwidth="30%" data={document.data} handleChangeData={handleChangeDocument} documentid={documentid} edit={hasPermission("4")} />
+                            {docutype === "Bill of Landing" && <OrderDocumentDisplaySubdata subDocName={"Contenedor:"} nestedData={document?.nestedData} handleChangeData={handleSubDocumentChange} documentid={documentid} edit={hasPermission("4")} />}
+                            {hasPermission("4") && <button disabled={loading} className="odocd-save-changes-button" onClick={() => handleSaveDocumentChanges(documentid, document.id)}>Guardar cambios</button>}
+                        </>) : <OrderDocumentsListSelector documents={documents} documentid={documentid} setDocumentid={setDocumentid} handleChangeData={handleChangeDocument} />}
                 </div>
                 <div className={`od-fields-cont ${document?.isDummy && "od-fields-cont-dummy"}`}>
                     {document?.isDummy ? <span className="odocd-embed dummy-document">No hay Documento</span> :
