@@ -102,6 +102,13 @@ const OrdersList = ({ }) => {
         }
 
         fetchOrders()
+
+        //interval to re send the request
+        const intervalId = setInterval(fetchOrders, 5000)
+
+        return () => {
+            clearInterval(intervalId)
+        }
     }, [ordtype, currentPage, itemsPerPage])
 
     const changeColumnExceptions = (e) => {
