@@ -51,6 +51,17 @@
     width: 100%;
 }
 
+.odd-save-changes-button {
+    background-color: #35c359;
+    padding: 10px 30px 10px 30px;
+    font-size: 1rem;
+    color: white;
+    text-decoration: none;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
 .odd-control-button {
     background-color: #d9534f;
     padding: 10px 30px 10px 30px;
@@ -60,4 +71,5 @@
     border: none;
     border-radius: 3px;
     cursor: pointer;
+    margin-left: 10px;
 }

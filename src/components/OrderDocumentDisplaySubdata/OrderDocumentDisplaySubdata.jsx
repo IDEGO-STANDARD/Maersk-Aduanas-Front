@@ -4,10 +4,7 @@ import "./OrderDocumentDisplaySubdata.css";
 const OrderDocumentDisplaySubdata = ({ nestedData, minwidth = "18%", handleChangeData, edit, documentid, subDocName }) => {
     const [selectedId, setSelectedId] = useState(0)
 
-    console.log("nestedData")
-
     const data = nestedData[selectedId]
-    console.log(data)
     const dropdownOptions = Object.keys(nestedData).map((id) => (
         <option key={id} value={id}>
             {parseInt(id) + 1}

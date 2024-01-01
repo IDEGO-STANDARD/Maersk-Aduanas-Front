@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react'
 import { X } from 'react-bootstrap-icons'
 import './OrderPopup.css'
 
-const OrderPopup = ({isOpen, onClose, orderId, PopupComponent}) => {
+const OrderPopup = ({isOpen, onClose, info, PopupComponent, contentClass}) => {
 
   const ref = useRef()
 
@@ -25,9 +25,9 @@ const OrderPopup = ({isOpen, onClose, orderId, PopupComponent}) => {
 
   return (
     <div className="popup">
-      <div ref={ref} className="popup-content">
+      <div ref={ref} className={`popup-content ${contentClass||''}`}>
         <button className="close-button" onClick={onClose}><X /></button>
-        <PopupComponent orderId={orderId}/>
+        <PopupComponent info={info}/>
       </div>
     </div>
   );

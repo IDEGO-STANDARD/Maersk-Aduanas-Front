@@ -1,0 +1,108 @@
+.ig-reporte-addrow-text-input {
+  width: 100%;
+  margin-top: 2px;
+  margin-left: 5px;
+}
+
+.ig-reporte-cont {
+  align-items: center;
+  justify-content: flex-start;
+  width: 80%;
+  max-width: 900px;
+}
+
+.ig-data-cont table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.ig-data-cont th,
+.ig-data-cont td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.ig-data-cont th {
+  background-color: #f2f2f2;
+}
+
+/* GASTOS ADICIONALES column */
+.ig-data-cont th:first-child,
+.ig-data-cont td:first-child {
+  font-weight: bold;
+}
+
+/* CHECKBOX column */
+.ig-data-cont td:nth-child(2) {
+  text-align: center;
+}
+
+/* CANTIDAD/MONTO, SOLICITANTE columns */
+.ig-data-cont th:nth-child(3) {
+  width: 30%,
+}
+
+.ig-data-cont th:nth-child(4) {
+  width: 20%;
+}
+
+/* contentArray section */
+.ig-data-cont tbody tr:last-child td {
+  padding: 5px;
+}
+
+.ig-data-cont tbody tr:last-child label {
+  margin-right: 5px;
+}
+
+/* Otro input */
+.ig-reporte-otro-text-input {
+  width: 30%;
+  margin-top: 2px;
+  margin-left: 5px;
+}
+
+.ig-reporte-addrow-text-input {
+  width: 80%;
+  height: 2.5em;
+  margin-top: 2px;
+  margin-left: 5px;
+}
+
+.ig-data-cont tbody tr:hover {
+  background-color: #f5f5f5;
+}
+
+.ig-data-cont tbody tr {
+  max-height: 50px;
+}
+
+.ig-reporte-addrow-button {
+  width: 100%;
+  height: 100%;
+  background-color: #ffffff;
+  border: 1px solid #888;
+  border-radius: .2em;
+  color: rgb(47, 47, 47);
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 1.4em;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  box-sizing: border-box;
+  padding: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ig-reporte-addrow-button:hover {
+  background-color: #9fe5f0;
+}
+
+.ig-data-cont td:nth-child(2) input[type="checkbox"] {
+  width: 25px;
+  height: 25px;
+}

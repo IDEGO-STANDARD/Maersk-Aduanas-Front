@@ -1,16 +1,16 @@
-import { useOutletContext, useParams } from "react-router-dom";
-import { useState } from "react";
-import OrderDocumentDisplay from "../OrderDocumentDisplay/OrderDocumentDisplay";
-import PageReload from "../PageReload/PageReload";
-import Tabber from "../Tabber/Tabber";
+import { useOutletContext, useParams } from "react-router-dom"
+import { useState } from "react"
+import OrderDocumentDisplay from "../OrderDocumentDisplay/OrderDocumentDisplay"
+import PageReload from "../PageReload/PageReload"
+import Tabber from "../Tabber/Tabber"
 import axiosPythonInstance from "../../axiosInstance/axiosPythonInstance"
-import toast from "react-hot-toast";
-import "./OrderDocuments.css";
-import { useEffect } from "react";
+import toast from "react-hot-toast"
+import "./OrderDocuments.css"
+import { useEffect } from "react"
 
 const OrderDocuments = () => {
     const { docutype } = useParams()
-    const [order, documentid, setDocumentid, handleChangeOrder, handleChangeDocument, handleChangeSubDocument] = useOutletContext()
+    const [order, documentid, setDocumentid, handleChangeOrder, handleChangeDocument, handleChangeSubDocument, handleChangeValidationData ] = useOutletContext()
 
     const [loading, setLoading] = useState(false)
 

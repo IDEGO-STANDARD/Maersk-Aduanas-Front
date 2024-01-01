@@ -8,7 +8,7 @@ import "./OrderParent.css";
 
 const OrderParent = ({}) => {
 
-    const { ordtype, ordnumber, docutype } = useParams()
+    const { ordtype, ordnumber, docutype } = useParams();
     const nav = useNavigate()
     const [order, setOrder] = useState("")
     const [documentid, setDocumentid] = useState(0)
@@ -16,7 +16,16 @@ const OrderParent = ({}) => {
     useEffect(() => {
         axiosInstance.get(`/orden?id=${ordnumber}`)
         .then((res) => {
-            setOrder(res.data)
+            const updatedData = res.data.data.map(item => {
+                if (item.name === "Razón social" || item.name === "Cliente") {
+                    const newItem = { ...item }
+                    delete newItem.checked
+                    return newItem
+                } else {
+                    return { ...item, checked: false }
+                }
+            })
+            setOrder({ ...res.data, data: updatedData })
             console.log(res.data)
         })
         .catch((error) => {
@@ -26,10 +35,10 @@ const OrderParent = ({}) => {
     }, [])
 
     const handleChangeOrder = () => {
-
     }
 
     const handleChangeDocument = (docType, itemName, newCheckedValue, newValue, documentid) => {
+        console.log("doc")
         setOrder(prevOrder => {
             const newOrder = { ...prevOrder }
             const docIndex = newOrder.documents.findIndex(doc => doc.type === docType);
@@ -42,7 +51,7 @@ const OrderParent = ({}) => {
                         newItem.value = newValue
                         newOrder.documents[docIndex].documents[documentIndex].data[itemIndex] = newItem
                     }
-                });
+                })
             }
             
             console.log(newOrder)
@@ -71,13 +80,46 @@ const OrderParent = ({}) => {
             return newOrder
         })
     }
+
+    const handleChangeValidationData = ( itemName, newCheckedValue, newValue) => {
+        console.log("vali")
+        setOrder(prevOrder => {
+            const newOrder = { ...prevOrder }
+            const itemIndex = newOrder.data?.findIndex((item) => item.name === itemName)
+            
+            if (itemIndex !== -1) {
+                newOrder.data.forEach((validationData, dataIndex) => {
+                    if (dataIndex === itemIndex) {
+                        const newItem = { ...newOrder.data[itemIndex] }
+                        console.log(newItem)
+                        newItem.checked = newCheckedValue
+                        newItem.value = newValue
+                        newOrder.data[itemIndex] = newItem
+                    }
+                })
+            
+            }
+            console.log(newOrder)
+            return newOrder
+        })
+    }
     
+    const handleVolver = () => {
+        if (window.location.pathname === `/ordenes/${ordtype}/${ordnumber}/${docutype}`) {
+            nav(`/ordenes/${ordtype}/${ordnumber}/validacion`)
+        } else {
+            nav(`/ordenes/${ordtype}`)
+        }
+    }
+
+    const contextValues = [order, documentid, setDocumentid, handleChangeOrder, handleChangeDocument, handleChangeSubDocument, handleChangeValidationData ]
+
     return <>
         {order && 
             <div className="od-main-cont">
                 <span className="ol-title">{docutype ? `DOCUMENTOS DE ORDEN DE TRABAJO ${ordnumber}` :  `VALIDACIÓN DE ORDEN DE TRABAJO ${ordnumber}`}</span>
-                {order != 0 && <Outlet context={[order, documentid, setDocumentid, handleChangeOrder, handleChangeDocument, handleChangeSubDocument]}/>}
-                <button onClick={() => {nav(`/ordenes/${ordtype}`)}} className="od-back-button">Volver</button>
+                {order != 0 && <Outlet context={contextValues}/>}
+                <button  onClick={handleVolver} className="od-back-button">Volver</button>
             </div>
         }
     </>

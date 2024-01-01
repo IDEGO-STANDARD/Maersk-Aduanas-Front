@@ -88,6 +88,17 @@
     flex-direction: column;
 }
 
+.ig-rendered-keys-label {
+    width: 100%;
+}
+
+.ig-rendered-keys-select {
+    color: #333;
+    outline: none;
+    width: 100%;
+    padding: 10px 10px 10px 5px;
+}
+
 .ig-rendered-keys-key-text {
     margin-right: auto;
 }

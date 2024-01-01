@@ -1,0 +1,29 @@
+.response-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.response-row {
+    border: none;
+}
+
+.response-key,
+.response-value {
+    padding: 10px;
+    border: none;
+}
+
+.subtable {
+    margin-top: 10px;
+    border-collapse: collapse;
+    border: none;
+}
+
+.subrow {
+    border: none;
+}
+
+.subitem-value {
+    padding: 5px;
+    border: none;
+}

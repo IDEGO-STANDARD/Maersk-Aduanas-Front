@@ -12,6 +12,7 @@ import OrderPopup from "../OrderPopup/OrderPopup";
 import OrderPopupIncident from "../OrderPopupIncident/OrderPopupIncident";
 import "./OrdersList.css";
 import { UserContext } from "../../context/UserContext";
+import OrderPopupExport from "../OrderPopupExport/OrderPopupExport";
 
 const OrdersList = ({ }) => {
 
@@ -26,8 +27,11 @@ const OrdersList = ({ }) => {
     const [totalPages, setTotalPages] = useState()
     const [itemsPerPage, setItemsPerPage] = useState()
 
-    const [isPopupOpen, setPopupOpen] = useState(false)
+    const [isIncidentPopupOpen, setIncidentPopupOpen] = useState(false)
     const [popupOrderId, setPopupOrderId] = useState(null)
+
+    const [isExportPopupOpen, setExportPopupOpen] = useState(false)
+
 
     /*useEffect(() => {
         const fetchOrders = () => {
@@ -210,22 +214,31 @@ const OrdersList = ({ }) => {
         }
     })
 
-    const handleOpenPopup = (id) => {
+    const handleOpenIncidentPopup = (id) => {
         setPopupOrderId(id)
-        setPopupOpen(true)
+        setIncidentPopupOpen(true)
       };
 
-    const handleClosePopup = () => {
-        setPopupOpen(false)
+    const handleCloseIncidentPopup = () => {
+        setIncidentPopupOpen(false)
         setPopupOrderId(null)
     };
 
+    const handleOpenExportPopup = (id) => {
+        setExportPopupOpen(true)
+      };
+
+    const handleCloseExportPopup = () => {
+        setExportPopupOpen(false)
+    };
 
     return <div className="ol-main-cont">
         <span className="ol-title">MIS ÓRDENES DE TRABAJO {ordtype.toUpperCase()}</span>
+        {/* <button onClick={handleOpenExportPopup}>Exportar a Excel</button> */}
         <RowsTableConfigurationMenu filtersections={filtersections} columns={columns} changeColumnExceptions={changeColumnExceptions} />
-        <RowsTable columnExceptions={columnExceptions} loading={loading} data={orders} ComponentBeforeKeys={OrderRowsBeforeComponent} onClickFunc={openDetails} onOpenPopup={handleOpenPopup} />
-        <OrderPopup isOpen={isPopupOpen} onClose={handleClosePopup} orderId={popupOrderId} PopupComponent={OrderPopupIncident} />
+        <RowsTable columnExceptions={columnExceptions} loading={loading} data={orders} ComponentBeforeKeys={OrderRowsBeforeComponent} onClickFunc={openDetails} onOpenPopup={handleOpenIncidentPopup} />
+        <OrderPopup isOpen={isIncidentPopupOpen} onClose={handleCloseIncidentPopup} info={popupOrderId} PopupComponent={OrderPopupIncident} />
+        {/* <OrderPopup isOpen={isExportPopupOpen} onClose={handleCloseExportPopup} info={popupOrderId} PopupComponent={OrderPopupExport} contentClass={"export-popup-content"}/> */}
         <div></div>
         <div></div>
     </div>

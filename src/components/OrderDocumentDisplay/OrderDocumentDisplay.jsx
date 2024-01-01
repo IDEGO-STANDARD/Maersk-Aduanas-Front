@@ -10,8 +10,13 @@ const OrderDocumentDisplay = ({ docutype, documents, documentid, setDocumentid, 
 
     const { hasPermission } = useContext(UserContext)
     const createEmbedUrl = (url) => {
-        return `https://view.officeapps.live.com/op/embed.aspx?src=${encodeURIComponent(url)}&wdAllowInteractivity=False&wdHideGridlines=True&wdHideHeaders=True&wdDownloadButton=True&wdInConfigurator=True`
-    }
+        const isExcel = /\.(xlsx?|xlsm)$/.test(url);
+        const isWord = /\.(docx?|docm)$/.test(url);
+    
+        return `https://view.officeapps.live.com/op/embed.aspx?src=${encodeURIComponent(url)}&wdAllowInteractivity=False&wdHideGridlines=True&wdHideHeaders=True&wdDownloadButton=True&wdInConfigurator=True` +
+            (isExcel ? '' : (isWord ? '&wdWord=1' : ''));
+    };
+    
     const document = documents ? documents[documentid] || documents[0] : {}
     const documentids = documents?.length
 
@@ -39,7 +44,7 @@ const OrderDocumentDisplay = ({ docutype, documents, documentid, setDocumentid, 
                 </div>
                 <div className={`od-fields-cont od-fields-cont-embed ${document?.isDummy ? "od-fields-cont-dummy" : ""}`}>
                     {document?.isDummy ? <span className="odocd-embed dummy-document">No hay Documento</span> :
-                        /\.xls[xm]?$/.test(document.url) ? <iframe className="odocd-embed" style={{ overflow: 'hidden', border: 'none' }} src={createEmbedUrl(document.url)}></iframe> :
+                        /\.(xlsx?|docx?)$/.test(document.url) ? <iframe className="odocd-embed" style={{ overflow: 'hidden', border: 'none' }} src={createEmbedUrl(document.url)}></iframe> :
                             <embed className="odocd-embed" src={document.url} />
                     }
                 </div>

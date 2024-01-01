@@ -1,41 +1,121 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useContext } from "react"
 import { useParams, Link } from "react-router-dom"
+import { UserContext } from "../../context/UserContext"
 import DataDisplay from "../DataDisplay/DataDisplay"
 import axiosInstance from "../../axiosInstance/axiosInstance"
+import axiosPythonInstance from "../../axiosInstance/axiosPythonInstance"
 import toast from "react-hot-toast"
 import "./OrderDetailsDetails.css"
 
 
 const OrderDetailsDetails = () => {
 
-    const {ordnumber, ordtype} = useParams()
+    const { ordnumber, ordtype } = useParams()
+    const { hasPermission } = useContext(UserContext)
 
     const [order, setOrder] = useState("")
+    const [isEditing, setIsEditing] = useState(false)
+    const [loading, setLoading] = useState(false)
 
     useEffect(() => {
         const fetchOrderDetails = () => {
             axiosInstance.get(`/get_detalle?id=${ordnumber}`)
-            .then((res) => {
-                console.log(res.data)
-                setOrder(res.data)
-            })
-            .catch((error) => {
-                console.error("ERROR", error)
-                toast.error(error.response.data.error)
-            })
+                .then((res) => {
+                    console.log(res.data)
+                    const updatedClientData = res.data.clientdata.map(item => {
+                        if (item.name === "Razón social" || item.name === "Cliente") {
+                            return item
+                        } else {
+                            return { name: item.name, checked: false, value: item.value }
+                        }
+                    })
+                    const updatedCalendarData = res.data.calendardata.map(item => {
+                        if (item.name === "Razón social" || item.name === "Cliente") {
+                            return item
+                        } else {
+                            return { name: item.name, checked: false, value: item.value }
+                        }
+                    })
+                    setOrder({
+                        ...res.data,
+                        clientdata: updatedClientData,
+                        calendardata: updatedCalendarData
+                    })
+                })
+                .catch((error) => {
+                    console.error("ERROR", error)
+                    toast.error(error.response.data.error)
+                })
         }
 
-        fetchOrderDetails()
+        if (!isEditing) {fetchOrderDetails()}
 
-        const intervalId = setInterval(fetchOrderDetails, 3000)
+        const intervalId = setInterval(() => {
+            if (!isEditing) {
+                fetchOrderDetails();
+            }
+        }, 3000);
 
         return () => {
-            clearInterval(intervalId)
+            clearInterval(intervalId);
         }
-    }, [])
+    }, [isEditing])
 
-    console.log(order)
-    
+    const handleChangeDetails = (detailType, itemName, newCheckedValue, newValue) => {
+        setIsEditing(true)
+        setOrder(prevOrder => {
+            const newOrder = { ...prevOrder }
+            const itemIndex = newOrder[detailType]?.findIndex((item) => item.name === itemName)
+
+            if (itemIndex !== -1) {
+                newOrder[detailType].forEach((detail, detailIndex) => {
+                    if (detailIndex === itemIndex) {
+                        const newItem = { ...newOrder[detailType][itemIndex] }
+                        newItem.checked = newCheckedValue
+                        newItem.value = newValue
+                        
+                        newOrder[detailType][itemIndex] = newItem
+                    }
+                })
+            }
+
+            // console.log(`Final Order:`)
+            // console.log(newOrder)
+            return newOrder
+        })
+    }
+
+    const handleChangeDataClient = (itemName, newCheckedValue, newValue) => {
+        const detailType = 'clientdata'
+        handleChangeDetails(detailType, itemName, newCheckedValue, newValue)
+    }
+
+    const handleChangeDataCalendar = (itemName, newCheckedValue, newValue) => {
+        const detailType = 'calendardata'
+        handleChangeDetails(detailType, itemName, newCheckedValue, newValue)
+    }
+
+    const handleSaveDetailChanges = () => {
+        setLoading(true)
+        const checkedData = order.clientdata.filter(item => item.checked);
+        const docqueryparam = `id=${order.id}`
+        console.log({
+            data: checkedData
+        })
+        axiosPythonInstance.post(`/validarDetalles?${docqueryparam}`, {
+            data: checkedData
+        })
+        .then((res) => {
+            console.log(res)
+            setLoading(false)
+            toast.success("Campos guardados correctamente")
+        })
+        .catch((error) => {
+            setLoading(false)
+            console.error("ERROR", error)
+            toast.error(error.response?.data?.error || "Error guardando cambios")
+        })
+    }
 
     return (
         <div className="odd-main-cont">
@@ -48,14 +128,15 @@ const OrderDetailsDetails = () => {
             </div>
             <div className="odd-section-cont">
                 <div className="odd-section-title">Cliente</div>
-                {order && <DataDisplay data={order.clientdata}/>}
+                {order && <DataDisplay data={order.clientdata} edit={hasPermission("4")} handleChangeData={handleChangeDataClient} />}
             </div>
-            <div className="odd-section-cont">
+            {/* <div className="odd-section-cont">
                 <div className="odd-section-title">Calendario</div>
-                {order && <DataDisplay data={order.calendardata}/>}
-            </div>
+                {order && <DataDisplay data={order.calendardata} edit={hasPermission("4")} handleChangeData={handleChangeDataCalendar} />}
+            </div> */}
             <div className="odd-buttons-cont">
                 <Link to={`/ordenes/${ordtype}`} className="od-back-button">Volver</Link>
+                {hasPermission("4") && <button disabled={loading} className="odd-save-changes-button" onClick={() => handleSaveDetailChanges()}>Guardar cambios</button>}
                 <Link to={`/control/${ordnumber}`} className="odd-control-button">Ir a torre de control</Link>
             </div>
         </div>

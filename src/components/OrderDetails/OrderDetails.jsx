@@ -9,10 +9,10 @@ import { UserContext } from "../../context/UserContext";
 
 const OrderDetails = ({}) => {
 
-    const { ordtype, ordnumber } = useParams()
-    const [order] = useOutletContext()
+    const { ordtype, ordnumber, docutype } = useParams()
+    const [order, documentid, setDocumentid, handleChangeOrder, handleChangeDocument, handleChangeSubDocument, handleChangeValidationData ] = useOutletContext()
 
-    const {userdata, hasPermission} = useContext(UserContext)
+    const { userdata, hasPermission } = useContext(UserContext)
 
     const [loading, setLoading] = useState(false)
 
@@ -28,6 +28,10 @@ const OrderDetails = ({}) => {
             console.error("ERROR", error)
             toast.error(error.response.data.error)
         })
+    }
+
+    const handleDataChange = (itemName, newCheckedValue, newValue) => {
+        handleChangeValidationData(itemName, newCheckedValue, newValue);
     }
 
     const renderDocutypes = order.documents.map((docutype) => {
@@ -50,7 +54,7 @@ const OrderDetails = ({}) => {
         <>
             <div className="od-split-div">
                 <div className="od-fields-cont">
-                    <DataDisplay minwidth="30%" data={order.data} edit={hasPermission("4")} />
+                    <DataDisplay minwidth="30%" data={order.data} edit={hasPermission("4")} handleChangeData={handleDataChange} />
                     {hasPermission("4") && <button disabled={loading} onClick={createSintad} className="od-create-sintad-button">Crear en SINTAD</button>}
                 </div>
                 <div className="od-docutypes-cont">

@@ -7,8 +7,6 @@ const OrderDocumentsListSelector = ({ documents, documentid, setDocumentid }) =>
 
     const filteredDocuments = documents.filter(doc => doc.name?.toLowerCase().includes(searchTerm.toLowerCase()))
 
-    console.log(filteredDocuments)
-
     return (
         <>
             <div id="list-selector" className="list-selector-main-cont">

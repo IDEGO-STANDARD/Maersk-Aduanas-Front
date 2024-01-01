@@ -3,7 +3,7 @@ import {  useParams, Link } from "react-router-dom"
 import axiosInstance from "../../axiosInstance/axiosInstance"
 import './OrderPopupIncident.css'
 
-const OrderPopupIncident = ({ orderId }) => {
+const OrderPopupIncident = ({ info }) => {
   const { ordtype } = useParams()
 
   const [incidents, setIncidents] = useState([])
@@ -29,7 +29,7 @@ const OrderPopupIncident = ({ orderId }) => {
 
   return (
     <div className="incident-popup-container">
-      <h2 className="popup-title">Generar Incidencia para {ordtype.toUpperCase()}-{orderId}</h2>
+      <h2 className="popup-title">Generar Incidencia para {ordtype.toUpperCase()}-{info}</h2>
       <div className="incidents-container">
         {incidents.length < 1 ? (
           <span>{incidentLoading ? "Cargando incidentes..." : "No hay incidentes"}</span>
@@ -37,7 +37,7 @@ const OrderPopupIncident = ({ orderId }) => {
           incidents.map((incident) => (
             <Link
               key={incident.idIncidencia}
-              to={`/ordenes/${ordtype}/${orderId}/generacion/${incident.idIncidencia}`}
+              to={`/ordenes/${ordtype}/${info}/generacion/${incident.idIncidencia}`}
               className="incident-button"
             >
               {incident.nombre}
