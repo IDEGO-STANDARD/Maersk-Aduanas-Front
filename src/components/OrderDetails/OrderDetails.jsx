@@ -34,6 +34,28 @@ const OrderDetails = ({}) => {
         handleChangeValidationData(itemName, newCheckedValue, newValue);
     }
 
+    const handleSaveDetailChanges = () => {
+        setLoading(true)
+        const checkedData = order.data.filter(item => item.checked);
+        const docqueryparam = `id=${ordnumber}`
+        console.log({
+            data: [...checkedData]
+        })
+        axiosPythonInstance.post(`/validarDetalles?${docqueryparam}`, {
+            data: [...checkedData]
+        })
+        .then((res) => {
+            console.log(res)
+            setLoading(false)
+            toast.success("Campos guardados correctamente")
+        })
+        .catch((error) => {
+            setLoading(false)
+            console.error("ERROR", error)
+            toast.error(error.response?.data?.error || "Error guardando cambios")
+        })
+    }
+
     const renderDocutypes = order.documents.map((docutype) => {
         return (
             <div className="docutypes-main-cont" key={docutype.type} >
@@ -55,6 +77,7 @@ const OrderDetails = ({}) => {
             <div className="od-split-div">
                 <div className="od-fields-cont">
                     <DataDisplay minwidth="30%" data={order.data} edit={hasPermission("4")} handleChangeData={handleDataChange} />
+                    {hasPermission("4") && <button disabled={loading} className="odd-save-changes-button" onClick={() => handleSaveDetailChanges()}>Guardar cambios</button>}
                     {hasPermission("4") && <button disabled={loading} onClick={createSintad} className="od-create-sintad-button">Crear en SINTAD</button>}
                 </div>
                 <div className="od-docutypes-cont">

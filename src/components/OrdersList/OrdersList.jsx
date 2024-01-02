@@ -76,12 +76,12 @@ const OrdersList = ({ }) => {
     useEffect(() => {
         const fetchOrders = () => {
             const itemsPerPageParam = `&itemsPerPage=${itemsPerPage||"0"}` // If  0, return all ordenes. To change when Pagination is implemented
-            console.log(`/ordenes/${currentPage}?type=${ordtype}&email=${userdata.email}&rol=${userdata.rol}${itemsPerPageParam}`)
+            // console.log(`/ordenes/${currentPage}?type=${ordtype}&email=${userdata.email}&rol=${userdata.rol}${itemsPerPageParam}`)
             axiosInstance.get(`/ordenes/${currentPage}?type=${ordtype}&email=${userdata.email}&rol=${userdata.rol}&itemsPerPage=0`)
                 .then((res) => {
-                    console.log("***OrdersList:***")
-                    console.log(res.data)
-                    console.log("*****************")
+                    // console.log("***OrdersList:***")
+                    // console.log(res.data)
+                    // console.log("*****************")
                     setLoading(false)
                     setTotalPages(res.data.totalPages)
                     setOrders(res.data.orders)
