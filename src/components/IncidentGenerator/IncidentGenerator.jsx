@@ -75,7 +75,6 @@ const IncidentGenerator = () => {
 	const handleSubmit = async (event) => {
 		event.preventDefault()
 		setIsSubmitting(true)
-
 		const formData = {
 			"incidentId": incid,
 			"orderId": ordnumber,

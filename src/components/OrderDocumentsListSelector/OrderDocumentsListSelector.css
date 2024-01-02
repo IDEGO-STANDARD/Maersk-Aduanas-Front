@@ -43,7 +43,10 @@
     transition: background-color 0.3s ease;
     width: 100%;
     text-align: left;
+    display: flex;
+    justify-content: space-between;
 }
+
 
 .list-selector-tab-cont:hover {
     background-color: #f0f0f0;
@@ -68,4 +71,39 @@
 
 .list-selector-tab-cont:last-child {
     border-radius: 0 0 5px 5px;
+}
+
+.sub-buttons {
+    margin: -5px;
+    display: flex; 
+    gap: 10px;
+}
+
+.sub-button {
+    background-color: #b2b2b2;
+    color: #fff; 
+    border: none; 
+    border-radius: 0.2em;
+    padding: 0px 10px 0px 10px; 
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    transition-duration: 0.4s; 
+    cursor: pointer; 
+}
+
+.sub-button:hover {
+    background-color: #008CBA;
+    color: white; 
+}
+
+.list-selector-tab-cont-active .sub-button {
+    background-color: #fff;
+    color: #3498db; 
+}
+
+.list-selector-tab-cont-active .sub-button:hover {
+    background-color: #3498db; 
+    color: white;
 }

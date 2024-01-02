@@ -76,21 +76,30 @@
     font-weight: bold;
 }
 
-.docutypes-eye {
+.docutypes-icons {
     display: flex;
     align-items: center;
     margin-left: auto;
-    color: rgb(12, 12, 112);
     font-size: 2rem;
-    cursor: pointer;
+    gap: 0.25em;
 }
 
+.docutypes-upload,
+.docutypes-eye,
 .docutypes-cross-eye {
     display: flex;
     align-items: center;
     margin-left: auto;
     color: rgb(12, 12, 112);
-    font-size: 2rem;
+    font-size: inherit;
+}
+
+.docutypes-upload,
+.docutypes-eye {
+    cursor: pointer;
+}
+
+.docutypes-cross-eye {
     opacity: 0.5;
 }
 

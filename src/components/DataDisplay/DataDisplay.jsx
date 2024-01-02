@@ -7,7 +7,6 @@ const DataDisplay = ({ data, minwidth = "18%", handleChangeData, edit, documenti
             let name = elem.name.charAt(0).toUpperCase() + elem.name.slice(1)
             
             const isFechaElement = name.toLowerCase().includes("fecha") || name.toLowerCase().includes("date")
-            console.log(isFechaElement)
             const placeholderText = isFechaElement && !elem.value ? "aaaa-mm-dd" : null
 
             return (
@@ -18,7 +17,7 @@ const DataDisplay = ({ data, minwidth = "18%", handleChangeData, edit, documenti
                             <input
                                 className="dd-rendered-keys-checkbox"
                                 onChange={(e) => {
-                                    handleChangeData(elem.name, e.target.checked, elem.value, documentid);
+                                    handleChangeData(elem.name, e.target.checked, elem.value, documentid)
                                 }}
                                 type="checkbox"
                                 checked={elem.checked}
@@ -36,10 +35,10 @@ const DataDisplay = ({ data, minwidth = "18%", handleChangeData, edit, documenti
                         disabled={elem.hasOwnProperty("checked") && edit ? elem.checked : true}
                     />
                 </div>
-            );
-        });
+            )
+        })
 
-    const instructionsElement = data?.find((elem) => elem.name === "Instrucciones");
+    const instructionsElement = data?.find((elem) => elem.name === "Instrucciones")
 
     return (
         <div className="dd-rendered-keys-cont">
@@ -52,7 +51,7 @@ const DataDisplay = ({ data, minwidth = "18%", handleChangeData, edit, documenti
                                 <input
                                     className="dd-rendered-keys-checkbox"
                                     onChange={(e) => {
-                                        handleChangeData(instructionsElement.name, e.target.checked, instructionsElement.value, documentid);
+                                        handleChangeData(instructionsElement.name, e.target.checked, instructionsElement.value, documentid)
                                     }}
                                     type="checkbox"
                                     checked={instructionsElement.checked}
@@ -63,14 +62,14 @@ const DataDisplay = ({ data, minwidth = "18%", handleChangeData, edit, documenti
                             className="dd-rendered-keys-value-text"
                             value={instructionsElement.value}
                             onChange={(e) => {
-                                handleChangeData(instructionsElement.name, instructionsElement.checked, e.target.value, documentid);
+                                handleChangeData(instructionsElement.name, instructionsElement.checked, e.target.value, documentid)
                             }}
                             disabled={instructionsElement.hasOwnProperty("checked") && edit ? instructionsElement.checked : true}
                         />
                     </div>
             )}
         </div>
-    );
-};
+    )
+}
 
-export default DataDisplay;
+export default DataDisplay
