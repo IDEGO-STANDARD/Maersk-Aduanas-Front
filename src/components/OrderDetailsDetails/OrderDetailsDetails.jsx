@@ -22,18 +22,22 @@ const OrderDetailsDetails = () => {
             axiosInstance.get(`/get_detalle?id=${ordnumber}`)
                 .then((res) => {
                     console.log(res.data)
-                    const updatedClientData = res.data.clientdata.map(item => {
+                    const updatedClientData = res.data.clientdata?.map(item => {
                         if (item.name === "Razón social" || item.name === "Cliente") {
-                            return item
+                            const newItem = { ...item }
+                            delete newItem.checked
+                            return newItem
                         } else {
-                            return { name: item.name, checked: false, value: item.value }
+                            return { ...item, checked: false }
                         }
                     })
-                    const updatedCalendarData = res.data.calendardata.map(item => {
+                    const updatedCalendarData = res.data.calendardata?.map(item => {
                         if (item.name === "Razón social" || item.name === "Cliente") {
-                            return item
+                            const newItem = { ...item }
+                            delete newItem.checked
+                            return newItem
                         } else {
-                            return { name: item.name, checked: false, value: item.value }
+                            return { ...item, checked: false }
                         }
                     })
                     setOrder({
@@ -80,7 +84,7 @@ const OrderDetailsDetails = () => {
             }
 
             // console.log(`Final Order:`)
-            // console.log(newOrder)
+            console.log(newOrder)
             return newOrder
         })
     }
@@ -98,12 +102,12 @@ const OrderDetailsDetails = () => {
     const handleSaveDetailChanges = () => {
         setLoading(true)
         const checkedData = order.clientdata.filter(item => item.checked);
-        const docqueryparam = `id=${order.id}`
+        const docqueryparam = `id=${ordnumber}`
         console.log({
-            data: checkedData
+            data: [...checkedData]
         })
         axiosPythonInstance.post(`/validarDetalles?${docqueryparam}`, {
-            data: checkedData
+            data: [...checkedData]
         })
         .then((res) => {
             console.log(res)
