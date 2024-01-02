@@ -98,7 +98,7 @@ const OrderDetails = ({ }) => {
                 <span style={{ backgroundColor: docutype.documents.length && !docutype.documents[0].isDummy ? "rgb(60, 192, 60)" : "orange" }} className="docutypes-item-number">{docutype.documents[0].isDummy ? 0 : docutype.documents.length}</span>
                 <span>{docutype.type}</span>
                 <div className="docutypes-icons">
-                    {/* <div className="docutypes-upload" onClick={handleFileUpload}>
+                    <div className="docutypes-upload" onClick={handleFileUpload}>
                         {posting ? <Loader props /> : <FileEarmarkPlusFill />}
                         <input
                             type="file"
@@ -106,7 +106,7 @@ const OrderDetails = ({ }) => {
                             style={{ display: 'none' }}
                             onChange={(e) => handleFileChange(e, docutype.type)}
                         />
-                    </div> */}
+                    </div>
                     {docutype.documents.length > 0 && !docutype.documents[0].isDummy
                         ? <Link to={`/ordenes/${ordtype}/${ordnumber}/${docutype.type}`} className="docutypes-eye">
                             <EyeFill />

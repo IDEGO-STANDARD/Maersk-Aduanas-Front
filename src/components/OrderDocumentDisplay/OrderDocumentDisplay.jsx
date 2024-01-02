@@ -6,7 +6,7 @@ import { UserContext } from "../../context/UserContext";
 import OrderDocumentsListSelector from "../OrderDocumentsListSelector/OrderDocumentsListSelector";
 import OrderDocumentDisplaySubdata from "../OrderDocumentDisplaySubdata/OrderDocumentDisplaySubdata";
 
-const OrderDocumentDisplay = ({ docutype, documents, documentid, setDocumentid, handleChangeDocument, handleSubDocumentChange, handleSaveDocumentChanges, loading }) => {
+const OrderDocumentDisplay = ({ docutype, documents, documentid, setDocumentid, handleChangeDocument, handleSubDocumentChange, handleSaveDocumentChanges, loading, order}) => {
 
     const { hasPermission } = useContext(UserContext)
     const createEmbedUrl = (url) => {
@@ -39,7 +39,7 @@ const OrderDocumentDisplay = ({ docutype, documents, documentid, setDocumentid, 
                             <DataDisplay minwidth="30%" data={document.data} handleChangeData={handleChangeDocument} documentid={documentid} edit={hasPermission("4")} />
                             {docutype === "Bill of Landing" && <OrderDocumentDisplaySubdata subDocName={"Contenedor:"} nestedData={document?.nestedData} handleChangeData={handleSubDocumentChange} documentid={documentid} edit={hasPermission("4")} />}
                             {hasPermission("4") && <button disabled={loading} className="odocd-save-changes-button" onClick={() => handleSaveDocumentChanges(documentid, document.id)}>Guardar cambios</button>}
-                        </>) : <OrderDocumentsListSelector documents={documents} documentid={documentid} setDocumentid={setDocumentid} handleChangeData={handleChangeDocument} />}
+                        </>) : <OrderDocumentsListSelector documents={documents} documentid={documentid} setDocumentid={setDocumentid} handleChangeData={handleChangeDocument} order={order} />}
                 </div>
                 <div className={`od-fields-cont od-fields-cont-embed ${document?.isDummy ? "od-fields-cont-dummy" : ""}`}>
                     {document?.isDummy ? <span className="odocd-embed dummy-document">No hay Documento</span> :

@@ -61,6 +61,7 @@ const OrderDocuments = () => {
                 handleSubDocumentChange={handleSubDocumentChange}
                 handleSaveDocumentChanges={handleSaveDocumentChanges}
                 loading={loading}
+                order={order}
             />
         </>
     )
