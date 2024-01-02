@@ -5,6 +5,11 @@ const DataDisplay = ({ data, minwidth = "18%", handleChangeData, edit, documenti
         ?.filter((elem) => elem.name !== "Instrucciones")
         .map((elem, index) => {
             let name = elem.name.charAt(0).toUpperCase() + elem.name.slice(1);
+            
+            const isFechaElement = name.toLowerCase().includes("fecha");
+            const placeholderText = isFechaElement && !elem.value ? "aaaa-mm-dd" : null;
+
+
             return (
                 <div key={index} style={{ minWidth: minwidth }} className="dd-rendered-keys-key-cont">
                     <div className="dd-rendered-keys-top-cont">
@@ -24,6 +29,7 @@ const DataDisplay = ({ data, minwidth = "18%", handleChangeData, edit, documenti
                         type="text"
                         className="dd-rendered-keys-value-text"
                         value={elem.value}
+                        placeholder={placeholderText}
                         onChange={(e) => {
                             handleChangeData(elem.name, elem.checked, e.target.value, documentid);
                         }}

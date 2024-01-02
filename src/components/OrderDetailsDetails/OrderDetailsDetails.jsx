@@ -115,6 +115,7 @@ const OrderDetailsDetails = () => {
         .then((res) => {
             console.log(res)
             setLoading(false)
+            setIsEditing(false)
             toast.success("Campos guardados correctamente")
         })
         .catch((error) => {

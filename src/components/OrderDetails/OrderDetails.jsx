@@ -77,8 +77,10 @@ const OrderDetails = ({}) => {
             <div className="od-split-div">
                 <div className="od-fields-cont">
                     <DataDisplay minwidth="30%" data={order.data} edit={hasPermission("4")} handleChangeData={handleDataChange} />
-                    {hasPermission("4") && <button disabled={loading} className="odd-save-changes-button" onClick={() => handleSaveDetailChanges()}>Guardar cambios</button>}
-                    {hasPermission("4") && <button disabled={loading} onClick={createSintad} className="od-create-sintad-button">Crear en SINTAD</button>}
+                    <div className="od-button-cont">
+                        {hasPermission("4") && <button disabled={loading} className="odd-save-changes-button" onClick={() => handleSaveDetailChanges()}>Guardar cambios</button>}
+                        {hasPermission("4") && <button disabled={loading} onClick={createSintad} className="od-create-sintad-button">Crear en SINTAD</button>}
+                    </div>
                 </div>
                 <div className="od-docutypes-cont">
                     {renderDocutypes}
