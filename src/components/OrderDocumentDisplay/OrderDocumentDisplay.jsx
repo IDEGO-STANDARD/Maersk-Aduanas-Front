@@ -19,8 +19,6 @@ const OrderDocumentDisplay = ({ docutype, documents, documentid, setDocumentid, 
     
     const document = documents ? documents[documentid] || documents[0] : {}
     const documentids = documents?.length
-    console.log(document.url)
-    console.log(createEmbedUrl(document.url))
     return (
         <>
             <div className="od-split-div">
