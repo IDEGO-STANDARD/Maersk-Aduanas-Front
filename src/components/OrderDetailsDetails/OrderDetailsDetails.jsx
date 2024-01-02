@@ -42,6 +42,7 @@ const OrderDetailsDetails = () => {
                             return { ...item, checked: false }
                         }
                     })
+                    console.log(res.data)
                     setOrder({
                         ...res.data,
                         clientdata: updatedClientData,
@@ -151,7 +152,7 @@ const OrderDetailsDetails = () => {
                     onChange={(e) => setSearchQuery(e.target.value)}
                     className="odd-search-bar"
                 /></div>
-                {order && <DataDisplay data={order.clientdata.filter((item) => containsSearchQuery(item.name) || containsSearchQuery(item.value))} handleChangeData={handleChangeDataClient} />}
+                {order && <DataDisplay data={order.clientdata.filter((item) => containsSearchQuery(item.name) || containsSearchQuery(item.value))} handleChangeData={handleChangeDataClient} edit={hasPermission("4")}/>}
             </div>
             {/* <div className="odd-section-cont">
                 <div className="odd-section-title">Calendario</div>
