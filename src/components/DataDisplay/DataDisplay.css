@@ -1,3 +1,19 @@
+.odd-search-bar {
+    margin-left: 10px;
+    padding: 2px;
+    width: 30%;
+    min-width: 200px;
+    font-size: 1rem;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+}
+
+.odd-search-bar:focus {
+    outline: none;
+    border-color: #3498db; 
+    box-shadow: 0 0 5px rgba(52, 152, 219, 0.5); 
+}
+
 .dd-rendered-keys-cont {
     width: 100%;
     align-items: center;
@@ -5,7 +21,7 @@
     flex-direction: row;
     flex-wrap: wrap;
     gap: 20px;
-    justify-content: space-between;
+    overflow-y: auto;
 }
 
 .dd-rendered-keys-key-cont {

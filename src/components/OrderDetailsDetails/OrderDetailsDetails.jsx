@@ -17,6 +17,8 @@ const OrderDetailsDetails = () => {
     const [isEditing, setIsEditing] = useState(false)
     const [loading, setLoading] = useState(false)
 
+    const [searchQuery, setSearchQuery] = useState("");
+
     useEffect(() => {
         const fetchOrderDetails = () => {
             axiosInstance.get(`/get_detalle?id=${ordnumber}`)
@@ -121,6 +123,17 @@ const OrderDetailsDetails = () => {
         })
     }
 
+    // Para búsqueda
+    const removeDiacritics = (str) => {
+        return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+    }
+
+    const containsSearchQuery = (text) => {
+        const normalizedText = removeDiacritics(text).toLowerCase();
+        const normalizedQuery = removeDiacritics(searchQuery).toLowerCase();
+        return normalizedText.includes(normalizedQuery);
+    };
+
     return (
         <div className="odd-main-cont">
             <div className="odd-titles-cont">
@@ -131,8 +144,14 @@ const OrderDetailsDetails = () => {
                 <span className="odd-order-title">Liquidador: {order.liquidador}</span>
             </div>
             <div className="odd-section-cont">
-                <div className="odd-section-title">Cliente</div>
-                {order && <DataDisplay data={order.clientdata} edit={hasPermission("4")} handleChangeData={handleChangeDataClient} />}
+                <div className="odd-section-title">Cliente <input
+                    type="text"
+                    placeholder="Buscar..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="odd-search-bar"
+                /></div>
+                {order && <DataDisplay data={order.clientdata.filter((item) => containsSearchQuery(item.name) || containsSearchQuery(item.value))} handleChangeData={handleChangeDataClient} />}
             </div>
             {/* <div className="odd-section-cont">
                 <div className="odd-section-title">Calendario</div>

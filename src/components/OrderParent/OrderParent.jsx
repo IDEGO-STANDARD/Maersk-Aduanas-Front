@@ -105,7 +105,7 @@ const OrderParent = ({}) => {
     }
     
     const handleVolver = () => {
-        if (window.location.pathname === `/ordenes/${ordtype}/${ordnumber}/${docutype}`) {
+        if (window.location.pathname !== `/ordenes/${ordtype}/${ordnumber}/validacion`) {
             nav(`/ordenes/${ordtype}/${ordnumber}/validacion`)
         } else {
             nav(`/ordenes/${ordtype}`)
