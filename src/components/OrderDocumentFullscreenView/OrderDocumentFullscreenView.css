@@ -1,0 +1,88 @@
+.fullscreen-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.fullscreen-view {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+
+.fullscreen-view.active {
+  display: flex;
+  z-index: 3;
+}
+
+.fullscreen-popup {
+  background-color: #fff;
+  padding: 20px;
+  width: 90%;
+  height: 90%;
+  overflow: auto;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 10px;
+  margin: 2em;
+  cursor: pointer;
+  background-color: #ddd;
+  border: none;
+  border-radius: 0.5em;
+}
+
+.content {
+  padding: 20px;
+  height: 100%;
+}
+
+.document-dropdown {
+  display: flex;
+  flex-direction: column;
+}
+
+.toggle-dropdown-button {
+  cursor: pointer;
+  padding: 5px;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  margin-bottom: 5px;
+}
+
+.doc-type {
+  cursor: pointer;
+  padding: 5px;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  margin-bottom: 5px;
+}
+
+.doc-list {
+  display: flex;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  flex-wrap: wrap; /* Make the list items wrap to the next line */
+}
+
+.doc-list li {
+  padding: 5px;
+  margin: 2px; /* Adjust the margin for spacing between items */
+}
+
+.doc-list li:hover {
+  background-color: #ddd;
+}

@@ -24,8 +24,8 @@ function Navbar({isOpen, handleToggleSidebar}) {
             {isOpen ? <XLg className="navbar-3-lines-open-button" onClick={handleToggleSidebar}/> : <List className="navbar-3-lines-open-button" onClick={handleToggleSidebar}/>}
             <img className="navbar-img" src={logomaersk}/>
             <div className="navbar-bell-cont">
-{/*                 {openNotis ? <BellFill className="notis-bell" onClick={handleToggleNotis}/> : <Bell className="notis-bell" onClick={handleToggleNotis}/>}
-                {openNotis && <NotificationsDropdown notis={notis} handleCloseNotis={handleCloseNotis}/>} */}
+                {/* {openNotis ? <BellFill className="notis-bell" onClick={handleToggleNotis}/> : <Bell className="notis-bell" onClick={handleToggleNotis}/>} */}
+                {/* {openNotis && <NotificationsDropdown notis={notis} handleCloseNotis={handleCloseNotis}/>} */}
             </div>
             <NavProfile />
         </nav>

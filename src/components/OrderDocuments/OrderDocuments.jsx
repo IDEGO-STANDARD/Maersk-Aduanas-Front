@@ -7,12 +7,15 @@ import axiosPythonInstance from "../../axiosInstance/axiosPythonInstance"
 import toast from "react-hot-toast"
 import "./OrderDocuments.css"
 import { useEffect } from "react"
+import OrderDocumentFullscreenView from "../OrderDocumentFullscreenView/OrderDocumentFullscreenView"
 
 const OrderDocuments = () => {
     const { docutype } = useParams()
-    const [order, documentid, setDocumentid, handleChangeOrder, handleChangeDocument, handleChangeSubDocument, handleChangeValidationData, refreshData ] = useOutletContext()
+    const [order, documentid, setDocumentid, handleChangeOrder, handleChangeDocument, handleChangeSubDocument, handleChangeValidationData, refreshData] = useOutletContext()
 
     const [loading, setLoading] = useState(false)
+
+    const [isFullscreen, setIsFullscreen] = useState(false)
 
     const documentToDisplay = order.documents.find((document) => document.type === docutype)
 
@@ -29,16 +32,16 @@ const OrderDocuments = () => {
             data: documentToDisplay.documents[docindex].data,
             nestedData: documentToDisplay.documents[docindex].nestedData
         })
-        .then((res) => {
-            console.log(res)
-            setLoading(false)
-            toast.success("Campos guardados correctamente")
-        })
-        .catch((error) => {
-            setLoading(false)
-            console.error("ERROR", error)
-            toast.error(error.response?.data?.error || "Error guardando cambios")
-        })
+            .then((res) => {
+                console.log(res)
+                setLoading(false)
+                toast.success("Campos guardados correctamente")
+            })
+            .catch((error) => {
+                setLoading(false)
+                console.error("ERROR", error)
+                toast.error(error.response?.data?.error || "Error guardando cambios")
+            })
     }
 
     const handleDocumentChange = (itemName, newCheckedValue, newValue, documentid) => {
@@ -49,12 +52,22 @@ const OrderDocuments = () => {
         handleChangeSubDocument(docutype, itemid, newCheckedValue, newData, documentid);
     }
 
+    const toggleFullscreen = () => {
+        setIsFullscreen(!isFullscreen)
+    }
+
     return (
         <>
-            <Tabber order={order} onClickSet={setDocumentid}/>
-            <OrderDocumentDisplay 
+            <button className="fullscreen-button" onClick={toggleFullscreen}>
+                Vista Maximizada
+            </button>
+            {isFullscreen && (
+                <OrderDocumentFullscreenView onClose={toggleFullscreen} isFullscreen={isFullscreen} order={order} />
+            )}
+            <Tabber order={order} onClickSet={setDocumentid} />
+            <OrderDocumentDisplay
                 docutype={docutype}
-                documents={documentToDisplay?.documents} 
+                documents={documentToDisplay?.documents}
                 documentid={documentid}
                 setDocumentid={setDocumentid}
                 handleChangeDocument={handleDocumentChange}
