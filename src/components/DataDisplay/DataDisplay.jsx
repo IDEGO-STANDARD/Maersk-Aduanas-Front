@@ -5,7 +5,7 @@ const DataDisplay = ({ data, minwidth = "18%", handleChangeData, edit, documenti
         ?.filter((elem) => elem.name !== "Instrucciones")
         .map((elem, index) => {
             let name = elem.name.charAt(0).toUpperCase() + elem.name.slice(1)
-            console.log(elem)
+
             const isFechaElement = elem.dataType === 'date'
             const isBool = elem.dataType === 'boolean'
 
