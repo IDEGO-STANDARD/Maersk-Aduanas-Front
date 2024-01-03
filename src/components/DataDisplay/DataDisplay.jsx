@@ -5,9 +5,9 @@ const DataDisplay = ({ data, minwidth = "18%", handleChangeData, edit, documenti
         ?.filter((elem) => elem.name !== "Instrucciones")
         .map((elem, index) => {
             let name = elem.name.charAt(0).toUpperCase() + elem.name.slice(1)
-            
-            const isFechaElement = name.toLowerCase().includes("fecha") || name.toLowerCase().includes("date")
-            const placeholderText = isFechaElement && !elem.value ? "aaaa-mm-dd" : null
+            console.log(elem)
+            const isFechaElement = elem.dataType === 'date'
+            const isBool = elem.dataType === 'boolean'
 
             return (
                 <div key={index} style={{ minWidth: minwidth }} className="dd-rendered-keys-key-cont">
@@ -24,16 +24,27 @@ const DataDisplay = ({ data, minwidth = "18%", handleChangeData, edit, documenti
                             />
                         )}
                     </div>
-                    <input
-                        type="text"
-                        className="dd-rendered-keys-value-text"
-                        value={elem.value}
-                        placeholder={placeholderText}
-                        onChange={(e) => {
-                            handleChangeData(elem.name, elem.checked, e.target.value, documentid);
-                        }}
-                        disabled={elem.hasOwnProperty("checked") && edit ? elem.checked : true}
-                    />
+                    {isFechaElement ? (
+                        <input
+                            type="date"
+                            className="dd-rendered-keys-value-text"
+                            value={elem.value}
+                            onChange={(e) => {
+                                handleChangeData(elem.name, elem.checked, date, documentid);
+                            }}
+                            disabled={elem.hasOwnProperty("checked") && edit ? elem.checked : true}
+                        />
+                    ) : (
+                        <input
+                            type="text"
+                            className="dd-rendered-keys-value-text"
+                            value={elem.value}
+                            onChange={(e) => {
+                                handleChangeData(elem.name, elem.checked, e.target.value, documentid);
+                            }}
+                            disabled={elem.hasOwnProperty("checked") && edit ? elem.checked : true}
+                        />
+                    )}
                 </div>
             )
         })

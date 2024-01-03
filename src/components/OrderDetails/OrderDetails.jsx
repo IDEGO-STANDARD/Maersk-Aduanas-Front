@@ -1,21 +1,19 @@
 import { Link, useParams, useOutletContext } from "react-router-dom";
 import { useContext, useState } from "react";
-import { EyeFill, EyeSlashFill, FileEarmarkPlusFill } from "react-bootstrap-icons"
+import { EyeFill, EyeSlashFill, FileEarmarkPlusFill, FileEarmarkPlus, ArrowCounterclockwise } from "react-bootstrap-icons";
 import DataDisplay from "../DataDisplay/DataDisplay";
-import axiosPythonInstance from "../../axiosInstance/axiosPythonInstance"
+import axiosPythonInstance from "../../axiosInstance/axiosPythonInstance";
 import toast from "react-hot-toast";
 import "./OrderDetails.css";
 import { UserContext } from "../../context/UserContext";
 
 const OrderDetails = ({ }) => {
-
     const { ordtype, ordnumber, docutype } = useParams()
-    const [order, documentid, setDocumentid, handleChangeOrder, handleChangeDocument, handleChangeSubDocument, handleChangeValidationData] = useOutletContext()
+    const [order, documentid, setDocumentid, handleChangeOrder, handleChangeDocument, handleChangeSubDocument, handleChangeValidationData, refreshData, isRefreshing] = useOutletContext()
 
     const { userdata, hasPermission } = useContext(UserContext)
 
     const [loading, setLoading] = useState(false)
-    const [posting, setPosting] = useState(false)
 
     const createSintad = () => {
         setLoading(true)
@@ -30,6 +28,10 @@ const OrderDetails = ({ }) => {
                 toast.error(error.response.data.error)
             })
     }
+
+    const refreshPage = () => {
+        refreshData()
+    }    
 
     const handleDataChange = (itemName, newCheckedValue, newValue) => {
         handleChangeValidationData(itemName, newCheckedValue, newValue);
@@ -57,16 +59,23 @@ const OrderDetails = ({ }) => {
             })
     }
 
-    const handleFileChange = (e, docutypeType) => {
+    const handleFileChange = (e, docutypeType, setPosting) => {
         const file = e.target.files[0]
-
+    
         const formData = new FormData()
         formData.append("file", file)
-        formData.append("ordnumber", ordnumber)
-        formData.append("docutype", docutypeType)
 
+        setPosting(true)
+        
+        const isConfirmed = window.confirm(`Deseas subir ${file.name} como ${docutypeType}?`)
+        if (!isConfirmed) {
+            setPosting(false)
+            return
+        }
+
+        const queryParams = `?id=${encodeURIComponent(ordnumber)}&type=${encodeURIComponent(docutypeType)}`
         axiosPythonInstance
-            .post("/uploadFile", formData)
+            .post(`/uploadFile${queryParams}`, formData)
             .then((res) => {
                 console.log("Upload Response:", res.data)
                 toast.success(`Solicitud generada correctamente para el archivo ${file.name} de tipo ${docutypeType}`)
@@ -80,9 +89,7 @@ const OrderDetails = ({ }) => {
                 setPosting(false)
             })
     }
-
-
-
+    
     const renderDocutypes = order.documents.map((docutype) => {
         const [posting, setPosting] = useState(false);
 
@@ -98,21 +105,21 @@ const OrderDetails = ({ }) => {
                 <span style={{ backgroundColor: docutype.documents.length && !docutype.documents[0].isDummy ? "rgb(60, 192, 60)" : "orange" }} className="docutypes-item-number">{docutype.documents[0].isDummy ? 0 : docutype.documents.length}</span>
                 <span>{docutype.type}</span>
                 <div className="docutypes-icons">
-                    <div className="docutypes-upload" onClick={handleFileUpload}>
-                        {posting ? <Loader props /> : <FileEarmarkPlusFill />}
+                    <div className={`docutypes-icon docutypes-icon-pointer ${posting ? 'docutypes-icon-opacity' : ''}`} onClick={handleFileUpload}>
+                        {posting ? <FileEarmarkPlus /> : <FileEarmarkPlusFill />}
                         <input
                             type="file"
                             id={`fileInput-${docutype.type}`}
                             style={{ display: 'none' }}
-                            onChange={(e) => handleFileChange(e, docutype.type)}
+                            onChange={(e) => handleFileChange(e, docutype.type, setPosting)}
                         />
                     </div>
                     {docutype.documents.length > 0 && !docutype.documents[0].isDummy
-                        ? <Link to={`/ordenes/${ordtype}/${ordnumber}/${docutype.type}`} className="docutypes-eye">
+                        ? <Link to={`/ordenes/${ordtype}/${ordnumber}/${docutype.type}`} className="docutypes-icon docutypes-icon-pointer">
                             <EyeFill />
                         </Link>
                         :
-                        <div className="docutypes-cross-eye">
+                        <div className="docutypes-icon docutypes-icon-opacity">
                             <EyeSlashFill />
                         </div>}
                 </div>
@@ -131,6 +138,7 @@ const OrderDetails = ({ }) => {
                     </div>
                 </div>
                 <div className="od-docutypes-cont">
+                    <button onClick={refreshPage} className="od-refresh-button" disabled={isRefreshing}><ArrowCounterclockwise /></button>  
                     {renderDocutypes}
                 </div>
             </div>

@@ -12,6 +12,7 @@ const OrderParent = ({}) => {
     const nav = useNavigate()
     const [order, setOrder] = useState("")
     const [documentid, setDocumentid] = useState(0)
+    const [isRefreshing, setIsRefreshing] = useState(false)
 
     useEffect(() => {
         axiosInstance.get(`/orden?id=${ordnumber}`)
@@ -104,6 +105,33 @@ const OrderParent = ({}) => {
         })
     }
     
+    const refreshData = () => {
+        setIsRefreshing(true)
+        axiosInstance.get(`/orden?id=${ordnumber}`)
+            .then((res) => {
+                const updatedData = res.data.data.map(item => {
+                    if (item.name === "Razón social" || item.name === "Cliente") {
+                        const newItem = { ...item }
+                        delete newItem.checked
+                        return newItem
+                    } else {
+                        return { ...item, checked: false }
+                    }
+                })
+                setOrder({ ...res.data, data: updatedData })
+                console.log(res.data)
+                toast.success(`Datos recargados correctamente`)
+            })
+            .catch((error) => {
+                console.error("ERROR", error)
+                toast.error(error.response.data.error)
+            })
+            .finally(() => {
+                console.log("end")
+                setIsRefreshing(false)
+            })
+    }
+
     const handleVolver = () => {
         if (window.location.pathname !== `/ordenes/${ordtype}/${ordnumber}/validacion`) {
             nav(`/ordenes/${ordtype}/${ordnumber}/validacion`)
@@ -112,7 +140,7 @@ const OrderParent = ({}) => {
         }
     }
 
-    const contextValues = [order, documentid, setDocumentid, handleChangeOrder, handleChangeDocument, handleChangeSubDocument, handleChangeValidationData ]
+    const contextValues = [order, documentid, setDocumentid, handleChangeOrder, handleChangeDocument, handleChangeSubDocument, handleChangeValidationData, refreshData, isRefreshing ]
 
     return <>
         {order && 

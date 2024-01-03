@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { NavLink, useParams } from "react-router-dom";
-import { Trash, Trash2, FileX, XCircle, ArrowReturnLeft, ArrowRepeat, ArrowClockwise } from 'react-bootstrap-icons';
+import { Trash, ArrowReturnLeft } from 'react-bootstrap-icons';
 import "./OrderDocumentsListSelector.css";
 
 const OrderDocumentsListSelector = ({ documents, documentid, setDocumentid, order }) => {
@@ -34,6 +34,7 @@ const OrderDocumentsListSelector = ({ documents, documentid, setDocumentid, orde
     }
 
     const handleConfirmAction = () => {
+        console.log(selectedDocument)
         if (showComponent === 'delete') {
             if (selectedDocument && selectedDocument.confirmedToDelete) {
                 console.log(`Deleting document: ${selectedDocument.name}`);

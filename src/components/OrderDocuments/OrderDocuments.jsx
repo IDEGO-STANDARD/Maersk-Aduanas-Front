@@ -10,7 +10,7 @@ import { useEffect } from "react"
 
 const OrderDocuments = () => {
     const { docutype } = useParams()
-    const [order, documentid, setDocumentid, handleChangeOrder, handleChangeDocument, handleChangeSubDocument, handleChangeValidationData ] = useOutletContext()
+    const [order, documentid, setDocumentid, handleChangeOrder, handleChangeDocument, handleChangeSubDocument, handleChangeValidationData, refreshData ] = useOutletContext()
 
     const [loading, setLoading] = useState(false)
 
