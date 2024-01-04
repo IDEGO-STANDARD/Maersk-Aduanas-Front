@@ -17,17 +17,18 @@ const OrderParent = ({}) => {
     useEffect(() => {
         axiosInstance.get(`/orden?id=${ordnumber}`)
         .then((res) => {
+            console.log("response", res.data)
             const updatedData = res.data.data.map(item => {
                 if (item.name === "Razón social" || item.name === "Cliente") {
                     const newItem = { ...item }
                     delete newItem.checked
                     return newItem
                 } else {
-                    return { ...item, checked: false }
+                    return { ...item }
                 }
             })
             setOrder({ ...res.data, data: updatedData })
-            console.log(res.data)
+            console.log("Unchecked", updatedData)
         })
         .catch((error) => {
             console.error("ERROR", error)
