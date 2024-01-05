@@ -56,7 +56,9 @@ const Table = ({ data, columns, onClickFunc, offset, setNewOffset, pagesize, pag
 const TableFilters = ({ columns, filtersections, changeColumnExceptions }) => {
     console.log("Filters")
     const [openSection, setOpenSection] = useState(0)
-    const [activeFilterList, setActiveFilterList] = useState([])
+    const [activeFilterList, setActiveFilterList] = useState({})
+
+    // Functions
 
     const toggleOpen = (section) => {
         setOpenSection((prev) => {
@@ -69,43 +71,36 @@ const TableFilters = ({ columns, filtersections, changeColumnExceptions }) => {
         })
     }
 
-    const FiltersMenu = ({ filtersections, setActiveFilterList, activeFilterList }) => {
-        const [filterValues, setFilterValues] = useState({ activeFilterList })
-        const [openSections, setOpenSections] = useState({})
+    const transformFilters = (filtersections) => {
+        const transformedFilters = {}
 
-        const handleChange = (section, name, value, type) => {
-            console.log(value)
-            setFilterValues((prevValues) => ({
-                ...prevValues,
-                [section]: {
-                    ...(prevValues[section] || {}),
-                    [name]: type === "checkbox" ? !prevValues[section]?.[name] : value,
-                },
-            }))
+        const processFilter = (filter, section = '') => {
+            if (Array.isArray(filter)) {
+                transformedFilters[section] = {};
+                filter.forEach(({ name, type, value }) => {
+                    transformedFilters[section][name] = type === 'checkbox' ? !!value : value || ''
+                });
+            } else if (typeof filter === 'object') {
+                Object.keys(filter).forEach((key) => {
+                    processFilter(filter[key], section === '' ? key : `${section}.${key}`)
+                })
+            }
         }
 
-        const toggleSection = (section) => {
-            setOpenSections((prevOpenSections) => ({
-                ...prevOpenSections,
-                [section]: !prevOpenSections[section],
-            }))
-        }
+        processFilter(filtersections)
+        console.log("TransformFilters", transformedFilters)
+        return transformedFilters
+    }
 
-        const applyFilters = () => {
-            console.log("Filter values:", filterValues);
-            setActiveFilterList(filterValues)
-        }
+    function isEmpty(obj) {
+        return Object.keys(obj).length === 0;
+    }
 
-        const clearFilters = () => {
-            setActiveFilterList({})
-        }
+    // JSX Components
+    // Filter Item Menu
+    const FilterItem = ({ type, value, section, name, onChange, label }) => {
 
-        const saveFilters = () => {
-            setActiveFilterList(filterValues)
-            console.log("Filtros a guardar", filterValues);
-        }
-
-        const FilterItem = ({ type, value, section, name, onChange, label }) => (
+        return (
             <div className="rv-filter-item">
                 {type === "text" && (
                     <input type="text" className="rv-input-text" placeholder={name} value={value}
@@ -128,13 +123,53 @@ const TableFilters = ({ columns, filtersections, changeColumnExceptions }) => {
                 {/* Add more types as needed */}
             </div>
         )
+    }
+
+    const FiltersMenu = ({ filtersections, setActiveFilterList, activeFilterList, defaultValues }) => {
+        const [filterValues, setFilterValues] = useState( defaultValues )
+        const [openSections, setOpenSections] = useState({})
+
+        const handleChange = (section, name, value, type) => {
+            // console.log("Before State Update", section, name, value, type)
+            setFilterValues((prevValues) => {
+                // console.log("Previous State", prevValues)
+                const newState = {
+                    ...prevValues,
+                    [section]: {
+                        ...(prevValues[section] || {}),
+                        [name]: value,
+                    },
+                };
+                // console.log("New State", newState)
+                return newState
+            })
+        }
+
+        const toggleSection = (section) => {
+            setOpenSections((prevOpenSections) => ({
+                ...prevOpenSections,
+                [section]: !prevOpenSections[section],
+            }))
+        }
+
+        const applyFilters = () => {
+            setActiveFilterList(filterValues)
+        }
+
+        const clearFilters = () => {
+            setActiveFilterList({})
+        }
+
+        const saveFilters = () => {
+            setActiveFilterList(filterValues)
+        }
 
         const renderFilters = (filters, section) => {
-            return filters.map(({ name, type, value, label }) => (
+            return filters.map(({ name, type, label }) => (
                 <FilterItem
                     key={name}
                     type={type}
-                    value={filterValues[section]?.[name] || value || ""}
+                    value={filterValues[section]?.[name] || ""}
                     section={section}
                     name={name}
                     onChange={handleChange}
@@ -152,6 +187,7 @@ const TableFilters = ({ columns, filtersections, changeColumnExceptions }) => {
                     {(openSections[section] || isChildren) && (
                         <div className="rv-filter-section-content">
                             {Array.isArray(filters) ? (
+                                
                                 renderFilters(filters, section)
                             ) : (
                                 <div className="rv-sub-filter-section">
@@ -178,11 +214,28 @@ const TableFilters = ({ columns, filtersections, changeColumnExceptions }) => {
         )
     }
 
-    const DownloadTable = ({ filtersections }) => {
+    // Download Menu
+    const DownloadTable = ({ FilterList }) => {
+        console.log(!isEmpty(activeFilterList), FilterList)
+        const exportExcelTable = () => {
 
+        }
+
+        return (
+            <div className="rv-filters-menu">
+                <div className="rv-filters-button-cont">
+                    <div onClick={() => exportExcelTable()} className="rv-filters-button" >
+                        Descargar con filtros
+                    </div>
+                    <div onClick={() => exportExcelTable()} className="rv-filters-button" >
+                        Descargar
+                    </div>
+                </div>
+            </div>
+        )
     }
 
-    const FilterButton = ({ id, filtername, iconOpen, iconClose }) => (
+    const FilterOptionButton = ({ id, filtername, iconOpen, iconClose }) => (
         <>
             <div onClick={() => toggleOpen(id)} className="rv-filter-open-button" >
                 {openSection !== id ? iconClose : iconOpen}
@@ -198,13 +251,13 @@ const TableFilters = ({ columns, filtersections, changeColumnExceptions }) => {
     return (
         <div className="rv-filter-section-selector-cont">
             <div className="rv-filter-buttons-cont">
-                <FilterButton id={1} filtername={'Filtros'} iconOpen={<FilterSquareFill />} iconClose={<FilterSquare />} />
-                <FilterButton id={2} filtername={'Columnas'} iconOpen={<Grid3x2GapFill />} iconClose={<Grid3x2 />} />
-                <FilterButton id={3} filtername={'Descargar'} iconOpen={<CloudDownloadFill />} iconClose={<CloudDownload />} />
+                <FilterOptionButton id={1} filtername={'Filtros'} iconOpen={<FilterSquareFill />} iconClose={<FilterSquare />} />
+                <FilterOptionButton id={2} filtername={'Columnas'} iconOpen={<Grid3x2GapFill />} iconClose={<Grid3x2 />} />
+                <FilterOptionButton id={3} filtername={'Descargar'} iconOpen={<CloudDownloadFill />} iconClose={<CloudDownload />} />
             </div>
-            {openSection === 1 && <FiltersMenu filtersections={filtersections} setActiveFilterList={setActiveFilterList} activeFilterList={activeFilterList} />}
+            {openSection === 1 && <FiltersMenu filtersections={filtersections} setActiveFilterList={setActiveFilterList} activeFilterList={activeFilterList} defaultValues={transformFilters(filtersections)}/>}
             {/* {openSection === 2 && <TableColumnSelect columns={columns} changeColumnExceptions={changeColumnExceptions} />} */}
-            {openSection === 3 && <DownloadTable filtersections={filtersections} />}
+            {openSection === 3 && <DownloadTable FilterList={!isEmpty(activeFilterList) ? activeFilterList : transformFilters(filtersections)} />}
         </div>
     )
 }
@@ -268,6 +321,7 @@ const ReporteVisibilidad = () => {
             ],
         },
     }
+
     console.log("main")
     return (
         <div className="main-tab-cont">
