@@ -1,14 +1,19 @@
 import { useState } from 'react';
 import { NavLink, useParams } from "react-router-dom";
 import { Trash, ArrowReturnLeft } from 'react-bootstrap-icons';
+import ExcelInstance from "../../axiosInstance/axiosExcelInstance.jsx"
 import "./OrderDocumentsListSelector.css";
+import excelInstance from '../../axiosInstance/axiosExcelInstance.jsx';
+import toast from 'react-hot-toast';
 
-const OrderDocumentsListSelector = ({ documents, documentid, setDocumentid, order }) => {
+const OrderDocumentsListSelector = ({ documents, documentid, setDocumentid, order, refresh }) => {
+    const { ordtype, ordnumber, docutype } = useParams()
     const [searchTerm, setSearchTerm] = useState('')
    
     const [showComponent, setShowComponent] = useState(null)
     const [selectedDocument, setSelectedDocument] = useState(null)
     const [selectedReclassification, setSelectedReclassification] = useState(null)
+    const [isPosting, setIsPosting] = useState(false)
 
     const clearDocumentSelection = () => {
         setSelectedDocument(null)
@@ -33,6 +38,25 @@ const OrderDocumentsListSelector = ({ documents, documentid, setDocumentid, orde
         }
     }
 
+    const requestReclassification = () => {
+        setIsPosting(true)
+        const queryparams = `?id=${selectedDocument.id}&type=${docutype}&new_type=${selectedReclassification}`
+        console.log(`/reclasificacion${queryparams}`)
+        ExcelInstance.post(`/reclasificacion${queryparams}`)
+            .then((res) => {
+                console.log(res)
+                refresh()
+                toast.success(`Datos reclasificado correctamente`)
+            })
+            .catch((error) => {
+                console.error("ERROR", error)
+                toast.error(error.response.data.error)
+            })
+            .finally(() => {
+                setIsPosting(false)
+            })
+    }
+
     const handleConfirmAction = () => {
         console.log(selectedDocument)
         if (showComponent === 'delete') {
@@ -41,7 +65,8 @@ const OrderDocumentsListSelector = ({ documents, documentid, setDocumentid, orde
             } else {
                 console.log("Deletion not confirmed");
             }
-        } else if (showComponent === 'reclassify') {
+        } else if (showComponent === 'reclassify' && selectedReclassification) {
+            requestReclassification()
             console.log(`Reclassifying document to: ${selectedReclassification}`);
         }
         clearDocumentSelection();
@@ -72,10 +97,8 @@ const OrderDocumentsListSelector = ({ documents, documentid, setDocumentid, orde
                 ) : (
                     <>
                         <p>Seleccione la nueva clasificación de "{selectedDocument.name}":</p>
-                        {/* Dropdown list for reclassification options */}
                         <select value={selectedReclassification} onChange={(e) => setSelectedReclassification(e.target.value)}>
                             <option value="">Seleccione una opción</option>
-                            {/* Render your reclassification options dynamically based on your data */}
                             { order.documents.map((docutype, index) => (
                                 <option key={index} value={docutype.type}>{docutype.type}</option>
                             ))}
@@ -83,8 +106,8 @@ const OrderDocumentsListSelector = ({ documents, documentid, setDocumentid, orde
                     </>
                 )}
                 <div className="button-container">
-                    <button onClick={handleConfirmAction}>Confirmar</button>
-                    <button onClick={clearDocumentSelection}>Cerrar</button>
+                    <button onClick={handleConfirmAction} disabled={isPosting}>Confirmar</button>
+                    <button onClick={clearDocumentSelection} disabled={isPosting}>Cerrar</button>
                 </div>
             </div>
         )}

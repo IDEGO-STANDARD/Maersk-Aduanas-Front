@@ -34,7 +34,6 @@
 
 .dd-rendered-keys-top-cont {
     display: flex;
-
 }
 
 .dd-rendered-keys-key-text {
@@ -56,3 +55,69 @@
 .dd-rendered-keys-value-text:disabled {
     background-color: rgb(233, 233, 233);
 }
+
+.dd-rendered-keys-value-dropdown {
+    display: flex;
+}
+
+.dd-rendered-keys-value-text-dropdown {
+    outline: none;
+    width: calc(100% - 3em);
+    padding: 10px 10px 10px 5px;
+    border: 1px solid gray;
+}
+
+.dd-custom-select {
+    position: relative;
+    display: inline-block;
+}
+
+.dd-select-button {
+    cursor: pointer;
+    padding: 10px;
+    border: 1px solid gray;
+    border-radius: 0 5px 5px 0;
+    background-color: white;
+    outline: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5em;
+    font-size: 1em;
+}
+
+.dd-dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 200px;
+    overflow-y: auto;
+    right: 0;
+}
+
+
+.dd-dropdown-content.show-dropdown {
+    display: block;
+}
+
+.dd-dropdown-content li {
+    padding: 10px;
+    cursor: pointer;
+    font-size: .8em;
+}
+
+.dd-dropdown-content li:hover {
+    background-color: #ddd;
+}
+
+.ArrowBarDown {
+    transform: rotate(90deg);
+    margin-left: 5px;
+}
+

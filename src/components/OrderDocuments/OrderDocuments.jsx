@@ -56,11 +56,27 @@ const OrderDocuments = () => {
         setIsFullscreen(!isFullscreen)
     }
 
+    const openAllDocs = () => {
+        const openList = order.documents.flatMap((doctype, index) => {
+            return doctype.documents.filter((doc) => !doc.isDummy)
+                .map((doc) => (doc.url))
+        })
+        openList.forEach((url) => {
+            window.open(url, '_blank')
+        })
+    }
+    
+
     return (
         <>
-            <button className="fullscreen-button" onClick={toggleFullscreen}>
-                Vista Maximizada
-            </button>
+            <div className="fullscreen-button" >
+                <button onClick={toggleFullscreen}>
+                    Vista Maximizada
+                </button>
+                <button onClick={openAllDocs}>
+                    Abrir todos
+                </button>
+            </div>
             {isFullscreen && (
                 <OrderDocumentFullscreenView onClose={toggleFullscreen} isFullscreen={isFullscreen} order={order} />
             )}
@@ -75,6 +91,7 @@ const OrderDocuments = () => {
                 handleSaveDocumentChanges={handleSaveDocumentChanges}
                 loading={loading}
                 order={order}
+                refreshData={refreshData}
             />
         </>
     )

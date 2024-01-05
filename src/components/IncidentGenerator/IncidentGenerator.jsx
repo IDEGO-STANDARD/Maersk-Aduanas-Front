@@ -29,6 +29,7 @@ const IncidentGenerator = () => {
 				const res = await instance.get(`/get_detalle?id=${ordnumber}`)
 				setOrder(res.data)
 			} catch (error) {
+				console.log(res)
 				console.error("ERROR", error)
 				toast.error(error.response?.data?.error || "Error fetching order details")
 			}

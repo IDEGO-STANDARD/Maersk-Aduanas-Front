@@ -19,16 +19,17 @@ const OrderParent = ({}) => {
         .then((res) => {
             console.log("response", res.data)
             const updatedData = res.data.data.map(item => {
-                if (item.name === "Razón social" || item.name === "Cliente") {
+                if (item.name === "Resumen mercancía") {
                     const newItem = { ...item }
-                    delete newItem.checked
+                    newItem.value = newItem.value === '' ? 'Otros' : newItem.value
+                    console.log(newItem)
                     return newItem
                 } else {
                     return { ...item }
                 }
             })
             setOrder({ ...res.data, data: updatedData })
-            console.log("Unchecked", updatedData)
+            console.log(updatedData)
         })
         .catch((error) => {
             console.error("ERROR", error)

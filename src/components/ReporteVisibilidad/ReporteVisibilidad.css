@@ -1,0 +1,298 @@
+
+/* 
+::-webkit-scrollbar {
+    width: 3px;
+}
+
+::-webkit-scrollbar-track {
+    background: #F2F2F2;
+    border-right: 1px solid lightgray;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #9c9c9c;
+    border-radius: 100px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #606060;
+} 
+
+
+.rv-table-main-cont {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    align-content: start;
+    color: black;
+    background-color: rgb(236, 236, 236);
+    border-top: 1px solid lightgray;
+    border-bottom: 1px solid lightgray;
+    position: relative;
+    flex: 1 1 100%;
+    overflow: auto;
+}
+
+.rv-table-sub-grid-cols {
+    display: grid;
+    height: auto;
+}
+
+.rv-table-col-box {
+    display: flex;
+    background-color: #00243E;
+    color: white;
+    min-width: 120px;
+    padding: 10px;
+    height: auto;
+    max-height: 100px;
+    overflow: hidden;
+    border: 1px solid lightgray;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    word-wrap: break-word;
+}
+
+.rv-table-row-box {
+    display: flex;
+    min-width: 80px;
+    min-height: 50px;
+    height: 50px;
+    border: 1px solid lightgray;
+    font-size: 0.8rem;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow-x: hidden;
+}
+
+.rv-table-sub-grid-elems {
+    display: grid;
+    width: auto;
+    overflow-y: auto;
+
+} */
+
+/* Add these styles to your existing stylesheet or create a new one */
+
+/* Scrollbar styles */
+::-webkit-scrollbar {
+    width: 3px;
+}
+
+::-webkit-scrollbar-track {
+    background: #F2F2F2;
+    border-right: 1px solid lightgray;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #9c9c9c;
+    border-radius: 100px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #606060;
+} 
+
+
+/* Table */
+.rv-table-main-cont {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    align-content: start;
+    color: black;
+    background-color: rgb(236, 236, 236);
+    border-top: 1px solid lightgray;
+    border-bottom: 1px solid lightgray;
+    position: relative;
+    overflow: hidden;
+}
+
+.rv-table-sub-grid-cols {
+    display: grid;
+    height: auto;
+}
+
+.rv-table-col-box {
+    display: flex;
+    background-color: #00243E;
+    color: white;
+    min-width: 120px;
+    padding: 10px;
+    height: auto;
+    max-height: 100px;
+    overflow: hidden;
+    border: 1px solid lightgray;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    word-wrap: break-word;
+}
+
+.rv-table-row-box {
+    display: flex;
+    min-width: 80px;
+    min-height: 50px;
+    height: 50px;
+    border: 1px solid lightgray;
+    font-size: 0.8rem;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow-x: hidden;
+}
+
+.rv-table-sub-grid-elems {
+    display: grid;
+    width: auto;
+    overflow-y: auto;
+}
+
+/* Filters */
+
+.rv-filter-section-selector-cont {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: calc(100% - 20px);
+    max-width: 700px;
+    margin: 10px;
+    justify-content: space-between;
+    padding: 8px;
+    border: 1px solid gray;
+    border-radius: 10px;
+    background-color: #00243E;
+}
+
+.rv-filter-buttons-cont {
+    display: flex;
+    width: 100%;
+    flex-direction: wrap;
+    /* justify-content: space-between; */
+    gap: 10px;
+}
+
+.rv-filter-open-button {
+    border: 1px solid gray;
+    border-radius: 5px;
+    color: white;
+    background-color: #003a64;
+    height: 2rem;
+    width: 2rem;
+    font-size: 1.5rem;
+    padding: 3px;
+    cursor: pointer;
+}
+
+.rv-filter-open-button :hover {
+    color: aquamarine;
+}
+
+.rv-filter-button-title {
+    border: 1px solid gray;
+    border-radius: 5px;
+    margin-left: -8px;
+    color: white;
+    height: 2rem;
+    font-size: 1.3rem;
+    padding: 3px;
+}
+
+.rv-filters-menu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.rv-filters-filters-cont {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.rv-filters-button-cont {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.rv-filters-button {
+    flex: 1;
+    margin: 0 5px;
+    padding: 8px;
+    background-color: #003a64;
+    color: white;
+    border: 1px solid gray;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.rv-filters-button:hover {
+    background-color: #005189;
+}
+
+.rv-filter-section {
+    margin-top: 10px;
+}
+
+.rv-filter-section h4 {
+    margin: 0;
+    padding: 8px;
+    background-color: #003a64;
+    color: white;
+    border: 1px solid gray;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.rv-filter-section-content {
+    margin-top: 5px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.rv-filter-section h5 {
+    margin: 0;
+    padding: 8px;
+    background-color: #00487c;
+    color: white;
+    border: 1px solid gray;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: .75rem;
+}
+
+.rv-sub-filter-section {
+    margin: 0 1em 0 1em;
+}
+
+.rv-filter-item {
+    margin: 5px;
+    flex-basis: calc(25% - 10px);
+    box-sizing: border-box;
+}
+
+.rv-input-label {
+    display: block;
+    margin-bottom: 5px;
+    color: #d5f8ff;
+    font-weight: bold;
+}
+
+.rv-input-text,
+.rv-input-checkbox,
+.rv-input-date {
+    padding: 8px;
+    border: 1px solid gray;
+    border-radius: 5px;
+}
+
+.rv-input-checkbox {
+    margin-right: 5px;
+}

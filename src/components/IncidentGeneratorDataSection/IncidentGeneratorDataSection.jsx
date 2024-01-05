@@ -118,7 +118,7 @@ const IncidentGeneratorDataSection = ({ incidentdata, handleSubmit, observacione
 			<div className="ig-rendered-keys-top-cont">
 				<span className="ig-rendered-keys-key-text">{key}</span>
 			</div>
-			<input type="text" className="ig-rendered-keys-value-text" value={value || 'Dato inválido/no existe.'} disabled />
+			<input type="text" className="ig-rendered-keys-value-text" value={value || '--'} disabled />
 		</div>
 	)
 

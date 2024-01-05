@@ -59,7 +59,7 @@ const OrderDetails = ({ }) => {
             })
     }
 
-    const handleFileChange = (e, docutypeType, setPosting) => {
+    const handleFileAdd = (e, docutypeType, setPosting) => {
         const file = e.target.files[0]
     
         const formData = new FormData()
@@ -83,7 +83,7 @@ const OrderDetails = ({ }) => {
             .catch((error) => {
                 setLoading(false)
                 console.error("ERROR", error)
-                toast.error(error.response.data.error)
+                toast.error(error.response?.data?.error || "Error al subir el archivo")
             })
             .finally(() => {
                 setPosting(false)
@@ -111,7 +111,7 @@ const OrderDetails = ({ }) => {
                             type="file"
                             id={`fileInput-${docutype.type}`}
                             style={{ display: 'none' }}
-                            onChange={(e) => handleFileChange(e, docutype.type, setPosting)}
+                            onChange={(e) => handleFileAdd(e, docutype.type, setPosting)}
                         />
                     </div>
                     {docutype.documents.length > 0 && !docutype.documents[0].isDummy

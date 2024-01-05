@@ -1,7 +1,10 @@
 .fullscreen-button {
+  display: flex;
+  flex-wrap: column;
   position: absolute;
   top: 10px;
   right: 10px;
+  gap: 10px;
 }
 
 .fullscreen-view {
@@ -23,19 +26,19 @@
 
 .fullscreen-popup {
   background-color: #fff;
-  padding: 20px;
-  width: 90%;
-  height: 90%;
+  padding: 5px;
+  width: 95%;
+  height: 95%;
   overflow: auto;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
-.close-button {
+.fullscreen-close-button {
   position: absolute;
   top: 10px;
   right: 10px;
   padding: 10px;
-  margin: 2em;
+  /* margin: 2em; */
   cursor: pointer;
   background-color: #ddd;
   border: none;
@@ -43,7 +46,7 @@
 }
 
 .content {
-  padding: 20px;
+  /* padding: 20px; */
   height: 100%;
 }
 
@@ -65,7 +68,7 @@
   padding: 5px;
   background-color: #f0f0f0;
   border: 1px solid #ccc;
-  margin-bottom: 5px;
+  margin-bottom: 2px;
 }
 
 .doc-list {
@@ -85,4 +88,8 @@
 
 .doc-list li:hover {
   background-color: #ddd;
+}
+
+.fullscreen-embed{
+  height: calc(100%);
 }

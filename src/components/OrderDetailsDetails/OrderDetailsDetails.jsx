@@ -24,24 +24,26 @@ const OrderDetailsDetails = () => {
             axiosInstance.get(`/get_detalle?id=${ordnumber}`)
                 .then((res) => {
                     console.log(res.data)
-                    const updatedClientData = res.data.clientdata?.map(item => {
-                        if (item.name === "Razón social" || item.name === "Cliente") {
-                            const newItem = { ...item }
-                            delete newItem.checked
-                            return newItem
-                        } else {
-                            return { ...item, checked: false }
-                        }
-                    })
-                    const updatedCalendarData = res.data.calendardata?.map(item => {
-                        if (item.name === "Razón social" || item.name === "Cliente") {
-                            const newItem = { ...item }
-                            delete newItem.checked
-                            return newItem
-                        } else {
-                            return { ...item, checked: false }
-                        }
-                    })
+                    const updatedClientData = res.data.clientdata
+                    // ?.map(item => {
+                    //     if (item.name === "Razón social" || item.name === "Cliente") {
+                    //         const newItem = { ...item }
+                    //         delete newItem.checked
+                    //         return newItem
+                    //     } else {
+                    //         return { ...item, checked: false }
+                    //     }
+                    // })
+                    const updatedCalendarData = res.data.calendardata
+                    // ?.map(item => {
+                    //     if (item.name === "Razón social" || item.name === "Cliente") {
+                    //         const newItem = { ...item }
+                    //         delete newItem.checked
+                    //         return newItem
+                    //     } else {
+                    //         return { ...item, checked: false }
+                    //     }
+                    // })
                     console.log(res.data)
                     setOrder({
                         ...res.data,

@@ -26,7 +26,7 @@ const OrderPopup = ({isOpen, onClose, info, PopupComponent, contentClass}) => {
   return (
     <div className="popup">
       <div ref={ref} className={`popup-content ${contentClass||''}`}>
-        <button className="close-button" onClick={onClose}><X /></button>
+        <button className="popup-close-button" onClick={onClose}><X /></button>
         <PopupComponent info={info}/>
       </div>
     </div>

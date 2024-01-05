@@ -21,7 +21,7 @@ function Table({data, columns, onClickFunc, offset, setNewOffset, pagesize, page
         }
         return <div key={name} className="table-col-box">{name}</div>
     })
-
+    console.log(data)
     const rowsElems = data.map((reg, index) => {
         let counter = -1    
         let elemsArr = []

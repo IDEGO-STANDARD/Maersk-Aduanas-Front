@@ -183,6 +183,7 @@
     justify-content: space-evenly;
     width: 100%;
     flex-grow: 1;
+    overflow-y: auto;
 }
 
 .ig-rendered-keys-key-cont input[type="radio"] {

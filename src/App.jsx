@@ -15,6 +15,7 @@ import ConfigUsuarios from './components/ConfigUsuarios/ConfigUsuarios'
 import ConfigRoles from './components/ConfigRoles/ConfigRoles'
 import IncidentGenerator from './components/IncidentGenerator/IncidentGenerator'
 import './App.css'
+import ReporteVisibilidad from './components/ReporteVisibilidad/ReporteVisibilidad'
 
 function App() {
 
@@ -26,6 +27,7 @@ function App() {
           <Route path="/" element={<div></div>} />
           <Route path="/administracion/usuarios" element={<ConfigUsuarios />} />
           <Route path="/administracion/roles" element={<ConfigRoles />} />
+          <Route path="/visibilidad" element={<ReporteVisibilidad/>} />
           <Route path="/control" element={<ControlTowerSearch />}>
             <Route path="/control/:ordnumber" element={<ControlTowerInfo />} />
           </Route>
