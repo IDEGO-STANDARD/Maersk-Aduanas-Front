@@ -132,6 +132,7 @@ const OrdersList = ({ }) => {
         nav(`/ordenes/${ordtype}/detalles/${index}`)
     }
 
+    
     const filtersections = [
         {
             title: "Sección 1",
@@ -205,7 +206,9 @@ const OrdersList = ({ }) => {
                 },
             ]
         },
-    ]
+    ] 
+
+
 
     let columnExceptions = []
     columns.forEach((col) => {
@@ -235,7 +238,8 @@ const OrdersList = ({ }) => {
     return <div className="ol-main-cont">
         <span className="ol-title">MIS ÓRDENES DE TRABAJO {ordtype.toUpperCase()}</span>
         {/* <button onClick={handleOpenExportPopup}>Exportar a Excel</button> */}
-        <RowsTableConfigurationMenu filtersections={filtersections} columns={columns} changeColumnExceptions={changeColumnExceptions} />
+        { /*<RowsTableConfigurationMenu filtersections={filtersections} columns={columns} changeColumnExceptions={changeColumnExceptions} /> */}
+        
         <RowsTable columnExceptions={columnExceptions} loading={loading} data={orders} ComponentBeforeKeys={OrderRowsBeforeComponent} onClickFunc={openDetails} onOpenPopup={handleOpenIncidentPopup} />
         <OrderPopup isOpen={isIncidentPopupOpen} onClose={handleCloseIncidentPopup} info={popupOrderId} PopupComponent={OrderPopupIncident} />
         {/* <OrderPopup isOpen={isExportPopupOpen} onClose={handleCloseExportPopup} info={popupOrderId} PopupComponent={OrderPopupExport} contentClass={"export-popup-content"}/> */}

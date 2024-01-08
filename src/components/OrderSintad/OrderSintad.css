@@ -1,0 +1,13 @@
+.orbc-order-title-id {
+    text-align: center; /* Centra el contenido */
+}
+
+.orbc-order-details-title {
+    display: block; /* Hace que el elemento span se comporte como un bloque */
+    font-weight: bold; /* Opcional: para resaltar "Orden SINTAD" */
+}
+
+.orbc-order-details-id {
+    display: block; /* Hace que el elemento span se comporte como un bloque */
+    margin-top: 5px; /* Ajusta el margen superior según sea necesario */
+}
