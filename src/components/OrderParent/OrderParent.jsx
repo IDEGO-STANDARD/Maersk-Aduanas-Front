@@ -29,6 +29,9 @@ const OrderParent = ({}) => {
                 }
             })
             setOrder({ ...res.data, data: updatedData })
+            
+            console.log("res.data.idSintad")
+            console.log(res.data.idSintad)
             console.log(updatedData)
         })
         .catch((error) => {
@@ -57,7 +60,8 @@ const OrderParent = ({}) => {
                 })
             }
             
-            console.log(newOrder)
+            console.log("newOrder")
+            console.log(newOrder.idSintad)
             return newOrder
         })
     }
@@ -147,7 +151,7 @@ const OrderParent = ({}) => {
     return <>
         {order && 
             <div className="od-main-cont">
-                <span className="ol-title">{docutype ? `DOCUMENTOS DE ORDEN DE TRABAJO ${ordnumber}` :  `VALIDACIÓN DE ORDEN DE TRABAJO ${ordnumber}`}</span>
+                <span className="ol-title">{docutype ? `DOCUMENTOS DE ORDEN DE TRABAJO ${order?.idSintad}` :  `VALIDACIÓN DE ORDEN DE TRABAJO ${order?.idSintad}`}</span>
                 {order != 0 && <Outlet context={contextValues}/>}
                 <button  onClick={handleVolver} className="od-back-button">Volver</button>
             </div>

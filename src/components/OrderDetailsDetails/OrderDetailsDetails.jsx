@@ -141,7 +141,7 @@ const OrderDetailsDetails = () => {
     return (
         <div className="odd-main-cont">
             <div className="odd-titles-cont">
-                <span className="odd-order-title">Orden {ordnumber}</span>
+                <span className="odd-order-title">{`Orden ${order?.idSintad}`}</span>
                 {ordtype === "ingreso" && <span className="odd-ordtype-title">Ingreso</span>}
                 {ordtype === "salida" && <span className="odd-ordtype-title">Salida</span>}
                 <span className="odd-order-title">Sectorista: {order.sectorista}</span>
