@@ -5,6 +5,7 @@ import { Link } from "react-router-dom"
 import { UserContext } from "../../context/UserContext"
 import "./OrderRowsBeforeComponent.css"
 import TooltipElement from "../TooltipElement/TooltipElement"
+import "../OrderSintad/OrderSintad.css"
 
 const OrderRowsBeforeComponent = ({ item, onOpenPopup, onClickFunc }) => {
 
@@ -28,14 +29,15 @@ const OrderRowsBeforeComponent = ({ item, onOpenPopup, onClickFunc }) => {
 
     return (
         <div className="orbc-main-cont">
-{            <div className="orbc-order-channel-cont">
-                <span className="orbc-order-details-channel">CANAL</span>
-                <div style={{backgroundColor: item.channel}} className="channel-orb"></div>
-            </div>}
+           
+            <div className="orbc-order-title-id">
+                <span className="orbc-order-details-title">SINTAD</span>
+                <span className="orbc-order-details-id">{item.idSintad}</span>
+            </div>
             <div className="orbc-order-details-cont" onClick={() => onClickFunc(item.id)}>
                 <span className="orbc-order-details-title-value">{item.client}</span>
-                <span className="orbc-order-details-client">ORDEN DE TRABAJO</span>
-                <span className="orbc-order-details-client-value"> Nro: {item.id}</span>
+               
+                <span className="orbc-order-details-client-value"> id: {item.id}</span>
                 <div className="orbc-order-details-buttons-cont" style={{ width: hasPermission("4") ? "150px" : "90px" }} onClick={(e) => e.stopPropagation()}>
                     <TooltipElement tooltipText="Validación">
                         <Link to={`/ordenes/${ordtype}/${item.id}/validacion`} className="orbc-order-details-button" style={{ color: "green" }}><CheckLg /></Link>
