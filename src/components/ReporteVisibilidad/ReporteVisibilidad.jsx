@@ -59,7 +59,7 @@ const TableFilters = ({ columns, filtersections, changeColumnExceptions }) => {
     const [activeFilterList, setActiveFilterList] = useState({})
 
     useEffect(() => {
-        console.log("activeFilterList changed:", activeFilterList);
+        // console.log("activeFilterList changed:", activeFilterList);
     }, [activeFilterList]);
 
     // Functions
@@ -258,9 +258,11 @@ const TableFilters = ({ columns, filtersections, changeColumnExceptions }) => {
                 <FilterOptionButton id={2} filtername={'Columnas'} iconOpen={<Grid3x2GapFill />} iconClose={<Grid3x2 />} />
                 <FilterOptionButton id={3} filtername={'Exportar'} iconOpen={<CloudDownloadFill />} iconClose={<CloudDownload />} />
             </div>
+            <div>
             {openSection === 1 && <FiltersMenu filtersections={filtersections} setActiveFilterList={setActiveFilterList} activeFilterList={activeFilterList} defaultValues={isEmpty(activeFilterList) ? transformFilters(filtersections) : activeFilterList} />}
             {openSection === 2 && <FiltersColumnSelect columns={columns} changeColumnExceptions={changeColumnExceptions} />}
             {openSection === 3 && <DownloadTable FilterList={isEmpty(activeFilterList) ? transformFilters(filtersections) : activeFilterList} />}
+            </div>
         </div>
     )
 }
